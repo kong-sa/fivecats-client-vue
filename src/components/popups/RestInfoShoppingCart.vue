@@ -1,5 +1,5 @@
 <template>
-  <div id="cart">
+  <div id="rest-info-shopping-cart">
     <el-table
       :data="tableData"
       show-summary
