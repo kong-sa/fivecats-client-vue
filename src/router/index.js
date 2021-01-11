@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import RestInfoShoppingCart from '../components/popups/RestInfoShoppingCart'
 
 Vue.use(Router)
 
@@ -8,8 +8,10 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      component: RestInfoShoppingCart,
+      meta: {
+        title: '购物车'
+      }
     }
   ]
 })
