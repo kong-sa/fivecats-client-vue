@@ -170,7 +170,7 @@
 
 <script>
 export default {
-  name: 'DetailedOrder'
+  name: 'RestDetailedOrder'
 }
 </script>
 

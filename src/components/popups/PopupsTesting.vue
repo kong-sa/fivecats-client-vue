@@ -6,23 +6,23 @@
       title="购物车"
       :visible.sync="showShoppingCart"
       width="60%">
-      <rest-info-shopping-cart/>
+      <rest-shopping-cart/>
     </el-dialog>
     <el-dialog
       title="订单详细"
       :visible.sync="showDetailedOrder"
       width="60%">
-      <detailed-order/>
+      <rest-detailed-order/>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import RestInfoShoppingCart from './RestInfoShoppingCart'
-import DetailedOrder from './DetailedOrder'
+import RestShoppingCart from './rest/RestShoppingCart'
+import RestDetailedOrder from './rest/RestDetailedOrder'
 
 export default {
-  name: 'PopUpsTest',
+  name: 'PopupsTesting',
   data () {
     return {
       showShoppingCart: false,
@@ -32,8 +32,8 @@ export default {
   methods: {
   },
   components: {
-    RestInfoShoppingCart,
-    DetailedOrder
+    RestShoppingCart,
+    RestDetailedOrder
   }
 }
 </script>
