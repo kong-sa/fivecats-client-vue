@@ -1,5 +1,6 @@
 <template>
   <div id="rest-shopping-cart">
+    <el-divider>购物车列表</el-divider>
     <el-table
       :data="tableData"
       :fit="true"
@@ -61,6 +62,22 @@
       </el-table-column>
     </el-table>
     <el-divider>基本信息</el-divider>
+    <div class="element-margin">
+      <el-row>
+        <el-col :xs="8" :sm="4" :md="4" :lg="3">
+          预约日期：
+        </el-col>
+        <el-col :xs="15" :sm="10" :md="8" :lg="8">
+          <el-date-picker
+            v-model="date"
+            align="right"
+            type="date"
+            placeholder="选择日期"
+            :picker-options="pickerOptions">
+          </el-date-picker>
+        </el-col>
+      </el-row>
+    </div>
     <div class="element-margin select-time">
       <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">
@@ -139,9 +156,42 @@ export default {
   },
   data () {
     return {
+      pickerOptions: {
+        disabledDate (time) {
+          return time.getTime() > Date.now() + 3600 * 1000 * 24 * 7 || time.getTime() < new Date() - 3600 * 1000 * 24
+        },
+        shortcuts: [{
+          text: '今天',
+          onClick (picker) {
+            picker.$emit('pick', new Date())
+          }
+        }, {
+          text: '明天',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() + 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        }, {
+          text: '后天',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() + 3600 * 1000 * 24 * 2)
+            picker.$emit('pick', date)
+          }
+        }, {
+          text: '一周后',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
+      },
+      date: '',
       price: 30,
       customerName: '',
-      telephone: 0,
+      telephone: '',
       num: 1,
       time: [
         new Date(2016, 9, 10, 8, 40),

@@ -7,19 +7,19 @@
       title="购物车"
       :visible.sync="showShoppingCart"
       width="60%">
-      <rest-shopping-cart/>
+      <rest-shopping-cart style="margin: 15px"/>
     </el-dialog>
     <el-dialog
       title="订单详细"
       :visible.sync="showDetailedOrder"
       width="60%">
-      <rest-detailed-order/>
+      <rest-detailed-order style="margin: 15px"/>
     </el-dialog>
     <el-dialog
       title="添加菜品"
       :visible.sync="showRestPutMenu"
       width="45%">
-      <rest-put-menu/>
+      <rest-put-menu style="margin: 15px"/>
     </el-dialog>
   </div>
 </template>
