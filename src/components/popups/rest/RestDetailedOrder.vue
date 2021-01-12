@@ -1,5 +1,5 @@
 <template>
-  <div id="detailed-order">
+  <div id="rest-detailed-order">
     <div id="detailed-order-top">
       <!-- 第一行 -->
       <el-row :gutter="10">

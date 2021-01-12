@@ -1,5 +1,5 @@
 <template>
-  <div id="rest-info-shopping-cart">
+  <div id="rest-shopping-cart">
     <el-table
       :data="tableData"
       :fit="true"
