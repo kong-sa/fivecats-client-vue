@@ -125,7 +125,7 @@
 
 <script>
 export default {
-  name: 'RestInfoShoppingCart.vue',
+  name: 'RestInfoShoppingCart',
   methods: {
     deleteRow (index, rows) {
       rows.splice(index, 1)
