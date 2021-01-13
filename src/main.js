@@ -10,6 +10,7 @@ import NProgress from 'nprogress'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
 import Element, {Message, MessageBox} from 'element-ui'
+import './utils/dialog'
 
 Vue.use(Element)
 Vue.config.productionTip = false

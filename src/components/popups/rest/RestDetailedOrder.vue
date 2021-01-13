@@ -31,11 +31,19 @@
         <el-row>
           <el-button @click="openMap" icon="el-icon-location-information">地图</el-button>
           <el-dialog
+            v-dialogDrag
             title="百度地图"
             :visible.sync="showMap"
+            :close-on-click-modal="false"
             :modal="false"
             width="45%">
-            <div class="baidumap" id="allmap"></div>
+            <iframe
+              id="baidu-map"
+              width="100%"
+              frameborder="0"
+              height="500"
+              src="https://map.baidu.com/">
+            </iframe>
           </el-dialog>
         </el-row>
         <el-row style="margin-top: 15px">
@@ -157,9 +165,6 @@
 </template>
 
 <script>
-import BMap from 'BMap'
-// eslint-disable-next-line no-unused-vars
-import BMapSymbolSHAPEPOINT from 'BMap_Symbol_SHAPE_POINT'
 export default {
   name: 'RestDetailedOrder',
   methods: {
@@ -171,15 +176,9 @@ export default {
     },
     openMap () {
       this.showMap = true
-      const map = new BMap.Map('allmap')
-      const point = new BMap.Point(111.742579, 40.818675)
-      map.centerAndZoom(point, 12)
-      const marker = new BMap.Marker(point) // 创建标注
-      map.addOverlay(marker)// 将标注添加到地图中
     }
   },
   mounted () {
-    this.baiduMap()
     let total = 0
     this.orderList.forEach(function (currentValue, index, arr) {
       console.log(currentValue.price + '---> num:' + currentValue.num)
