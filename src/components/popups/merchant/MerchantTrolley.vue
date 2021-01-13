@@ -2,7 +2,7 @@
   <div id="merchant-trolley">
     <el-divider>购物车列表</el-divider>
     <el-table
-      :data="tableData"
+      :data="dishes"
       :fit="true"
       :stripe="true"
       :border="true"
@@ -12,7 +12,7 @@
       style="width: 100%">
       <el-table-column
         fixed
-        prop="img"
+        prop="imgUrl"
         label="预览图"
         width="180">
         <template slot-scope="scope">
@@ -23,8 +23,8 @@
             placement="top">
             <el-image
               style="width: 100px; height: 100px"
-              :src="scope.row.img"
-              :preview-src-list="[scope.row.img]">
+              :src="scope.row.imgUrl"
+              :preview-src-list="[scope.row.imgUrl]">
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
               </div>
@@ -62,7 +62,7 @@
         label="操作">
         <template slot-scope="scope">
           <el-button
-            @click.native.prevent="deleteRow(scope.$index, tableData)"
+            @click.native.prevent="deleteRow(scope.$index, dishes)"
             size="small">
             移除
           </el-button>
@@ -217,27 +217,29 @@ export default {
         new Date(2016, 9, 10, 8, 40),
         new Date(2016, 9, 10, 9, 40)
       ],
-      tableData: [{
-        img: 'http://oss.norza.cn/imgs/84917906_p0.png',
-        name: '芒果小丸子',
-        num: 1,
-        price: 12
-      }, {
-        img: 'http://oss.norza.cn/imgs/86483780_p0.png',
-        name: '芋泥班长',
-        num: 3,
-        price: 13
-      }, {
-        img: 'http://oss.norza.cn/imgs/83704523_p0.jpg',
-        name: '草莓小丸子',
-        num: 2,
-        price: 12
-      }, {
-        img: 'http://oss.norza.cn/imgs/82049678_p0.png',
-        name: '芋圆醉好喝',
-        num: 1,
-        price: 10
-      }]
+      dishes: [
+        {
+          dishesId: 1,
+          imgUrl: 'http://oss.norza.cn/imgs/food/food01.jpg',
+          name: '炸鸡腿',
+          num: 1,
+          price: 12
+        },
+        {
+          dishesId: 2,
+          imgUrl: 'http://oss.norza.cn/imgs/food/food02.jpg',
+          name: '原味奶茶',
+          num: 1,
+          price: 12
+        },
+        {
+          dishesId: 3,
+          imgUrl: 'http://oss.norza.cn/imgs/food/food03.jpg',
+          name: '炸鸡块',
+          num: 1,
+          price: 13
+        }
+      ]
     }
   }
 }
