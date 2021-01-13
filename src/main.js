@@ -16,7 +16,7 @@ Vue.config.productionTip = false
 Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$message = Message
 Vue.prototype.$http = axios
-Vue.prototype.$ = jqeury
+Vue.prototype.$jquery = jqeury
 axios.interceptors.request.use(config => {
   NProgress.start()
   return config

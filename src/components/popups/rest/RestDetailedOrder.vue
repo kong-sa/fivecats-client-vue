@@ -17,47 +17,41 @@
       <el-col :span="12">
         <el-row style="margin-bottom: 25px">
           <el-col>
-            <el-card class="box-card">地理位置：四川省绵阳市涪城区万达广场2号门2楼</el-card>
+            <el-card class="box-card">地理位置：{{merchant.location}}</el-card>
           </el-col>
         </el-row>
         <el-row>
           <el-col>
-            <el-card class="box-card">您当前排队号：10</el-card>
+            <el-card class="box-card">您当前排队号：{{order.queueNumber}}</el-card>
           </el-col>
         </el-row>
       </el-col>
       <!-- 第三列，地图，订单状态 -->
       <el-col :span="6">
         <el-row>
-          <el-button @click="showMap = true" icon="el-icon-location-information">地图</el-button>
+          <el-button @click="openMap" icon="el-icon-location-information">地图</el-button>
           <el-dialog
             title="百度地图"
             :visible.sync="showMap"
             :modal="false"
             width="45%">
-            <iframe
-              id="baiduMap"
-              width="100%"
-              frameborder="0"
-              height="500"
-              src="https://map.baidu.com/">
-            </iframe>
+            <div class="baidumap" id="allmap"></div>
           </el-dialog>
         </el-row>
         <el-row style="margin-top: 15px">
-          <span>订单号：EF20210113</span>
+          <span>订单号：{{order.orderNumber}}</span>
           <el-popover
             placement="top-start"
             title="订单号？"
             width="200"
             trigger="hover"
-            content="您需要凭借此订单号到店给前台，方可就餐">
+            content="您需要凭借此订单号到店给前台，方可就餐；也可以凭借此订单号申请售后服务等。">
             <el-button slot="reference" icon="el-icon-info" circle size="mini"></el-button>
           </el-popover>
         </el-row>
         <el-row style="margin-top: 15px">
           <el-collapse>
-            <el-collapse-item title="订单状态" name="1">
+            <el-collapse-item :title="order.status" name="1">
               <el-timeline :reverse="reverse" style="margin-top: 20px">
                 <el-timeline-item
                   v-for="(activity, index) in activities"
@@ -79,7 +73,7 @@
     <el-divider>订单列表</el-divider>
     <!-- 第三行 -->
     <el-table
-      :data="tableData"
+      :data="orderList"
       :fit="true"
       :stripe="true"
       :border="true"
@@ -124,6 +118,7 @@
         label="数量">
         <template slot-scope="scope">
           <el-input-number
+            size="mini"
             :disabled="true"
             style="width: 130px"
             v-model="scope.row.num"
@@ -137,24 +132,24 @@
     <el-divider>预约信息</el-divider>
     <div class="appointment-information">
       <el-row :gutter="10">
-        <el-col style="margin: 10px" :span="7">预约日期：2020-01-14</el-col>
-        <el-col style="margin: 10px" :span="7">到店时间：12:30:00-1:30:00</el-col>
-        <el-col style="margin: 10px" :span="7">客户姓名：郑人滏</el-col>
-        <el-col style="margin: 10px" :span="7">联系电话：18508153489</el-col>
-        <el-col style="margin: 10px" :span="7">约定人数：1</el-col>
+        <el-col style="margin: 10px" :span="7">预约日期：{{order.date}}</el-col>
+        <el-col style="margin: 10px" :span="7">到店时间：{{order.time}}</el-col>
+        <el-col style="margin: 10px" :span="7">客户姓名：{{customer.name}}</el-col>
+        <el-col style="margin: 10px" :span="7">联系电话：{{customer.telephone}}</el-col>
+        <el-col style="margin: 10px" :span="7">约定人数：{{order.num}}</el-col>
       </el-row>
     </div>
     <div class="element-margin submit">
       <!-- 第四行，操作 -->
       <div class="footer" style="margin-top: 40px">
-        <span style="margin-right: 20px">总价：00.00 ¥</span>
+        <span style="margin-right: 20px">总价：{{total}} ¥</span>
         <el-popconfirm
           confirm-button-text='是的'
           cancel-button-text='不用了'
           icon="el-icon-info"
           icon-color="red"
           title="确定要取消订单吗？">
-          <el-button type="primary" slot="reference" size="mini">取消订单</el-button>
+          <el-button :disabled="order.notCancelable" type="primary" slot="reference" size="mini">取消订单</el-button>
         </el-popconfirm>
       </div>
     </div>
@@ -162,6 +157,9 @@
 </template>
 
 <script>
+import BMap from 'BMap'
+// eslint-disable-next-line no-unused-vars
+import BMapSymbolSHAPEPOINT from 'BMap_Symbol_SHAPE_POINT'
 export default {
   name: 'RestDetailedOrder',
   methods: {
@@ -170,21 +168,84 @@ export default {
     },
     getGuestNum (value) {
       console.log('the guest num :' + value)
+    },
+    openMap () {
+      this.showMap = true
+      const map = new BMap.Map('allmap')
+      const point = new BMap.Point(111.742579, 40.818675)
+      map.centerAndZoom(point, 12)
+      const marker = new BMap.Marker(point) // 创建标注
+      map.addOverlay(marker)// 将标注添加到地图中
     }
+  },
+  mounted () {
+    this.baiduMap()
+    let total = 0
+    this.orderList.forEach(function (currentValue, index, arr) {
+      console.log(currentValue.price + '---> num:' + currentValue.num)
+      let currentTotal = currentValue.price * currentValue.num
+      total += currentTotal
+    })
+    this.total = total
   },
   data () {
     return {
       showMap: false,
       reverse: true,
-      date: '2021-01-13',
-      telephone: '18508153489',
-      customerNum: 2,
-      customerName: '郑人滏',
+      total: 0,
+      merchant: {
+        merchantId: 1,
+        telephone: '18508153489',
+        location: '四川省绵阳市涪城区万达广场2号门2楼'
+      },
+      customer: {
+        customerId: 1,
+        name: '郑人滏',
+        telephone: '18508153489'
+      },
+      order: {
+        customerId: 1,
+        orderNumber: 'EF20210113',
+        status: '订单状态：订单已完成',
+        notCancelable: true,
+        date: '2020-01-13',
+        time: '12:30:00-1:30:00',
+        queueNumber: '10',
+        num: 2
+      },
+      orderList: [
+        {
+          img: 'http://oss.norza.cn/imgs/84917906_p0.png',
+          name: '芒果小丸子',
+          num: 1,
+          price: 12
+        },
+        {
+          img: 'http://oss.norza.cn/imgs/86483780_p0.png',
+          name: '芋泥班长',
+          num: 3,
+          price: 13
+        },
+        {
+          img: 'http://oss.norza.cn/imgs/82049678_p0.png',
+          name: '芋圆醉好喝',
+          num: 1,
+          price: 10
+        }
+      ],
       time: [
         new Date(2016, 9, 10, 8, 40),
         new Date(2016, 9, 10, 9, 40)
       ],
       activities: [
+        {
+          content: '订单已完成',
+          timestamp: '2021-1-13 22:56:00'
+        },
+        {
+          content: '正在使用中',
+          timestamp: '2021-1-13 22:01:00'
+        },
         {
           content: '订单排队中',
           timestamp: '2021-1-13 21:40:00'
@@ -197,28 +258,7 @@ export default {
           content: '订单创建成功',
           timestamp: '2021-1-13 21:36:00'
         }
-      ],
-      tableData: [{
-        img: 'http://oss.norza.cn/imgs/84917906_p0.png',
-        name: '芒果小丸子',
-        num: 1,
-        price: 12
-      }, {
-        img: 'http://oss.norza.cn/imgs/86483780_p0.png',
-        name: '芋泥班长',
-        num: 3,
-        price: 13
-      }, {
-        img: 'http://oss.norza.cn/imgs/83704523_p0.jpg',
-        name: '草莓小丸子',
-        num: 2,
-        price: 12
-      }, {
-        img: 'http://oss.norza.cn/imgs/82049678_p0.png',
-        name: '芋圆醉好喝',
-        num: 1,
-        price: 10
-      }]
+      ]
     }
   }
 }
