@@ -96,15 +96,15 @@
       <!-- 预览图 -->
       <el-table-column
         fixed
-        prop="img"
+        prop="imgUrl"
         label="预览图"
         width="180">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="点击查看大图" placement="top">
             <el-image
               style="width: 100px; height: 100px"
-              :src="scope.row.img"
-              :preview-src-list="[scope.row.img]">
+              :src="scope.row.imgUrl"
+              :preview-src-list="[scope.row.imgUrl]">
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
               </div>
@@ -202,7 +202,7 @@ export default {
       },
       customer: {
         customerId: 1,
-        name: '郑人滏',
+        name: '小明',
         telephone: '18508153489'
       },
       order: {
@@ -217,22 +217,25 @@ export default {
       },
       dishes: [
         {
-          imgUrl: 'http://oss.norza.cn/imgs/84917906_p0.png',
-          name: '芒果小丸子',
+          dishesId: 1,
+          imgUrl: 'http://oss.norza.cn/imgs/food/food01.jpg',
+          name: '炸鸡腿',
           num: 1,
           price: 12
         },
         {
-          imgUrl: 'http://oss.norza.cn/imgs/86483780_p0.png',
-          name: '芋泥班长',
-          num: 3,
-          price: 13
+          dishesId: 2,
+          imgUrl: 'http://oss.norza.cn/imgs/food/food02.jpg',
+          name: '原味奶茶',
+          num: 1,
+          price: 12
         },
         {
-          imgUrl: 'http://oss.norza.cn/imgs/82049678_p0.png',
-          name: '芋圆醉好喝',
+          dishesId: 3,
+          imgUrl: 'http://oss.norza.cn/imgs/food/food03.jpg',
+          name: '炸鸡块',
           num: 1,
-          price: 10
+          price: 13
         }
       ],
       time: [

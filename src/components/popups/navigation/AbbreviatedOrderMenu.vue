@@ -24,17 +24,31 @@
           <el-col :span="8">排队号：{{orderItem.queueNumber}}</el-col>
           <el-col :span="8">总价：{{orderItem.total}} ¥</el-col>
           <el-col :span="8">
-            <el-button size="mini" icon="el-icon-more-outline">详细</el-button>
+            <el-button size="mini" icon="el-icon-more-outline" @click="showDetailedOrderMenu = true">详细</el-button>
           </el-col>
         </el-row>
       </el-row>
     </div>
+    <el-dialog
+      v-dialogDrag
+      :close-on-click-modal="false"
+      :modal="false"
+      title="订单详细"
+      :visible.sync="showDetailedOrderMenu"
+      width="60%">
+      <detailed-order-menu/>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import DetailedOrderMenu from './DetailedOrderMenu'
+
 export default {
   name: 'AbbreviatedOrderMenu',
+  components: {
+    DetailedOrderMenu
+  },
   mounted () {
     this.order.forEach(function (currentValue, index, arr) {
       let total = 0
@@ -46,6 +60,7 @@ export default {
   },
   data () {
     return {
+      showDetailedOrderMenu: false,
       total: 0,
       order: [
         {

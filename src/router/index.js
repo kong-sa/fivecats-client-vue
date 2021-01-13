@@ -11,7 +11,7 @@ export default new Router({
       path: '/',
       component: PopupsTesting,
       meta: {
-        title: '购物车'
+        title: '已完成弹窗 - 预览'
       }
     },
     {
