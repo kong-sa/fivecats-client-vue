@@ -17,29 +17,31 @@
       <el-col :span="12">
         <el-row style="margin-bottom: 25px">
           <el-col>
-            <el-card class="box-card">
-              地理位置：四川省绵阳市涪城区万达广场2号门2楼
-            </el-card>
+            <el-card class="box-card">地理位置：四川省绵阳市涪城区万达广场2号门2楼</el-card>
           </el-col>
         </el-row>
         <el-row>
           <el-col>
-            <el-card class="box-card">
-              您当前排队号：10
-            </el-card>
+            <el-card class="box-card">您当前排队号：10</el-card>
           </el-col>
         </el-row>
       </el-col>
       <!-- 第三列，地图，订单状态 -->
       <el-col :span="6">
         <el-row>
-          <el-button @click="showMap = true" round icon="el-icon-location-information">地图</el-button>
+          <el-button @click="showMap = true" icon="el-icon-location-information">地图</el-button>
           <el-dialog
             title="百度地图"
             :visible.sync="showMap"
             :modal="false"
             width="45%">
-            <iframe id="baiduMap" width="100%" frameborder="0" height="500" src="https://map.baidu.com/"></iframe>
+            <iframe
+              id="baiduMap"
+              width="100%"
+              frameborder="0"
+              height="500"
+              src="https://map.baidu.com/">
+            </iframe>
           </el-dialog>
         </el-row>
         <el-row style="margin-top: 15px">
@@ -71,8 +73,8 @@
     </el-row>
     <!-- 第二行 -->
     <el-row :gutter="10">
-      <el-col :span="1.5"><el-button size="mini" type="primary" round icon="el-icon-phone-outline">联系商家</el-button></el-col>
-      <el-col :span="1.5"><el-button size="mini" type="danger" round icon="el-icon-thumb">催促商家</el-button></el-col>
+      <el-col :span="1.5"><el-button size="mini" icon="el-icon-phone-outline">联系商家</el-button></el-col>
+      <el-col :span="1.5"><el-button size="mini" icon="el-icon-thumb">催促商家</el-button></el-col>
     </el-row>
     <el-divider>订单列表</el-divider>
     <!-- 第三行 -->
@@ -83,7 +85,7 @@
       :border="true"
       height="420"
       :cell-style="{ textAlign: 'center' }"
-      :header-cell-style="{ textAlign: 'center', background: '#f7f9fc', fontSize: '18px' }"
+      :header-cell-style="{ textAlign: 'center' }"
       style="width: 100%">
       <!-- 预览图 -->
       <el-table-column
@@ -93,7 +95,10 @@
         width="180">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="点击查看大图" placement="top">
-            <el-image style="width: 100px; height: 100px" :src="scope.row.img" :preview-src-list="[scope.row.img]">
+            <el-image
+              style="width: 100px; height: 100px"
+              :src="scope.row.img"
+              :preview-src-list="[scope.row.img]">
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
               </div>
@@ -118,7 +123,14 @@
         prop="num"
         label="数量">
         <template slot-scope="scope">
-          <el-input-number :disabled="true" style="width: 130px" v-model="scope.row.num" @change="getGoodsNum" :min="1" :max="99" label="描述文字"></el-input-number>
+          <el-input-number
+            :disabled="true"
+            style="width: 130px"
+            v-model="scope.row.num"
+            @change="getGoodsNum"
+            :min="1"
+            :max="99">
+          </el-input-number>
         </template>
       </el-table-column>
     </el-table>
@@ -142,7 +154,7 @@
           icon="el-icon-info"
           icon-color="red"
           title="确定要取消订单吗？">
-          <el-button slot="reference" type="danger" round>取消订单</el-button>
+          <el-button type="primary" slot="reference" size="mini">取消订单</el-button>
         </el-popconfirm>
       </div>
     </div>
@@ -165,23 +177,27 @@ export default {
       showMap: false,
       reverse: true,
       date: '2021-01-13',
-      customerName: '郑人滏',
       telephone: '18508153489',
       customerNum: 2,
+      customerName: '郑人滏',
       time: [
         new Date(2016, 9, 10, 8, 40),
         new Date(2016, 9, 10, 9, 40)
       ],
-      activities: [{
-        content: '订单排队中',
-        timestamp: '2021-1-13 21:40:00'
-      }, {
-        content: '商家已接单',
-        timestamp: '2021-1-13 21:38:00'
-      }, {
-        content: '订单创建成功',
-        timestamp: '2021-1-13 21:36:00'
-      }],
+      activities: [
+        {
+          content: '订单排队中',
+          timestamp: '2021-1-13 21:40:00'
+        },
+        {
+          content: '商家已接单',
+          timestamp: '2021-1-13 21:38:00'
+        },
+        {
+          content: '订单创建成功',
+          timestamp: '2021-1-13 21:36:00'
+        }
+      ],
       tableData: [{
         img: 'http://oss.norza.cn/imgs/84917906_p0.png',
         name: '芒果小丸子',

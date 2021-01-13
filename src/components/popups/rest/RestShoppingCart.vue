@@ -8,17 +8,23 @@
       :border="true"
       height="420"
       :cell-style="{ textAlign: 'center' }"
-      :header-cell-style="{ textAlign: 'center', background: '#f7f9fc', fontSize: '18px' }"
+      :header-cell-style="{ textAlign: 'center' }"
       style="width: 100%">
-      <!-- 预览图 -->
       <el-table-column
         fixed
         prop="img"
         label="预览图"
         width="180">
         <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" content="点击查看大图" placement="top">
-            <el-image style="width: 100px; height: 100px" :src="scope.row.img" :preview-src-list="[scope.row.img]">
+          <el-tooltip
+            class="item"
+            effect="dark"
+            content="点击查看大图"
+            placement="top">
+            <el-image
+              style="width: 100px; height: 100px"
+              :src="scope.row.img"
+              :preview-src-list="[scope.row.img]">
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
               </div>
@@ -26,27 +32,30 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <!-- 商品名 -->
       <el-table-column
         prop="name"
         label="商品名"
         width="200">
       </el-table-column>
-      <!-- 单价 -->
       <el-table-column
         prop="price"
         width="120"
         label="单价">
       </el-table-column>
-      <!-- 数量 -->
       <el-table-column
         prop="num"
         label="数量">
         <template slot-scope="scope">
-          <el-input-number style="width: 130px" v-model="scope.row.num" @change="getGoodsNum" :min="1" :max="99" label="描述文字"></el-input-number>
+          <el-input-number
+            size="mini"
+            style="width: 130px"
+            v-model="scope.row.num"
+            @change="getGoodsNum"
+            :min="1"
+            :max="99">
+          </el-input-number>
         </template>
       </el-table-column>
-      <!-- 操作 -->
       <el-table-column
         prop="operation"
         width="120"
@@ -54,7 +63,6 @@
         <template slot-scope="scope">
           <el-button
             @click.native.prevent="deleteRow(scope.$index, tableData)"
-            type="text"
             size="small">
             移除
           </el-button>
@@ -64,12 +72,12 @@
     <el-divider>基本信息</el-divider>
     <div class="element-margin">
       <el-row>
-        <el-col :xs="8" :sm="4" :md="4" :lg="3">
-          预约日期：
-        </el-col>
+        <el-col :xs="8" :sm="4" :md="4" :lg="3">预约日期：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-date-picker
             v-model="date"
+            size="mini"
+            style="width: 210px"
             align="right"
             type="date"
             placeholder="选择日期"
@@ -80,12 +88,12 @@
     </div>
     <div class="element-margin select-time">
       <el-row :gutter="10">
-        <el-col :xs="8" :sm="4" :md="4" :lg="3">
-          到店时间：
-        </el-col>
+        <el-col :xs="8" :sm="4" :md="4" :lg="3">到店时间：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
-          <el-time-picker style="width: 210px"
+          <el-time-picker
+            style="width: 210px"
             is-range
+            size="mini"
             v-model="time"
             range-separator="-"
             start-placeholder="开始时间"
@@ -97,11 +105,10 @@
     </div>
     <div class="element-margin customer-name">
       <el-row :gutter="10">
-        <el-col :xs="8" :sm="4" :md="4" :lg="3">
-          客户姓名：
-        </el-col>
+        <el-col :xs="8" :sm="4" :md="4" :lg="3">客户姓名：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-input
+            size="mini"
             placeholder="提供您的姓名"
             prefix-icon="el-icon-user"
             v-model="customerName">
@@ -111,11 +118,10 @@
     </div>
     <div class="element-margin telephone">
       <el-row :gutter="10">
-        <el-col :xs="8" :sm="4" :md="4" :lg="3">
-          联系电话：
-        </el-col>
+        <el-col :xs="8" :sm="4" :md="4" :lg="3">联系电话：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-input
+            size="mini"
             placeholder="提供您的联系电话"
             prefix-icon="el-icon-phone-outline"
             v-model="telephone">
@@ -125,17 +131,31 @@
     </div>
     <div class="element-margin guest-num">
       <el-row :gutter="10">
-        <el-col :xs="8" :sm="4" :md="4" :lg="3">
-          预定人数：
-        </el-col>
+        <el-col :xs="8" :sm="4" :md="4" :lg="3">预定人数：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
-          <el-input-number style="width: 210px" v-model="num" @change="getGuestNum" :min="1" :max="99" label="描述文字"></el-input-number>
+          <el-input-number
+            size="mini"
+            style="width: 210px"
+            v-model="customerNum"
+            @change="getGuestNum"
+            :min="1"
+            :max="99">
+          </el-input-number>
         </el-col>
       </el-row>
     </div>
     <div class="element-margin submit">
-      <span style="margin-right: 20px">总价：{{price}}¥</span>
-      <el-button type="primary" round icon="el-icon-check">确认支付</el-button>
+      <el-row :gutter="10">
+        <el-col :xs="8" :sm="4" :md="4" :lg="3">总价：{{price}}¥</el-col>
+        <el-col :xs="15" :sm="10" :md="8" :lg="8">
+          <el-button
+            type="primary"
+            size="mini"
+            icon="el-icon-check">
+            确认支付
+          </el-button>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -190,9 +210,9 @@ export default {
       },
       date: '',
       price: 30,
-      customerName: '',
       telephone: '',
-      num: 1,
+      customerNum: 1,
+      customerName: '',
       time: [
         new Date(2016, 9, 10, 8, 40),
         new Date(2016, 9, 10, 9, 40)

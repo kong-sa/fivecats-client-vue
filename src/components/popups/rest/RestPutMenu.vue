@@ -1,9 +1,7 @@
 <template>
   <div id="rest-put-menu">
     <el-row style="margin-bottom: 20px">
-      <el-col :span="6">
-        <span>菜品图片：</span>
-      </el-col>
+      <el-col :span="6">菜品图片：</el-col>
       <el-col :span="12" style="text-align: center">
         <el-upload
           style="border: 1px #cccccc solid; border-radius: 4px"
@@ -12,29 +10,30 @@
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
-          <img v-if="imageUrl" :src="imageUrl" class="avatar">
+          <img v-if="imageUrl" :src="imageUrl" class="avatar" alt="">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-col>
     </el-row>
     <el-row style="margin-bottom: 20px">
-      <el-col :span="6">
-        <span>菜品名称：</span>
-      </el-col>
+      <el-col :span="6">菜品名称：</el-col>
       <el-col :span="12">
-        <el-input placeholder="添加新菜品的名称"></el-input>
+        <el-input size="mini" placeholder="添加新菜品的名称"></el-input>
       </el-col>
     </el-row>
     <el-row style="margin-bottom: 20px">
-      <el-col :span="6">
-        <span>菜品单价：</span>
-      </el-col>
+      <el-col :span="6">菜品单价：</el-col>
       <el-col :span="12">
-        <el-input placeholder="添加菜品的单价"></el-input>
+        <el-input size="mini" placeholder="添加菜品的单价"></el-input>
       </el-col>
     </el-row>
     <el-row>
-      <el-button size="medium" round type="primary" @click="dialogVisible = true">确定添加</el-button>
+      <el-button
+        type="primary"
+        size="mini"
+        @click="dialogVisible = true">
+        确定添加
+      </el-button>
     </el-row>
     <el-dialog
       title="提示"
@@ -44,8 +43,8 @@
       :before-close="handleClose">
       <span>确认添加一个菜品？</span>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button size="mini" @click="dialogVisible = false">取 消</el-button>
+        <el-button size="mini" @click="dialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
   </div>
