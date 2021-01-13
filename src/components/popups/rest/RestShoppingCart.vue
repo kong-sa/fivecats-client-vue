@@ -161,86 +161,86 @@
 </template>
 
 <script>
-export default {
-  name: 'RestInfoShoppingCart',
-  methods: {
-    deleteRow (index, rows) {
-      rows.splice(index, 1)
-    },
-    getGoodsNum (value) {
-      console.log('the goods num :' + value)
-    },
-    getGuestNum (value) {
-      console.log('the guest num :' + value)
-    }
-  },
-  data () {
-    return {
-      pickerOptions: {
-        disabledDate (time) {
-          return time.getTime() > Date.now() + 3600 * 1000 * 24 * 7 || time.getTime() < new Date() - 3600 * 1000 * 24
-        },
-        shortcuts: [{
-          text: '今天',
-          onClick (picker) {
-            picker.$emit('pick', new Date())
-          }
-        }, {
-          text: '明天',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() + 3600 * 1000 * 24)
-            picker.$emit('pick', date)
-          }
-        }, {
-          text: '后天',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() + 3600 * 1000 * 24 * 2)
-            picker.$emit('pick', date)
-          }
-        }, {
-          text: '一周后',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', date)
-          }
-        }]
+  export default {
+    name: 'RestInfoShoppingCart',
+    methods: {
+      deleteRow (index, rows) {
+        rows.splice(index, 1)
       },
-      date: '',
-      price: 30,
-      telephone: '',
-      customerNum: 1,
-      customerName: '',
-      time: [
-        new Date(2016, 9, 10, 8, 40),
-        new Date(2016, 9, 10, 9, 40)
-      ],
-      tableData: [{
-        img: 'http://oss.norza.cn/imgs/84917906_p0.png',
-        name: '芒果小丸子',
-        num: 1,
-        price: 12
-      }, {
-        img: 'http://oss.norza.cn/imgs/86483780_p0.png',
-        name: '芋泥班长',
-        num: 3,
-        price: 13
-      }, {
-        img: 'http://oss.norza.cn/imgs/83704523_p0.jpg',
-        name: '草莓小丸子',
-        num: 2,
-        price: 12
-      }, {
-        img: 'http://oss.norza.cn/imgs/82049678_p0.png',
-        name: '芋圆醉好喝',
-        num: 1,
-        price: 10
-      }]
+      getGoodsNum (value) {
+        console.log('the goods num :' + value)
+      },
+      getGuestNum (value) {
+        console.log('the guest num :' + value)
+      }
+    },
+    data () {
+      return {
+        pickerOptions: {
+          disabledDate (time) {
+            return time.getTime() > Date.now() + 3600 * 1000 * 24 * 7 || time.getTime() < new Date() - 3600 * 1000 * 24
+          },
+          shortcuts: [{
+            text: '今天',
+            onClick (picker) {
+              picker.$emit('pick', new Date())
+            }
+          }, {
+            text: '明天',
+            onClick (picker) {
+              const date = new Date()
+              date.setTime(date.getTime() + 3600 * 1000 * 24)
+              picker.$emit('pick', date)
+            }
+          }, {
+            text: '后天',
+            onClick (picker) {
+              const date = new Date()
+              date.setTime(date.getTime() + 3600 * 1000 * 24 * 2)
+              picker.$emit('pick', date)
+            }
+          }, {
+            text: '一周后',
+            onClick (picker) {
+              const date = new Date()
+              date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', date)
+            }
+          }]
+        },
+        date: '',
+        price: 30,
+        telephone: '',
+        customerNum: 1,
+        customerName: '',
+        time: [
+          new Date(2016, 9, 10, 8, 40),
+          new Date(2016, 9, 10, 9, 40)
+        ],
+        tableData: [{
+          img: 'http://oss.norza.cn/imgs/84917906_p0.png',
+          name: '芒果小丸子',
+          num: 1,
+          price: 12
+        }, {
+          img: 'http://oss.norza.cn/imgs/86483780_p0.png',
+          name: '芋泥班长',
+          num: 3,
+          price: 13
+        }, {
+          img: 'http://oss.norza.cn/imgs/83704523_p0.jpg',
+          name: '草莓小丸子',
+          num: 2,
+          price: 12
+        }, {
+          img: 'http://oss.norza.cn/imgs/82049678_p0.png',
+          name: '芋圆醉好喝',
+          num: 1,
+          price: 10
+        }]
+      }
     }
   }
-}
 </script>
 
 <style scoped>
