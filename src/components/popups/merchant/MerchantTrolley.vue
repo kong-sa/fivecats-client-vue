@@ -1,5 +1,5 @@
 <template>
-  <div id="rest-shopping-cart">
+  <div id="merchant-trolley">
     <el-divider>购物车列表</el-divider>
     <el-table
       :data="tableData"
@@ -77,7 +77,7 @@
           <el-date-picker
             v-model="date"
             size="mini"
-            style="width: 210px"
+            class="trolley-date-picker"
             align="right"
             type="date"
             placeholder="选择日期"
@@ -91,7 +91,7 @@
         <el-col :xs="8" :sm="4" :md="4" :lg="3">到店时间：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-time-picker
-            style="width: 210px"
+            class="trolley-date-picker"
             is-range
             size="mini"
             v-model="time"
@@ -135,7 +135,7 @@
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-input-number
             size="mini"
-            style="width: 210px"
+            class="trolley-number"
             v-model="customerNum"
             @change="getGuestNum"
             :min="1"
@@ -161,90 +161,94 @@
 </template>
 
 <script>
-  export default {
-    name: 'RestInfoShoppingCart',
-    methods: {
-      deleteRow (index, rows) {
-        rows.splice(index, 1)
-      },
-      getGoodsNum (value) {
-        console.log('the goods num :' + value)
-      },
-      getGuestNum (value) {
-        console.log('the guest num :' + value)
-      }
+export default {
+  name: 'MerchantTrolley',
+  methods: {
+    deleteRow (index, rows) {
+      rows.splice(index, 1)
     },
-    data () {
-      return {
-        pickerOptions: {
-          disabledDate (time) {
-            return time.getTime() > Date.now() + 3600 * 1000 * 24 * 7 || time.getTime() < new Date() - 3600 * 1000 * 24
-          },
-          shortcuts: [{
-            text: '今天',
-            onClick (picker) {
-              picker.$emit('pick', new Date())
-            }
-          }, {
-            text: '明天',
-            onClick (picker) {
-              const date = new Date()
-              date.setTime(date.getTime() + 3600 * 1000 * 24)
-              picker.$emit('pick', date)
-            }
-          }, {
-            text: '后天',
-            onClick (picker) {
-              const date = new Date()
-              date.setTime(date.getTime() + 3600 * 1000 * 24 * 2)
-              picker.$emit('pick', date)
-            }
-          }, {
-            text: '一周后',
-            onClick (picker) {
-              const date = new Date()
-              date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
-              picker.$emit('pick', date)
-            }
-          }]
+    getGoodsNum (value) {
+      console.log('the goods num :' + value)
+    },
+    getGuestNum (value) {
+      console.log('the guest num :' + value)
+    }
+  },
+  data () {
+    return {
+      pickerOptions: {
+        disabledDate (time) {
+          return time.getTime() > Date.now() + 3600 * 1000 * 24 * 7 || time.getTime() < new Date() - 3600 * 1000 * 24
         },
-        date: '',
-        price: 30,
-        telephone: '',
-        customerNum: 1,
-        customerName: '',
-        time: [
-          new Date(2016, 9, 10, 8, 40),
-          new Date(2016, 9, 10, 9, 40)
-        ],
-        tableData: [{
-          img: 'http://oss.norza.cn/imgs/84917906_p0.png',
-          name: '芒果小丸子',
-          num: 1,
-          price: 12
+        shortcuts: [{
+          text: '今天',
+          onClick (picker) {
+            picker.$emit('pick', new Date())
+          }
         }, {
-          img: 'http://oss.norza.cn/imgs/86483780_p0.png',
-          name: '芋泥班长',
-          num: 3,
-          price: 13
+          text: '明天',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() + 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
         }, {
-          img: 'http://oss.norza.cn/imgs/83704523_p0.jpg',
-          name: '草莓小丸子',
-          num: 2,
-          price: 12
+          text: '后天',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() + 3600 * 1000 * 24 * 2)
+            picker.$emit('pick', date)
+          }
         }, {
-          img: 'http://oss.norza.cn/imgs/82049678_p0.png',
-          name: '芋圆醉好喝',
-          num: 1,
-          price: 10
+          text: '一周后',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() + 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
         }]
-      }
+      },
+      date: '',
+      price: 30,
+      telephone: '',
+      customerNum: 1,
+      customerName: '',
+      time: [
+        new Date(2016, 9, 10, 8, 40),
+        new Date(2016, 9, 10, 9, 40)
+      ],
+      tableData: [{
+        img: 'http://oss.norza.cn/imgs/84917906_p0.png',
+        name: '芒果小丸子',
+        num: 1,
+        price: 12
+      }, {
+        img: 'http://oss.norza.cn/imgs/86483780_p0.png',
+        name: '芋泥班长',
+        num: 3,
+        price: 13
+      }, {
+        img: 'http://oss.norza.cn/imgs/83704523_p0.jpg',
+        name: '草莓小丸子',
+        num: 2,
+        price: 12
+      }, {
+        img: 'http://oss.norza.cn/imgs/82049678_p0.png',
+        name: '芋圆醉好喝',
+        num: 1,
+        price: 10
+      }]
     }
   }
+}
 </script>
 
 <style scoped>
-  .element-margin {
-    margin-top: 20px;
-  }
+.element-margin {
+  margin-top: 20px;
+}
+
+.trolley-date-picker, .trolley-number {
+  width: 210px
+}
 </style>

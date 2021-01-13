@@ -1,5 +1,5 @@
 <template>
-  <div id="detailed-order-list">
+  <div id="detailed-order-menu">
     <el-divider>商家信息</el-divider>
     <!-- 第一行 -->
     <el-row :gutter="10">
@@ -85,7 +85,7 @@
     <el-divider>订单列表</el-divider>
     <!-- 第三行 -->
     <el-table
-      :data="orderList"
+      :data="dishes"
       :fit="true"
       :stripe="true"
       :border="true"
@@ -169,106 +169,105 @@
 </template>
 
 <script>
-  export default {
-    name: 'DetailedOrderList',
-    methods: {
-      getGoodsNum (value) {
-        console.log('the goods num :' + value)
-      },
-      getGuestNum (value) {
-        console.log('the guest num :' + value)
-      },
-      openMap () {
-        this.showMap = true
-      }
+export default {
+  name: 'DetailedOrderMenu',
+  methods: {
+    getGoodsNum (value) {
+      console.log('the goods num :' + value)
     },
-    mounted () {
-      let total = 0
-      this.orderList.forEach(function (currentValue, index, arr) {
-        console.log(currentValue.price + '---> num:' + currentValue.num)
-        let currentTotal = currentValue.price * currentValue.num
-        total += currentTotal
-      })
-      this.total = total
+    getGuestNum (value) {
+      console.log('the guest num :' + value)
     },
-    data () {
-      return {
-        showMap: false,
-        reverse: true,
-        total: 0,
-        merchant: {
-          merchantId: 1,
-          telephone: '18508153489',
-          location: '四川省绵阳市涪城区万达广场2号门2楼'
+    openMap () {
+      this.showMap = true
+    }
+  },
+  mounted () {
+    let total = 0
+    this.dishes.forEach(function (currentValue, index, arr) {
+      let currentTotal = currentValue.price * currentValue.num
+      total += currentTotal
+    })
+    this.total = total
+  },
+  data () {
+    return {
+      showMap: false,
+      reverse: true,
+      total: 0,
+      merchant: {
+        merchantId: 1,
+        telephone: '18508153489',
+        location: '四川省绵阳市涪城区万达广场2号门2楼'
+      },
+      customer: {
+        customerId: 1,
+        name: '郑人滏',
+        telephone: '18508153489'
+      },
+      order: {
+        customerId: 1,
+        orderNumber: 'EF20210113',
+        status: '订单状态：订单已完成',
+        notCancelable: true,
+        date: '2020-01-13',
+        time: '12:30:00-1:30:00',
+        queueNumber: '10',
+        num: 2
+      },
+      dishes: [
+        {
+          imgUrl: 'http://oss.norza.cn/imgs/84917906_p0.png',
+          name: '芒果小丸子',
+          num: 1,
+          price: 12
         },
-        customer: {
-          customerId: 1,
-          name: '郑人滏',
-          telephone: '18508153489'
+        {
+          imgUrl: 'http://oss.norza.cn/imgs/86483780_p0.png',
+          name: '芋泥班长',
+          num: 3,
+          price: 13
         },
-        order: {
-          customerId: 1,
-          orderNumber: 'EF20210113',
-          status: '订单状态：订单已完成',
-          notCancelable: true,
-          date: '2020-01-13',
-          time: '12:30:00-1:30:00',
-          queueNumber: '10',
-          num: 2
+        {
+          imgUrl: 'http://oss.norza.cn/imgs/82049678_p0.png',
+          name: '芋圆醉好喝',
+          num: 1,
+          price: 10
+        }
+      ],
+      time: [
+        new Date(2016, 9, 10, 8, 40),
+        new Date(2016, 9, 10, 9, 40)
+      ],
+      activities: [
+        {
+          content: '订单已完成',
+          timestamp: '2021-1-13 22:56:00'
         },
-        orderList: [
-          {
-            img: 'http://oss.norza.cn/imgs/84917906_p0.png',
-            name: '芒果小丸子',
-            num: 1,
-            price: 12
-          },
-          {
-            img: 'http://oss.norza.cn/imgs/86483780_p0.png',
-            name: '芋泥班长',
-            num: 3,
-            price: 13
-          },
-          {
-            img: 'http://oss.norza.cn/imgs/82049678_p0.png',
-            name: '芋圆醉好喝',
-            num: 1,
-            price: 10
-          }
-        ],
-        time: [
-          new Date(2016, 9, 10, 8, 40),
-          new Date(2016, 9, 10, 9, 40)
-        ],
-        activities: [
-          {
-            content: '订单已完成',
-            timestamp: '2021-1-13 22:56:00'
-          },
-          {
-            content: '正在使用中',
-            timestamp: '2021-1-13 22:01:00'
-          },
-          {
-            content: '订单排队中',
-            timestamp: '2021-1-13 21:40:00'
-          },
-          {
-            content: '商家已接单',
-            timestamp: '2021-1-13 21:38:00'
-          },
-          {
-            content: '订单创建成功',
-            timestamp: '2021-1-13 21:36:00'
-          }
-        ]
-      }
+        {
+          content: '正在使用中',
+          timestamp: '2021-1-13 22:01:00'
+        },
+        {
+          content: '订单排队中',
+          timestamp: '2021-1-13 21:40:00'
+        },
+        {
+          content: '商家已接单',
+          timestamp: '2021-1-13 21:38:00'
+        },
+        {
+          content: '订单创建成功',
+          timestamp: '2021-1-13 21:36:00'
+        }
+      ]
     }
   }
+}
 </script>
 
 <style scoped>
-  .el-card {
-    box-shadow: 0 1px 1px rgb(0, 0, 0, 0.15) !important;
-  }
+.el-card {
+  box-shadow: 0 1px 1px rgb(0, 0, 0, 0.15) !important;
+}
 </style>

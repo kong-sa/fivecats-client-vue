@@ -8,52 +8,53 @@
       title="购物车"
       :visible.sync="showShoppingCart"
       width="60%">
-      <rest-shopping-cart style="margin: 15px"/>
+      <merchant-trolley style="margin: 15px"/>
     </el-dialog>
     <el-dialog
       title="订单详细"
       :visible.sync="showDetailedOrder"
       width="60%">
-      <detailed-order-list style="margin: 15px"/>
+      <detailed-order-menu style="margin: 15px"/>
     </el-dialog>
     <el-dialog
       title="添加菜品"
       :visible.sync="showRestPutMenu"
       width="45%">
-      <rest-put-menu style="margin: 15px"/>
+      <merchant-new-dishes style="margin: 15px"/>
     </el-dialog>
     <el-dialog
       title="订单列表"
       :visible.sync="showAbbreviatedOrderList"
       width="30%">
-      <abbreviated-order-list style="margin: 15px"/>
+      <abbreviated-order-menu style="margin: 15px"/>
     </el-dialog>
+    <router-link to="/video/preview">登陆</router-link>
   </div>
 </template>
 
 <script>
-  import RestShoppingCart from './rest/RestShoppingCart'
-  import DetailedOrderList from './nav/DetailedOrderList'
-  import RestPutMenu from './rest/RestPutMenu'
-  import AbbreviatedOrderList from './nav/AbbreviatedOrderList'
+import MerchantTrolley from './merchant/MerchantTrolley'
+import DetailedOrderMenu from './navigation/DetailedOrderMenu'
+import MerchantNewDishes from './merchant/MerchantNewDishes'
+import AbbreviatedOrderMenu from './navigation/AbbreviatedOrderMenu'
 
-  export default {
-    name: 'PopupsTesting',
-    data () {
-      return {
-        showShoppingCart: false,
-        showDetailedOrder: false,
-        showRestPutMenu: false,
-        showAbbreviatedOrderList: false
-      }
-    },
-    components: {
-      RestShoppingCart,
-      DetailedOrderList,
-      RestPutMenu,
-      AbbreviatedOrderList
+export default {
+  name: 'PopupsTesting',
+  data () {
+    return {
+      showShoppingCart: false,
+      showDetailedOrder: false,
+      showRestPutMenu: false,
+      showAbbreviatedOrderList: false
     }
+  },
+  components: {
+    MerchantTrolley,
+    MerchantNewDishes,
+    DetailedOrderMenu,
+    AbbreviatedOrderMenu
   }
+}
 </script>
 
 <style scoped>

@@ -5,12 +5,13 @@ import App from './App'
 import axios from 'axios'
 import jqeury from 'jquery'
 import router from './router'
-// import './assets/css/global.css'
 import NProgress from 'nprogress'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
 import Element, {Message, MessageBox} from 'element-ui'
 import './utils/dialog'
+import 'video.js/dist/video-js.css'
+import './assets/css/videojs.css'
 
 Vue.use(Element)
 Vue.config.productionTip = false

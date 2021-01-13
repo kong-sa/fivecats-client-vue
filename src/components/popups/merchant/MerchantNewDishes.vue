@@ -1,10 +1,9 @@
 <template>
-  <div id="rest-put-menu">
-    <el-row style="margin-bottom: 20px">
+  <div id="merchant-new-dishes">
+    <el-row class="dishes-row">
       <el-col :span="6">菜品图片：</el-col>
-      <el-col :span="12" style="text-align: center">
+      <el-col class="dishes-upload" :span="12">
         <el-upload
-          style="border: 1px #cccccc solid; border-radius: 4px"
           class="avatar-uploader"
           action="https://jsonplaceholder.typicode.com/posts/"
           :show-file-list="false"
@@ -15,13 +14,13 @@
         </el-upload>
       </el-col>
     </el-row>
-    <el-row style="margin-bottom: 20px">
+    <el-row class="dishes-row">
       <el-col :span="6">菜品名称：</el-col>
       <el-col :span="12">
         <el-input size="mini" placeholder="添加新菜品的名称"></el-input>
       </el-col>
     </el-row>
-    <el-row style="margin-bottom: 20px">
+    <el-row class="dishes-row">
       <el-col :span="6">菜品单价：</el-col>
       <el-col :span="12">
         <el-input size="mini" placeholder="添加菜品的单价"></el-input>
@@ -51,67 +50,79 @@
 </template>
 
 <script>
-  export default {
-    name: 'RestPutMenu',
-    data () {
-      return {
-        imageUrl: '',
-        dialogVisible: false
-      }
+export default {
+  name: 'MerchantNewDishes',
+  data () {
+    return {
+      imageUrl: '',
+      dialogVisible: false
+    }
+  },
+  methods: {
+    handleClose (done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {
+        })
     },
-    methods: {
-      handleClose (done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done()
-          })
-          .catch(_ => {
-          })
-      },
-      handleAvatarSuccess (res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw)
-      },
-      beforeAvatarUpload (file) {
-        const isJPG = file.type === 'image/jpeg'
-        const isLt2M = file.size / 1024 / 1024 < 2
+    handleAvatarSuccess (res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+    },
+    beforeAvatarUpload (file) {
+      const isJPG = file.type === 'image/jpeg'
+      const isLt2M = file.size / 1024 / 1024 < 2
 
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!')
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!')
-        }
-        return isJPG && isLt2M
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
       }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!')
+      }
+      return isJPG && isLt2M
     }
   }
+}
 </script>
 
 <style scoped>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
 
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
 
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
+.avatar-uploader {
+  border: 1px #cccccc solid; border-radius: 4px
+}
 
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+
+.dishes-upload {
+  text-align: center
+}
+
+.dishes-row {
+  margin-bottom: 20px;
+}
 </style>
