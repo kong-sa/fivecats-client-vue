@@ -20,11 +20,25 @@
     <!-- 评论区 -->
     <el-row v-for="CommentItem in comment" :key="CommentItem.customerId">
       <el-col :span="2">
-        <el-avatar fit="fill" :src="CommentItem.avatar">
-          <div slot="error" class="image-slot">
-            <i class="el-icon-picture-outline"></i>
-          </div>
-        </el-avatar>
+        <el-dropdown>
+          <el-avatar fit="fill" :src="CommentItem.avatar">
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-avatar>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <el-avatar fit="fill" :src="CommentItem.avatar">
+                <div slot="error" class="image-slot">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-avatar>
+              <div>用户名：<a id="username" href="">{{CommentItem.nickname}}</a></div>
+              <div>个人简介：{{CommentItem.introduction}}</div>
+              <div>粉丝数：{{CommentItem.fans}}</div>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </el-col>
       <el-col :span="22" id="comment-col">
         <el-row class="comment-row" id="comment-nickname">{{CommentItem.nickname}}</el-row>
@@ -50,42 +64,51 @@ export default {
     return {
       customer: {
         customerId: 1,
+        introduction: 'Time tick away, dream faded away!',
         nickname: 'KongSama',
         avatar: 'http://oss.norza.cn/imgs/avatar/avatar01.jpg'
       },
       comment: [
         {
           customerId: 1,
+          introduction: 'Time tick away, dream faded away!1',
           videoId: 1,
           nickname: 'KongSama',
           likeNum: 111,
+          fans: 3100,
           content: '这是一条友善的评论...',
           date: '2021年1月13日20:26:45',
           avatar: 'http://oss.norza.cn/imgs/avatar/avatar01.jpg'
         },
         {
           customerId: 2,
+          introduction: 'Time tick away, dream faded away!2',
           videoId: 1,
           nickname: '洛天lee',
           likeNum: 11,
+          fans: 111,
           content: '这是一条友善的评论...',
           date: '2021年1月13日21:06:52',
           avatar: 'http://oss.norza.cn/imgs/avatar/avatar02.jpg'
         },
         {
           customerId: 3,
+          introduction: 'Time tick away, dream faded away!3',
           videoId: 1,
           nickname: '万衍天堂',
           likeNum: 21,
+          fans: 11,
           content: '这是一条友善的评论...',
           date: '2021年1月13日21:10:57',
           avatar: 'http://oss.norza.cn/imgs/avatar/avatar03.jpg'
         },
         {
           customerId: 4,
+          introduction: 'Time tick away, dream faded away!4',
           videoId: 1,
           nickname: '间谍过家家',
           likeNum: 1,
+          fans: 5,
           content: '这是一条友善的评论...',
           date: '2021年1月13日21:17:02',
           avatar: 'http://oss.norza.cn/imgs/avatar/avatar04.jpg'
@@ -112,6 +135,14 @@ export default {
 
 #comment-info {
   font-size: 13px;
+}
+
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409EFF;
+}
+.el-icon-arrow-down {
+  font-size: 12px;
 }
 
 #like {

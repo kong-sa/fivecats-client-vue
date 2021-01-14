@@ -33,4 +33,17 @@ export default {
       Arial,
       sans-serif;
   }
+  a:link {
+    color: rgb(140, 197, 255);
+  }
+  a:visited {
+    color: rgb(140, 197, 255);
+    text-decoration:none;
+  }
+  a:hover {
+    color: rgb(140, 197, 255);
+  }
+  a:active {
+    color: rgb(140, 197, 255);
+  }
 </style>
