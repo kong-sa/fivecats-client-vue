@@ -6,7 +6,7 @@
       <el-divider>商家信息</el-divider>
       <!-- 第一行 -->
       <el-row>
-        <!-- 第一列，商家的图片 -->
+        <!-- 第一列 -->
         <el-col :span="6">
           <el-image
             style="width: 150px; height: 150px; border-radius: 6px;"
@@ -16,7 +16,7 @@
             </div>
           </el-image>
         </el-col>
-        <!-- 第二列，地理位置，排队号 -->
+        <!-- 第二列 -->
         <el-col :span="12">
           <el-row style="margin-bottom: 25px">
             <el-col>
@@ -29,7 +29,7 @@
             </el-col>
           </el-row>
         </el-col>
-        <!-- 第三列，地图，订单状态 -->
+        <!-- 第三列 -->
         <el-col :span="6">
           <el-row>
             <el-button style="float: right" @click="openMap" icon="el-icon-location-information">地图</el-button>
@@ -149,7 +149,7 @@
         </el-row>
       </div>
       <div class="element-margin submit">
-        <!-- 第四行，操作 -->
+        <!-- 第四行 -->
         <div class="footer" style="margin-top: 40px">
           <span style="margin-right: 20px">总价：{{total}} ¥</span>
           <el-popconfirm
@@ -158,7 +158,11 @@
             icon="el-icon-info"
             icon-color="red"
             title="确定要取消订单吗？">
-            <el-button :disabled="order.notCancelable" type="primary" slot="reference" size="mini">取消订单</el-button>
+            <el-button
+              :disabled="order.notCancelable"
+              type="primary"
+              slot="reference"
+              size="mini">取消订单</el-button>
           </el-popconfirm>
         </div>
       </div>
@@ -267,6 +271,8 @@ export default {
 
 <style scoped>
 .el-card {
-  box-shadow: 0 1px 1px rgb(0, 0, 0, 0.15) !important;
+  box-shadow:
+    0 1px 1px rgb(0, 0, 0, 0.15)
+    !important;
 }
 </style>

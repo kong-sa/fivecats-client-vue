@@ -31,9 +31,7 @@
       <el-button
         type="primary"
         size="mini"
-        @click="dialogVisible = true">
-        确定添加
-      </el-button>
+        @click="dialogVisible = true">确定添加</el-button>
     </el-row>
     <el-dialog
       title="提示"

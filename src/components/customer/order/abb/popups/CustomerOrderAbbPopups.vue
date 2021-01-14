@@ -13,8 +13,7 @@
             :key="dishesItem.dishesId">
             <el-image
               class="abbr-image"
-              :src="dishesItem.imgUrl"
-            >
+              :src="dishesItem.imgUrl">
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
               </div>

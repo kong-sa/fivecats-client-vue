@@ -53,8 +53,7 @@
             v-model="scope.row.num"
             @change="getGoodsNum"
             :min="1"
-            :max="99">
-          </el-input-number>
+            :max="99"></el-input-number>
         </template>
       </el-table-column>
       <el-table-column
@@ -64,9 +63,7 @@
         <template slot-scope="scope">
           <el-button
             @click.native.prevent="deleteRow(scope.$index, dishes)"
-            size="small">
-            移除
-          </el-button>
+            size="small">移除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -82,8 +79,7 @@
             align="right"
             type="date"
             placeholder="选择日期"
-            :picker-options="pickerOptions">
-          </el-date-picker>
+            :picker-options="pickerOptions"></el-date-picker>
         </el-col>
       </el-row>
     </div>
@@ -112,8 +108,7 @@
             size="mini"
             placeholder="提供您的姓名"
             prefix-icon="el-icon-user"
-            v-model="customerName">
-          </el-input>
+            v-model="customerName"></el-input>
         </el-col>
       </el-row>
     </div>
@@ -125,8 +120,7 @@
             size="mini"
             placeholder="提供您的联系电话"
             prefix-icon="el-icon-phone-outline"
-            v-model="telephone">
-          </el-input>
+            v-model="telephone"></el-input>
         </el-col>
       </el-row>
     </div>
@@ -140,8 +134,7 @@
             v-model="customerNum"
             @change="getGuestNum"
             :min="1"
-            :max="99">
-          </el-input-number>
+            :max="99"></el-input-number>
         </el-col>
       </el-row>
     </div>
@@ -152,9 +145,7 @@
           <el-button
             type="primary"
             size="mini"
-            icon="el-icon-check">
-            确认支付
-          </el-button>
+            icon="el-icon-check">确认支付</el-button>
         </el-col>
       </el-row>
     </div>
