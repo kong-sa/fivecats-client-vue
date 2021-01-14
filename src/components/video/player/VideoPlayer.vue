@@ -36,7 +36,7 @@ export default {
 
 <style scoped>
 #video-player {
- padding: 0 14%;
+ padding: 0 10%;
 }
 
 .vjs-big-play-button {

@@ -1,13 +1,17 @@
 <template>
-  <div id="video-preview">
-    <video-player :options="videoOptions"/>
-    <video-comment/>
-  </div>
+  <el-container>
+    <el-header>Header</el-header>
+    <el-main>
+      <video-player :options="videoOptions"/>
+      <video-comment/>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
 import VideoPlayer from './player/VideoPlayer'
 import VideoComment from './comment/VideoComment'
+
 export default {
   name: 'VideoMain',
   components: {
@@ -25,8 +29,8 @@ export default {
             type: 'video/mp4'
           }
         ],
-        width: '1080px',
-        height: '720px',
+        fluid: true,
+        aspectRatio: '16:9',
         playbackRates: [0.5, 1, 1.5, 2]
       }
     }
@@ -35,7 +39,4 @@ export default {
 </script>
 
 <style scoped>
-#video-preview {
-
-}
 </style>

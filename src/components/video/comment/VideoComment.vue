@@ -1,32 +1,40 @@
 <template>
-  <div id="video-comment-area" style="padding: 5% 14%">
-    <el-row :gutter="10">
-      <el-col :span="2">
-        <el-avatar :src="customer.avatar"></el-avatar>
+  <div id="video-comment" style="padding: 5% 12%">
+    <!-- 编辑评论 -->
+    <el-row>
+      <el-col :span="3">
+        <el-avatar :src="customer.avatar">
+          <div slot="error" class="image-slot">
+            <i class="el-icon-picture-outline"></i>
+          </div>
+        </el-avatar>
       </el-col>
-      <el-col :span="20">
+      <el-col :span="17">
         <el-input placeholder="发条友善的评论"></el-input>
       </el-col>
-      <el-col :span="2">
-        <el-button id="publish">发表</el-button>
+      <el-col :span="4">
+        <el-button style="float: right" id="publish">发表</el-button>
       </el-col>
     </el-row>
     <el-divider id="divider"></el-divider>
-    <el-row v-for="item in comment" :key="item.customerId">
+    <!-- 评论区 -->
+    <el-row v-for="CommentItem in comment" :key="CommentItem.customerId">
       <el-col :span="2">
-        <el-avatar fit="fill" :src="item.avatar" @error="errorHandler">
-          <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt=""/>
+        <el-avatar fit="fill" :src="CommentItem.avatar">
+          <div slot="error" class="image-slot">
+            <i class="el-icon-picture-outline"></i>
+          </div>
         </el-avatar>
       </el-col>
       <el-col :span="22" id="comment-col">
-        <el-row class="comment-row" id="comment-nickname">{{item.nickname}}</el-row>
-        <el-row class="comment-row" id="comment-content">{{item.content}}</el-row>
+        <el-row class="comment-row" id="comment-nickname">{{CommentItem.nickname}}</el-row>
+        <el-row class="comment-row" id="comment-content">{{CommentItem.content}}</el-row>
         <el-row class="comment-row" id="comment-info">
           <span id="like">
             <i></i>
-            <span>{{item.likeNum}}</span>
+            <span>{{CommentItem.likeNum}}</span>
           </span>
-          <span id="comment-time">{{item.date}}</span>
+          <span id="comment-time">{{CommentItem.date}}</span>
         </el-row>
       </el-col>
     </el-row>
@@ -37,9 +45,6 @@
 export default {
   name: 'VideoComment',
   methods: {
-    errorHandler () {
-      return true
-    }
   },
   data () {
     return {

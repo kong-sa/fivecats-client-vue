@@ -1,168 +1,169 @@
 <template>
   <!-- 用户订单 - 详细信息页 -->
-  <div id="detail-order">
-    <el-divider>商家信息</el-divider>
-    <!-- 第一行 -->
-    <el-row :gutter="10">
-      <!-- 第一列，商家的图片 -->
-      <el-col :span="6" style="text-align: center">
-        <el-image
-          style="width: 150px; height: 150px; border-radius: 6px;"
-          src="http://oss.norza.cn/imgs/84917906_p0.png">
-          <div slot="error" class="image-slot">
-            <i class="el-icon-picture-outline"></i>
-          </div>
-        </el-image>
-      </el-col>
-      <!-- 第二列，地理位置，排队号 -->
-      <el-col :span="12">
-        <el-row style="margin-bottom: 25px">
-          <el-col>
-            <el-card class="box-card">地理位置：{{merchant.location}}</el-card>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col>
-            <el-card class="box-card">您当前排队号：{{order.queueNumber}}</el-card>
-          </el-col>
-        </el-row>
-      </el-col>
-      <!-- 第三列，地图，订单状态 -->
-      <el-col :span="6">
-        <el-row>
-          <el-button @click="openMap" icon="el-icon-location-information">地图</el-button>
-          <el-dialog
-            v-dialogDrag
-            title="百度地图"
-            :visible.sync="showMap"
-            :close-on-click-modal="false"
-            :modal="false"
-            width="45%">
-            <iframe
-              id="baidu-map"
-              width="100%"
-              frameborder="0"
-              height="500"
-              src="https://map.baidu.com/">
-            </iframe>
-          </el-dialog>
-        </el-row>
-        <el-row style="margin-top: 15px">
-          <span>订单号：{{order.orderNumber}}</span>
-          <el-popover
-            placement="top-start"
-            title="订单号？"
-            width="200"
-            trigger="hover"
-            content="您需要凭借此订单号到店给前台，方可就餐；也可以凭借此订单号申请售后服务等。">
-            <el-button slot="reference" icon="el-icon-info" circle size="mini"></el-button>
-          </el-popover>
-        </el-row>
-        <el-row style="margin-top: 15px">
-          <el-collapse>
-            <el-collapse-item :title="order.status" name="1">
-              <el-timeline :reverse="reverse" style="margin-top: 20px">
-                <el-timeline-item
-                  v-for="(activity, index) in activities"
-                  :key="index"
-                  :timestamp="activity.timestamp">
-                  {{activity.content}}
-                </el-timeline-item>
-              </el-timeline>
-            </el-collapse-item>
-          </el-collapse>
-        </el-row>
-      </el-col>
-    </el-row>
-    <!-- 第二行 -->
-    <el-row :gutter="10">
-      <el-col :span="1.5">
-        <el-button size="mini" icon="el-icon-phone-outline">联系商家</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button size="mini" icon="el-icon-thumb">催促商家</el-button>
-      </el-col>
-    </el-row>
-    <el-divider>订单列表</el-divider>
-    <!-- 第三行 -->
-    <el-table
-      :data="dishes"
-      :fit="true"
-      :stripe="true"
-      :border="true"
-      height="420"
-      :cell-style="{ textAlign: 'center' }"
-      :header-cell-style="{ textAlign: 'center' }"
-      style="width: 100%">
-      <el-table-column
-        fixed
-        prop="imgUrl"
-        label="预览图"
-        width="180">
-        <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" content="点击查看大图" placement="top">
-            <el-image
-              style="width: 100px; height: 100px"
-              :src="scope.row.imgUrl"
-              :preview-src-list="[scope.row.imgUrl]">
-              <div slot="error" class="image-slot">
-                <i class="el-icon-picture-outline"></i>
-              </div>
-            </el-image>
-          </el-tooltip>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="商品名"
-        width="200">
-      </el-table-column>
-      <el-table-column
-        prop="price"
-        width="120"
-        label="单价">
-      </el-table-column>
-      <el-table-column
-        prop="num"
-        label="数量">
-        <template slot-scope="scope">
-          <el-input-number
-            size="mini"
-            :disabled="true"
-            style="width: 130px"
-            v-model="scope.row.num"
-            @change="getGoodsNum"
-            :min="1"
-            :max="99">
-          </el-input-number>
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-divider>预约信息</el-divider>
-    <div class="appointment-information">
-      <el-row :gutter="10">
-        <el-col style="margin: 10px" :span="7">预约日期：{{order.date}}</el-col>
-        <el-col style="margin: 10px" :span="7">到店时间：{{order.time}}</el-col>
-        <el-col style="margin: 10px" :span="7">客户姓名：{{customer.name}}</el-col>
-        <el-col style="margin: 10px" :span="7">联系电话：{{customer.telephone}}</el-col>
-        <el-col style="margin: 10px" :span="7">约定人数：{{order.num}}</el-col>
+  <el-container>
+    <el-header>Header</el-header>
+    <el-main style="padding: 0 10%">
+      <el-divider>商家信息</el-divider>
+      <!-- 第一行 -->
+      <el-row>
+        <!-- 第一列，商家的图片 -->
+        <el-col :span="6">
+          <el-image
+            style="width: 150px; height: 150px; border-radius: 6px;"
+            src="http://oss.norza.cn/imgs/84917906_p0.png">
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-image>
+        </el-col>
+        <!-- 第二列，地理位置，排队号 -->
+        <el-col :span="12">
+          <el-row style="margin-bottom: 25px">
+            <el-col>
+              <el-card class="box-card">地理位置：{{merchant.location}}</el-card>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col>
+              <el-card class="box-card">您当前排队号：{{order.queueNumber}}</el-card>
+            </el-col>
+          </el-row>
+        </el-col>
+        <!-- 第三列，地图，订单状态 -->
+        <el-col :span="6">
+          <el-row>
+            <el-button style="float: right" @click="openMap" icon="el-icon-location-information">地图</el-button>
+            <el-dialog
+              v-dialogDrag
+              title="百度地图"
+              :visible.sync="showMap"
+              :close-on-click-modal="false"
+              :modal="false"
+              width="45%">
+              <iframe
+                id="baidu-map"
+                width="100%"
+                frameborder="0"
+                height="500"
+                src="https://map.baidu.com/">
+              </iframe>
+            </el-dialog>
+          </el-row>
+          <el-row style="margin-top: 15px">
+            <span style="float: right">订单号：{{order.orderNumber}}</span>
+            <el-popover style="float: right"
+              placement="top-start"
+              title="订单号？"
+              width="200"
+              trigger="hover"
+              content="您需要凭借此订单号到店给前台，方可就餐；也可以凭借此订单号申请售后服务等。">
+              <el-button slot="reference" icon="el-icon-info" circle size="mini"></el-button>
+            </el-popover>
+          </el-row>
+          <el-row style="margin-top: 15px">
+            <el-collapse style="float: right">
+              <el-collapse-item :title="order.status" name="1">
+                <el-timeline :reverse="reverse" style="margin-top: 20px">
+                  <el-timeline-item
+                    v-for="(activity, index) in activities"
+                    :key="index"
+                    :timestamp="activity.timestamp">
+                    {{activity.content}}
+                  </el-timeline-item>
+                </el-timeline>
+              </el-collapse-item>
+            </el-collapse>
+          </el-row>
+        </el-col>
       </el-row>
-    </div>
-    <div class="element-margin submit">
-      <!-- 第四行，操作 -->
-      <div class="footer" style="margin-top: 40px">
-        <span style="margin-right: 20px">总价：{{total}} ¥</span>
-        <el-popconfirm
-          confirm-button-text='是的'
-          cancel-button-text='不用了'
-          icon="el-icon-info"
-          icon-color="red"
-          title="确定要取消订单吗？">
-          <el-button :disabled="order.notCancelable" type="primary" slot="reference" size="mini">取消订单</el-button>
-        </el-popconfirm>
+      <!-- 第二行 -->
+      <el-row :gutter="10" style="margin-top: 20px">
+        <el-col :span="1.5">
+          <el-button size="mini" icon="el-icon-phone-outline">联系商家</el-button>
+        </el-col>
+        <el-col :span="1.5">
+          <el-button size="mini" icon="el-icon-thumb">催促商家</el-button>
+        </el-col>
+      </el-row>
+      <el-divider>订单列表</el-divider>
+      <!-- 第三行 -->
+      <el-table
+        :data="dishes"
+        :fit="true"
+        :stripe="true"
+        :border="true"
+        height="420"
+        :cell-style="{ textAlign: 'center' }"
+        :header-cell-style="{ textAlign: 'center' }"
+        style="width: 100%">
+        <el-table-column
+          fixed
+          prop="imgUrl"
+          label="预览图">
+          <template slot-scope="scope">
+            <el-tooltip class="item" effect="dark" content="点击查看大图" placement="top">
+              <el-image
+                style="width: 100px; height: 100px"
+                :src="scope.row.imgUrl"
+                :preview-src-list="[scope.row.imgUrl]">
+                <div slot="error" class="image-slot">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="商品名">
+        </el-table-column>
+        <el-table-column
+          prop="price"
+          width="120"
+          label="单价">
+        </el-table-column>
+        <el-table-column
+          prop="num"
+          label="数量">
+          <template slot-scope="scope">
+            <el-input-number
+              size="mini"
+              :disabled="true"
+              style="width: 130px"
+              v-model="scope.row.num"
+              @change="getGoodsNum"
+              :min="1"
+              :max="99">
+            </el-input-number>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-divider>预约信息</el-divider>
+      <div class="appointment-information">
+        <el-row :gutter="10">
+          <el-col style="margin: 10px" :span="7">预约日期：{{order.date}}</el-col>
+          <el-col style="margin: 10px" :span="7">到店时间：{{order.time}}</el-col>
+          <el-col style="margin: 10px" :span="7">客户姓名：{{customer.name}}</el-col>
+          <el-col style="margin: 10px" :span="7">联系电话：{{customer.telephone}}</el-col>
+          <el-col style="margin: 10px" :span="7">约定人数：{{order.num}}</el-col>
+        </el-row>
       </div>
-    </div>
-  </div>
+      <div class="element-margin submit">
+        <!-- 第四行，操作 -->
+        <div class="footer" style="margin-top: 40px">
+          <span style="margin-right: 20px">总价：{{total}} ¥</span>
+          <el-popconfirm
+            confirm-button-text='是的'
+            cancel-button-text='不用了'
+            icon="el-icon-info"
+            icon-color="red"
+            title="确定要取消订单吗？">
+            <el-button :disabled="order.notCancelable" type="primary" slot="reference" size="mini">取消订单</el-button>
+          </el-popconfirm>
+        </div>
+      </div>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -170,10 +171,8 @@ export default {
   name: 'CustomerOrderDetail',
   methods: {
     getGoodsNum (value) {
-      console.log('the goods num :' + value)
     },
     getGuestNum (value) {
-      console.log('the guest num :' + value)
     },
     openMap () {
       this.showMap = true
