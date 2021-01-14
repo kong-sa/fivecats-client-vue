@@ -1,7 +1,8 @@
 <template>
-  <div id="abbreviated-order-menu">
+  <!-- 用户订单 - 简略列表（弹窗） -->
+  <div id="abbr-order">
     <div
-      class="abbreviated-menu"
+      class="abbr-page"
       v-for="orderItem in order"
       :key="orderItem.orderNumber">
       <el-row>
@@ -11,7 +12,7 @@
             v-for="dishesItem in orderItem.dishes"
             :key="dishesItem.dishesId">
             <el-image
-              class="abbreviated-image"
+              class="abbr-image"
               :src="dishesItem.imgUrl"
             >
               <div slot="error" class="image-slot">
@@ -24,31 +25,17 @@
           <el-col :span="8">排队号：{{orderItem.queueNumber}}</el-col>
           <el-col :span="8">总价：{{orderItem.total}} ¥</el-col>
           <el-col :span="8">
-            <el-button size="mini" icon="el-icon-more-outline" @click="showDetailedOrderMenu = true">详细</el-button>
+            <router-link to="/detail/order">详细</router-link>
           </el-col>
         </el-row>
       </el-row>
     </div>
-    <el-dialog
-      v-dialogDrag
-      :close-on-click-modal="false"
-      :modal="false"
-      title="订单详细"
-      :visible.sync="showDetailedOrderMenu"
-      width="60%">
-      <detailed-order-menu/>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import DetailedOrderMenu from './DetailedOrderMenu'
-
 export default {
-  name: 'AbbreviatedOrderMenu',
-  components: {
-    DetailedOrderMenu
-  },
+  name: 'CustomerOrderAbbPopups',
   mounted () {
     this.order.forEach(function (currentValue, index, arr) {
       let total = 0
@@ -60,7 +47,6 @@ export default {
   },
   data () {
     return {
-      showDetailedOrderMenu: false,
       total: 0,
       order: [
         {
@@ -128,12 +114,12 @@ export default {
 </script>
 
 <style scoped>
-#abbreviated-order-menu {
+#abbr-order {
   height: 453px;
   overflow-y: auto
 }
 
-.abbreviated-menu {
+.abbr-page {
   margin: 5px;
   padding: 10px;
   box-shadow:
@@ -141,7 +127,7 @@ export default {
     0 0 6px rgba(0, 0, 0, .04)
 }
 
-.abbreviated-image {
+.abbr-image {
   width: 50px;
   height: 50px;
   border-radius: 6px

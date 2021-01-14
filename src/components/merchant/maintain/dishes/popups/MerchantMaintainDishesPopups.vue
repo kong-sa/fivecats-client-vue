@@ -1,5 +1,6 @@
 <template>
-  <div id="merchant-new-dishes">
+  <!-- 商家维护 - 添加菜品（弹窗） -->
+  <div id="dishes-maintain">
     <el-row class="dishes-row">
       <el-col :span="6">菜品图片：</el-col>
       <el-col class="dishes-upload" :span="12">
@@ -51,7 +52,7 @@
 
 <script>
 export default {
-  name: 'MerchantNewDishes',
+  name: 'MerchantMaintainDishesPopups',
   data () {
     return {
       imageUrl: '',

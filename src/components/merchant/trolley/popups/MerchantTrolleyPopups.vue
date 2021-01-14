@@ -1,4 +1,5 @@
 <template>
+  <!-- 商家主页 - 购物车（弹窗） -->
   <div id="merchant-trolley">
     <el-divider>购物车列表</el-divider>
     <el-table
@@ -162,16 +163,14 @@
 
 <script>
 export default {
-  name: 'MerchantTrolley',
+  name: 'MerchantTrolleyPopups',
   methods: {
     deleteRow (index, rows) {
       rows.splice(index, 1)
     },
     getGoodsNum (value) {
-      console.log('the goods num :' + value)
     },
     getGuestNum (value) {
-      console.log('the guest num :' + value)
     }
   },
   data () {

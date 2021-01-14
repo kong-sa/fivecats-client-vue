@@ -1,18 +1,18 @@
 <template>
   <div id="video-preview">
     <video-player :options="videoOptions"/>
-    <video-comment-area/>
+    <video-comment/>
   </div>
 </template>
 
 <script>
-import VideoPlayer from './VideoPlayer'
-import VideoCommentArea from './VideoCommentArea'
+import VideoPlayer from './player/VideoPlayer'
+import VideoComment from './comment/VideoComment'
 export default {
-  name: 'VideoPreview',
+  name: 'VideoMain',
   components: {
     VideoPlayer,
-    VideoCommentArea
+    VideoComment
   },
   data () {
     return {

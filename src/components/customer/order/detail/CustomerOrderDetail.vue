@@ -1,5 +1,6 @@
 <template>
-  <div id="detailed-order-menu">
+  <!-- 用户订单 - 详细信息页 -->
+  <div id="detail-order">
     <el-divider>商家信息</el-divider>
     <!-- 第一行 -->
     <el-row :gutter="10">
@@ -93,7 +94,6 @@
       :cell-style="{ textAlign: 'center' }"
       :header-cell-style="{ textAlign: 'center' }"
       style="width: 100%">
-      <!-- 预览图 -->
       <el-table-column
         fixed
         prop="imgUrl"
@@ -112,19 +112,16 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <!-- 商品名 -->
       <el-table-column
         prop="name"
         label="商品名"
         width="200">
       </el-table-column>
-      <!-- 单价 -->
       <el-table-column
         prop="price"
         width="120"
         label="单价">
       </el-table-column>
-      <!-- 数量 -->
       <el-table-column
         prop="num"
         label="数量">
@@ -170,7 +167,7 @@
 
 <script>
 export default {
-  name: 'DetailedOrderMenu',
+  name: 'CustomerOrderDetail',
   methods: {
     getGoodsNum (value) {
       console.log('the goods num :' + value)

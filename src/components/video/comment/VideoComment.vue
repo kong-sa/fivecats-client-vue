@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: 'VideoCommentArea',
+  name: 'VideoComment',
   methods: {
     errorHandler () {
       return true

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import videojs from 'video.js'
+import videoJs from 'video.js'
 export default {
   name: 'VideoPlayer',
   props: {
@@ -22,7 +22,7 @@ export default {
     }
   },
   mounted () {
-    this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady () {
+    this.player = videoJs(this.$refs.videoPlayer, this.options, function onPlayerReady () {
       console.log('onPlayerReady', this)
     })
   },
