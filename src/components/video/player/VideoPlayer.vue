@@ -15,7 +15,7 @@
           </el-collapse-item>
           <el-collapse-item class="collapse-item" title="作者信息 ↓↓↓ 点击展开更多" name="2">
             <el-row>
-              <el-col :span="2">
+              <el-col :xs="3" :span="2">
                 <el-dropdown>
                   <el-avatar id="avatar" :src="customer.avatar">
                     <div slot="error" class="image-slot">
@@ -36,7 +36,7 @@
                   </el-dropdown-menu>
                 </el-dropdown>
               </el-col>
-              <el-col :span="22">
+              <el-col :xs="21" :span="22">
                 <el-row>用户名：<a class="username" href="">{{customer.nickname}}</a></el-row>
                 <el-row>个人简介：{{customer.introduction}}</el-row>
                 <el-row>粉丝数：{{customer.fans}}</el-row>
@@ -92,10 +92,6 @@ export default {
 </script>
 
 <style scoped>
-#video-player {
-  padding: 0 10%;
-}
-
 .el-dropdown-link {
   cursor: pointer;
   color: #409EFF;
@@ -170,5 +166,18 @@ i {
 
 #video-bottom {
   margin-top: 25px;
+}
+
+/* 当屏幕小于767px时 */
+@media screen and (max-width: 767px) {
+  #video-player {
+    padding: 0;
+  }
+}
+/* 当屏幕大于于767px时 */
+@media screen and (min-width: 768px) {
+  #video-player {
+    padding: 0 10%;
+  }
 }
 </style>

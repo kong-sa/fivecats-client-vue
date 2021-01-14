@@ -2,12 +2,12 @@
   <!-- 用户订单 - 详细信息页 -->
   <el-container>
     <el-header>Header</el-header>
-    <el-main style="padding: 0 10%">
+    <el-main id="order-detail-main">
       <el-divider>商家信息</el-divider>
       <!-- 第一行 -->
       <el-row>
         <!-- 第一列 -->
-        <el-col :span="6">
+        <el-col id="merchant-image" :xs="24" :span="6">
           <el-image
             style="width: 150px; height: 150px; border-radius: 6px;"
             src="http://oss.norza.cn/imgs/84917906_p0.png">
@@ -17,7 +17,7 @@
           </el-image>
         </el-col>
         <!-- 第二列 -->
-        <el-col :span="12">
+        <el-col :xs="24" :span="12">
           <el-row style="margin-bottom: 25px">
             <el-col>
               <el-card class="box-card">地理位置：{{merchant.location}}</el-card>
@@ -30,9 +30,9 @@
           </el-row>
         </el-col>
         <!-- 第三列 -->
-        <el-col :span="6">
+        <el-col :xs="24" :span="6">
           <el-row>
-            <el-button style="float: right" @click="openMap" icon="el-icon-location-information">地图</el-button>
+            <el-button class="third-col" @click="openMap" icon="el-icon-location-information">地图</el-button>
             <el-dialog
               v-dialogDrag
               title="百度地图"
@@ -41,7 +41,6 @@
               :modal="false"
               width="45%">
               <iframe
-                id="baidu-map"
                 width="100%"
                 frameborder="0"
                 height="500"
@@ -50,8 +49,8 @@
             </el-dialog>
           </el-row>
           <el-row style="margin-top: 15px">
-            <span style="float: right">订单号：{{order.orderNumber}}</span>
-            <el-popover style="float: right"
+            <span class="third-col">订单号：{{order.orderNumber}}</span>
+            <el-popover class="third-col"
               placement="top-start"
               title="订单号？"
               width="200"
@@ -61,7 +60,7 @@
             </el-popover>
           </el-row>
           <el-row style="margin-top: 15px">
-            <el-collapse style="float: right">
+            <el-collapse class="third-col">
               <el-collapse-item :title="order.status" name="1">
                 <el-timeline :reverse="reverse" style="margin-top: 20px">
                   <el-timeline-item
@@ -88,6 +87,7 @@
       <el-divider>订单列表</el-divider>
       <!-- 第三行 -->
       <el-table
+        class="table-column"
         :data="dishes"
         :fit="true"
         :stripe="true"
@@ -270,9 +270,27 @@ export default {
 </script>
 
 <style scoped>
-.el-card {
-  box-shadow:
-    0 1px 1px rgb(0, 0, 0, 0.15)
-    !important;
-}
+  .el-card {
+    box-shadow:
+      0 1px 1px rgb(0, 0, 0, 0.15)
+      !important;
+  }
+  /* 当屏幕小于767px时 */
+  @media screen and (max-width: 767px) {
+    #order-detail-main {
+      padding: 0;
+    }
+    #merchant-image {
+      text-align: center;
+    }
+  }
+  /* 当屏幕大于于767px时 */
+  @media screen and (min-width: 768px) {
+    #order-detail-main {
+      padding: 0 10%;
+    }
+    .third-col {
+      float: right;
+    }
+  }
 </style>

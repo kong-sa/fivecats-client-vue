@@ -33,6 +33,22 @@ export default {
       Arial,
       sans-serif;
   }
+  /*滚动条宽度*/
+  *::-webkit-scrollbar {
+    width: 9px;
+  }
+  /*滚动条里面小方块*/
+  *::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    /*-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);*/
+    background: rgba(0, 0, 0, 0.2);
+  }
+  /*滚动条里面轨道*/
+  *::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);*/
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.1);
+  }
   a:link {
     color: rgb(140, 197, 255);
   }

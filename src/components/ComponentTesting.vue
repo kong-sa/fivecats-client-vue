@@ -6,7 +6,7 @@
       :modal="false"
       title="订单列表"
       :visible.sync="showAbbOrder"
-      width="40%">
+      :width="dialogWidth">
       <customer-order-abb-popups/>
     </el-dialog>
     <router-link style="margin: 15px" to="/customer/main">个人中心</router-link>
@@ -23,8 +23,18 @@ export default {
   components: {
     CustomerOrderAbbPopups
   },
+  mounted () {
+    let width = window.screen.width
+    if (width < 768) {
+      this.dialogWidth = '90%'
+    }
+    if (width < 330) {
+      this.dialogWidth = '100%'
+    }
+  },
   data () {
     return {
+      dialogWidth: '30%',
       showAbbOrder: false
     }
   }

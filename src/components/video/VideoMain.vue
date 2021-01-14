@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>Header</el-header>
-    <el-main>
+    <el-main id="video-main">
       <video-player :options="videoOptions"/>
       <video-comment/>
     </el-main>
@@ -39,4 +39,13 @@ export default {
 </script>
 
 <style scoped>
+  /* 当屏幕小于767px时 */
+  @media screen and (max-width: 767px) {
+    #video-main {
+      padding: 0;
+    }
+  }
+  /* 当屏幕大于于767px时 */
+  @media screen and (min-width: 768px) {
+  }
 </style>

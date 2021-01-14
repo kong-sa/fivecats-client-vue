@@ -6,7 +6,7 @@
       :modal="false"
       title="购物车"
       :visible.sync="showTrolley"
-      width="60%">
+      :width="dialogWidth">
       <merchant-trolley-popups/>
     </el-dialog>
     <el-button type="text" @click="showDishes = true" style="margin: 15px">添加菜品</el-button>
@@ -15,7 +15,7 @@
       :modal="false"
       title="添加菜品"
       :visible.sync="showDishes"
-      width="50%">
+      :width="dialogWidth">
       <merchant-maintain-dishes-popups/>
     </el-dialog>
   </div>
@@ -31,8 +31,18 @@ export default {
     MerchantTrolleyPopups,
     MerchantMaintainDishesPopups
   },
+  mounted () {
+    let width = window.screen.width
+    if (width < 768) {
+      this.dialogWidth = '90%'
+    }
+    if (width < 330) {
+      this.dialogWidth = '100%'
+    }
+  },
   data () {
     return {
+      dialogWidth: '60%',
       showTrolley: false,
       showDishes: false
     }

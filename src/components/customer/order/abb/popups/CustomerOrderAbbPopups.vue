@@ -21,9 +21,9 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8">排队号：{{orderItem.queueNumber}}</el-col>
-          <el-col :span="8">总价：{{orderItem.total}} ¥</el-col>
-          <el-col :span="8">
+          <el-col :xs="10" :span="8">排队号：{{orderItem.queueNumber}}</el-col>
+          <el-col :xs="10" :span="8">总价：{{orderItem.total}} ¥</el-col>
+          <el-col :xs="12" :span="8">
             <router-link to="/detail/order">详细</router-link>
           </el-col>
         </el-row>

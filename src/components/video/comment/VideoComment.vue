@@ -1,5 +1,5 @@
 <template>
-  <div id="video-comment" style="padding: 5% 12%">
+  <div id="video-comment">
     <!-- 编辑评论 -->
     <el-row>
       <el-col :span="3">
@@ -19,7 +19,7 @@
     <el-divider id="divider"></el-divider>
     <!-- 评论区 -->
     <el-row v-for="CommentItem in comment" :key="CommentItem.customerId">
-      <el-col :span="2">
+      <el-col :xs="3" :span="2">
         <el-dropdown>
           <el-avatar fit="fill" :src="CommentItem.avatar">
             <div slot="error" class="image-slot">
@@ -40,7 +40,7 @@
           </el-dropdown-menu>
         </el-dropdown>
       </el-col>
-      <el-col :span="22" id="comment-col">
+      <el-col :xs="21" :span="22" id="comment-col">
         <el-row class="comment-row" id="comment-nickname">{{CommentItem.nickname}}</el-row>
         <el-row class="comment-row" id="comment-content">{{CommentItem.content}}</el-row>
         <el-row class="comment-row" id="comment-info">
@@ -165,5 +165,18 @@ i {
 
 #divider {
   margin-top: 50px;
+}
+
+/* 当屏幕小于767px时 */
+@media screen and (max-width: 767px) {
+  #video-comment {
+    padding: 0;
+  }
+}
+/* 当屏幕大于于767px时 */
+@media screen and (min-width: 768px) {
+  #video-comment {
+    padding: 5% 12%;
+  }
 }
 </style>
