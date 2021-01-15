@@ -1,8 +1,8 @@
 <template>
     <div id="filter-trolley-popups">
-      <!--1行-->
+      <!-- 第一行 商家信息 -->
       <el-row :gutter="10" id="filter-trolley-merchant-info">
-        <!--1列-->
+        <!-- 第一列 -->
         <el-col :xs="24" :sm="24" :md="5" id="merchant-image" class="filter-trolley-merchant-col">
           <el-image style="width: 100px; height: 100px; border-radius: 6px;" :src="merchant.imgUrl">
             <div slot="error" class="image-slot">
@@ -10,15 +10,15 @@
             </div>
           </el-image>
         </el-col>
-        <!--2列-->
+        <!-- 第二列 -->
         <el-col :xs="24" :sm="24" :md="6" class="filter-trolley-merchant-col">
           <el-card>店名：{{merchant.name}}</el-card>
         </el-col>
-        <!--3列-->
+        <!-- 第三列 -->
         <el-col :xs="24" :sm="24" :md="12" class="filter-trolley-merchant-col">
           <el-card>地理位置：{{merchant.location}}</el-card>
         </el-col>
-        <!--4列-->
+        <!-- 第四列 -->
         <el-col :xs="24" :sm="24" :md="4" id="map-button" class="filter-trolley-merchant-col">
           <el-button @click="showMap = true" icon="el-icon-location-information">地图</el-button>
           <el-dialog
@@ -38,9 +38,9 @@
         </el-col>
       </el-row>
       <el-divider>订单信息</el-divider>
-      <!--2行-->
+      <!-- 第二行 订单信息 -->
       <el-row id="filter-trolley-dishes-info">
-        <!--1列-->
+        <!-- 第一列 菜品图片 -->
         <el-col class="filter-trolley-dishes-col">
           <el-image style="width: 60px; height: 60px; border-radius: 6px;" :src="dishes.imgUrl">
             <div slot="error" class="image-slot">
@@ -48,11 +48,12 @@
             </div>
           </el-image>
         </el-col>
-        <!--2列-->
+        <!-- 第二列 菜品名字 -->
         <el-col class="filter-trolley-dishes-col">{{dishes.name}}</el-col>
-        <!--3列-->
+        <!-- 第三列 菜品价格 -->
         <el-col class="filter-trolley-dishes-col">{{dishes.price}} ¥</el-col>
       </el-row>
+      <!-- 第三行 客户信息 -->
       <el-row class="filter-trolley-dishes-info">
         <el-col :xs="8" :span="8">选择数量：</el-col>
         <el-col :xs="16" :span="16">

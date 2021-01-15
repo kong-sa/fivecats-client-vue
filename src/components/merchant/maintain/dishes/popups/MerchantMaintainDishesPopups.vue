@@ -1,5 +1,5 @@
 <template>
-  <!-- 商家维护 - 添加菜品（弹窗） -->
+  <!-- 添加新的菜品（弹窗） -->
   <div id="dishes-maintain">
     <el-row class="dishes-row">
       <el-col :span="6">菜品图片：</el-col>
@@ -62,8 +62,7 @@ export default {
       this.$confirm('确认关闭？')
         .then(_ => {
           done()
-        })
-        .catch(_ => {
+        }).catch(_ => {
         })
     },
     handleAvatarSuccess (res, file) {
@@ -72,7 +71,6 @@ export default {
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'
       const isLt2M = file.size / 1024 / 1024 < 2
-
       if (!isJPG) {
         this.$message.error('上传头像图片只能是 JPG 格式!')
       }

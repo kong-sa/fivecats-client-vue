@@ -51,7 +51,7 @@
             size="mini"
             style="width: 130px"
             v-model="scope.row.num"
-            @change="getGoodsNum"
+            @change="getDishesNum"
             :min="1"
             :max="99"></el-input-number>
         </template>
@@ -68,7 +68,7 @@
       </el-table-column>
     </el-table>
     <el-divider>基本信息</el-divider>
-    <div class="element-margin">
+    <div class="basic-info">
       <el-row>
         <el-col :xs="8" :sm="4" :md="4" :lg="3">预约日期：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
@@ -83,7 +83,7 @@
         </el-col>
       </el-row>
     </div>
-    <div class="element-margin select-time">
+    <div class="basic-info select-time">
       <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">到店时间：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
@@ -100,7 +100,7 @@
         </el-col>
       </el-row>
     </div>
-    <div class="element-margin customer-name">
+    <div class="basic-info customer-name">
       <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">客户姓名：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
@@ -112,7 +112,7 @@
         </el-col>
       </el-row>
     </div>
-    <div class="element-margin telephone">
+    <div class="basic-info telephone">
       <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">联系电话：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
@@ -124,7 +124,7 @@
         </el-col>
       </el-row>
     </div>
-    <div class="element-margin guest-num">
+    <div class="basic-info guest-num">
       <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">预定人数：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
@@ -132,13 +132,13 @@
             size="mini"
             class="trolley-number"
             v-model="customerNum"
-            @change="getGuestNum"
+            @change="getCustomerNum"
             :min="1"
             :max="99"></el-input-number>
         </el-col>
       </el-row>
     </div>
-    <div class="element-margin submit">
+    <div class="basic-info submit">
       <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">总价：{{price}}¥</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
@@ -159,9 +159,9 @@ export default {
     deleteRow (index, rows) {
       rows.splice(index, 1)
     },
-    getGoodsNum (value) {
+    getDishesNum (value) {
     },
-    getGuestNum (value) {
+    getCustomerNum (value) {
     }
   },
   data () {
@@ -209,25 +209,28 @@ export default {
       ],
       dishes: [
         {
-          dishesId: 1,
+          id: 1,
           imgUrl: 'http://oss.norza.cn/imgs/food/food01.jpg',
-          name: '炸鸡腿',
-          num: 1,
-          price: 12
+          price: 30.5,
+          num: 1
         },
         {
-          dishesId: 2,
+          id: 2,
           imgUrl: 'http://oss.norza.cn/imgs/food/food02.jpg',
-          name: '原味奶茶',
-          num: 1,
-          price: 12
+          price: 12,
+          num: 1
         },
         {
-          dishesId: 3,
+          id: 3,
           imgUrl: 'http://oss.norza.cn/imgs/food/food03.jpg',
-          name: '炸鸡块',
-          num: 1,
-          price: 13
+          price: 13,
+          num: 1
+        },
+        {
+          id: 4,
+          imgUrl: 'http://oss.norza.cn/imgs/food/food04.jpg',
+          price: 14,
+          num: 1
         }
       ]
     }
@@ -236,7 +239,7 @@ export default {
 </script>
 
 <style scoped>
-.element-margin {
+.basic-info {
   margin-top: 20px;
 }
 

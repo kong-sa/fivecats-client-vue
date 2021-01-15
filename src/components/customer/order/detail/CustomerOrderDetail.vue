@@ -1,12 +1,11 @@
 <template>
-  <!-- 用户订单 - 详细信息页 -->
+  <!-- 详细订单页 -->
   <el-container>
     <el-header>Header</el-header>
     <el-main id="order-detail-main">
-      <el-divider>商家信息</el-divider>
-      <!-- 第一行 -->
+      <!-- 第一行 商家信息 -->
       <el-row>
-        <!-- 第一列 -->
+        <!-- 第一列 商家图片-->
         <el-col id="merchant-image" :xs="24" :span="6">
           <el-image
             style="width: 150px; height: 150px; border-radius: 6px;"
@@ -16,23 +15,22 @@
             </div>
           </el-image>
         </el-col>
-        <!-- 第二列 -->
+        <!-- 第二列 商家信息-->
         <el-col :xs="24" :span="12">
+          <!-- 第一行 商家地理位置 -->
           <el-row style="margin-bottom: 25px">
-            <el-col>
               <el-card class="box-card">地理位置：{{merchant.location}}</el-card>
-            </el-col>
           </el-row>
+          <!-- 第二行 排队号信息-->
           <el-row>
-            <el-col>
-              <el-card class="box-card">您当前排队号：{{order.queueNumber}}</el-card>
-            </el-col>
+              <el-card class="box-card">您当前排队号：{{order.queueNum}}</el-card>
           </el-row>
         </el-col>
-        <!-- 第三列 -->
+        <!-- 第三列 其他便利功能-->
         <el-col :xs="24" :span="6">
+          <!-- 第一行 地图按钮 -->
           <el-row>
-            <el-button class="third-col" @click="openMap" icon="el-icon-location-information">地图</el-button>
+            <el-button class="third-col" @click="openMap" icon="el-icon-location-information">查看地图</el-button>
             <el-dialog
               v-dialogDrag
               title="百度地图"
@@ -48,8 +46,9 @@
               </iframe>
             </el-dialog>
           </el-row>
+          <!-- 第二行 订单号信息 -->
           <el-row style="margin-top: 15px">
-            <span class="third-col">订单号：{{order.orderNumber}}</span>
+            <span class="third-col">订单号：{{order.orderNum}}</span>
             <el-popover class="third-col"
               placement="top-start"
               title="订单号？"
@@ -59,6 +58,7 @@
               <el-button slot="reference" icon="el-icon-info" circle size="mini"></el-button>
             </el-popover>
           </el-row>
+          <!-- 第三行 订单信息折叠面板 -->
           <el-row style="margin-top: 15px">
             <el-collapse class="third-col">
               <el-collapse-item :title="order.status" name="1">
@@ -75,7 +75,7 @@
           </el-row>
         </el-col>
       </el-row>
-      <!-- 第二行 -->
+      <!-- 第二行 相关功能 -->
       <el-row :gutter="10" style="margin-top: 20px">
         <el-col :span="1.5">
           <el-button size="mini" icon="el-icon-phone-outline">联系商家</el-button>
@@ -85,7 +85,7 @@
         </el-col>
       </el-row>
       <el-divider>订单列表</el-divider>
-      <!-- 第三行 -->
+      <!-- 第三行 订单表格 -->
       <el-table
         class="table-column"
         :data="dishes"
@@ -131,7 +131,7 @@
               :disabled="true"
               style="width: 130px"
               v-model="scope.row.num"
-              @change="getGoodsNum"
+              @change="getDishesNum"
               :min="1"
               :max="99">
             </el-input-number>
@@ -139,17 +139,18 @@
         </el-table-column>
       </el-table>
       <el-divider>预约信息</el-divider>
+      <!-- 预约信息 -->
       <div class="appointment-information">
         <el-row :gutter="10">
           <el-col style="margin: 10px" :span="7">预约日期：{{order.date}}</el-col>
           <el-col style="margin: 10px" :span="7">到店时间：{{order.time}}</el-col>
           <el-col style="margin: 10px" :span="7">客户姓名：{{customer.name}}</el-col>
           <el-col style="margin: 10px" :span="7">联系电话：{{customer.telephone}}</el-col>
-          <el-col style="margin: 10px" :span="7">约定人数：{{order.num}}</el-col>
+          <el-col style="margin: 10px" :span="7">约定人数：{{order.customerNum}}</el-col>
         </el-row>
       </div>
-      <div class="element-margin submit">
-        <!-- 第四行 -->
+      <!-- 订单操作 -->
+      <div class="basic-info submit">
         <div class="footer" style="margin-top: 40px">
           <span style="margin-right: 20px">总价：{{total}} ¥</span>
           <el-popconfirm
@@ -174,9 +175,7 @@
 export default {
   name: 'CustomerOrderDetail',
   methods: {
-    getGoodsNum (value) {
-    },
-    getGuestNum (value) {
+    getDishesNum (value) {
     },
     openMap () {
       this.showMap = true
@@ -184,9 +183,8 @@ export default {
   },
   mounted () {
     let total = 0
-    this.dishes.forEach(function (currentValue, index, arr) {
-      let currentTotal = currentValue.price * currentValue.num
-      total += currentTotal
+    this.dishes.forEach(function (dishes, index, arr) {
+      total += dishes.price * dishes.num
     })
     this.total = total
   },
@@ -201,41 +199,45 @@ export default {
         location: '四川省绵阳市涪城区万达广场2号门2楼'
       },
       customer: {
-        customerId: 1,
+        id: 1,
         name: '小明',
         telephone: '18508153489'
       },
       order: {
+        id: 1,
+        orderNum: 'EF20210113',
         customerId: 1,
-        orderNumber: 'EF20210113',
         status: '订单状态：订单已完成',
         notCancelable: true,
         date: '2020-01-13',
         time: '12:30:00-1:30:00',
-        queueNumber: '10',
-        num: 2
+        queueNum: '10',
+        customerNum: 2
       },
       dishes: [
         {
-          dishesId: 1,
+          id: 1,
           imgUrl: 'http://oss.norza.cn/imgs/food/food01.jpg',
-          name: '炸鸡腿',
-          num: 1,
-          price: 12
+          price: 30.5,
+          num: 1
         },
         {
-          dishesId: 2,
+          id: 2,
           imgUrl: 'http://oss.norza.cn/imgs/food/food02.jpg',
-          name: '原味奶茶',
-          num: 1,
-          price: 12
+          price: 12,
+          num: 1
         },
         {
-          dishesId: 3,
+          id: 3,
           imgUrl: 'http://oss.norza.cn/imgs/food/food03.jpg',
-          name: '炸鸡块',
-          num: 1,
-          price: 13
+          price: 13,
+          num: 1
+        },
+        {
+          id: 4,
+          imgUrl: 'http://oss.norza.cn/imgs/food/food04.jpg',
+          price: 14,
+          num: 1
         }
       ],
       time: [
