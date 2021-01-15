@@ -270,12 +270,7 @@ export default {
 </script>
 
 <style scoped>
-  .el-card {
-    box-shadow:
-      0 1px 1px rgb(0, 0, 0, 0.15)
-      !important;
-  }
-  /* 当屏幕小于767px时 */
+  /* 当屏幕 < 767px */
   @media screen and (max-width: 767px) {
     #order-detail-main {
       padding: 0;
@@ -284,7 +279,7 @@ export default {
       text-align: center;
     }
   }
-  /* 当屏幕大于于767px时 */
+  /* 当屏幕 > 767px */
   @media screen and (min-width: 768px) {
     #order-detail-main {
       padding: 0 10%;

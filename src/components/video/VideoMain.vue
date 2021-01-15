@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import VideoPlayer from './player/VideoPlayer'
 import VideoComment from './comment/VideoComment'
+import VideoPlayer from './player/VideoPlayer'
 
 export default {
   name: 'VideoMain',

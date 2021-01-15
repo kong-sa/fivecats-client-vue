@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ComponentTesting from '../components/ComponentTesting'
+// my components
+import FilterMain from '../components/filter/FilterMain'
 import VideoMain from '../components/video/VideoMain'
+import ComponentTesting from '../components/ComponentTesting'
+import MerchantMain from '../components/merchant/MerchantMain'
 import CustomerMain from '../components/customer/CustomerMain'
 import CustomerOrderDetail from '../components/customer/order/detail/CustomerOrderDetail'
-import MerchantMain from '../components/merchant/MerchantMain'
 
 Vue.use(Router)
 
@@ -14,7 +16,7 @@ export default new Router({
       path: '/',
       component: ComponentTesting,
       meta: {
-        title: '已完成弹窗'
+        title: '已完成部分'
       }
     },
     {
@@ -28,12 +30,15 @@ export default new Router({
       path: '/video/main',
       component: VideoMain,
       meta: {
-        title: '视频播放'
+        title: '美食视频'
       }
     },
     {
       path: '/customer/main',
       component: CustomerMain,
+      meta: {
+        title: '用户中心'
+      },
       children: [
         {
           path: '/detail/order',
@@ -43,6 +48,13 @@ export default new Router({
           }
         }
       ]
+    },
+    {
+      path: '/filter/main',
+      component: FilterMain,
+      meta: {
+        title: '寻找美食'
+      }
     }
   ]
 })

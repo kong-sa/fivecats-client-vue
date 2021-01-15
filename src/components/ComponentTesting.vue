@@ -12,6 +12,7 @@
     <router-link style="margin: 15px" to="/customer/main">个人中心</router-link>
     <router-link style="margin: 15px" to="/video/main">视频播放</router-link>
     <router-link style="margin: 15px" to="/merchant/main">商家详情</router-link>
+    <router-link style="margin: 15px" to="/filter/main">寻找美食</router-link>
   </div>
 </template>
 

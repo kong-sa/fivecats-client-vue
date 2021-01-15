@@ -2,23 +2,31 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import router from './router'
+// The third-party components
 import axios from 'axios'
 import jqeury from 'jquery'
-import router from './router'
 import NProgress from 'nprogress'
+// element-ui components
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
 import Element, {Message, MessageBox} from 'element-ui'
+// my assets file
 import './assets/js/dialog'
+import './assets/css/global.css'
 import './assets/css/videojs.css'
+// import third-party file from dist
 import 'video.js/dist/video-js.css'
 
 Vue.use(Element)
 Vue.config.productionTip = false
-Vue.prototype.$confirm = MessageBox.confirm
+// set global element-ui
 Vue.prototype.$message = Message
-Vue.prototype.$http = axios
+Vue.prototype.$confirm = MessageBox.confirm
+// set global axios and jqeury
 Vue.prototype.$ = jqeury
+Vue.prototype.$http = axios
+// set interceptors
 axios.interceptors.request.use(config => {
   NProgress.start()
   return config

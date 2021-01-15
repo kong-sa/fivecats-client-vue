@@ -1,9 +1,10 @@
 <template>
     <div id="video-player">
       <div id="video-title">
-        <el-tag>番剧</el-tag>
-        豪赌之渊第二季 02
-        <div id="video-info"><span id="play-volume">播放量:1132k</span><span id="upload-time">2021-01-14 17:55:41</span></div>
+        <el-tag>番剧</el-tag>豪赌之渊第二季 02
+        <div id="abb-info">
+          <span id="play-volume">播放量:1132k</span><span id="upload-time">2021-01-14 17:55:41</span>
+        </div>
       </div>
       <video ref="videoPlayer" class="video-js vjs-big-play-centered vjs-matrix"></video>
       <div id="video-bottom">
@@ -16,28 +17,14 @@
           <el-collapse-item class="collapse-item" title="作者信息 ↓↓↓ 点击展开更多" name="2">
             <el-row>
               <el-col :xs="3" :span="2">
-                <el-dropdown>
-                  <el-avatar id="avatar" :src="customer.avatar">
-                    <div slot="error" class="image-slot">
-                      <i class="el-icon-picture-outline"></i>
-                    </div>
-                  </el-avatar>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>
-                      <el-avatar :src="customer.avatar">
-                        <div slot="error" class="image-slot">
-                          <i class="el-icon-picture-outline"></i>
-                        </div>
-                      </el-avatar>
-                      <div>用户名：<a class="username" href="">{{customer.nickname}}</a></div>
-                      <div>个人简介：{{customer.introduction}}</div>
-                      <div>粉丝数：{{customer.fans}}</div>
-                    </el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
+                <el-avatar id="avatar" :src="customer.avatar">
+                  <div slot="error" class="image-slot">
+                    <i class="el-icon-picture-outline"></i>
+                  </div>
+                </el-avatar>
               </el-col>
               <el-col :xs="21" :span="22">
-                <el-row>用户名：<a class="username" href="">{{customer.nickname}}</a></el-row>
+                <el-row>用户名：<a href="">{{customer.nickname}}</a></el-row>
                 <el-row>个人简介：{{customer.introduction}}</el-row>
                 <el-row>粉丝数：{{customer.fans}}</el-row>
               </el-col>
@@ -74,7 +61,7 @@ export default {
         customerId: 1,
         fans: 2,
         introduction: 'Time tick away, dream faded away!',
-        nickname: 'KongSama',
+        nickname: 'Kongsama',
         avatar: 'http://oss.norza.cn/imgs/avatar/avatar01.jpg'
       }
     }
@@ -106,10 +93,6 @@ export default {
   height: 250px;
   position: absolute;
   display: block;
-}
-
-#username {
-  text-decoration: none;
 }
 
 #collapse {
@@ -154,7 +137,7 @@ i {
   margin-right: 10px;
 }
 
-#video-info {
+#abb-info {
   margin-top: 5px;
   font-size: 12px;
 }
