@@ -5,14 +5,12 @@
     <el-table
       :data="dishes"
       :fit="true"
-      :stripe="true"
-      :border="true"
       height="420"
       :cell-style="{ textAlign: 'center' }"
       :header-cell-style="{ textAlign: 'center' }"
       style="width: 100%">
       <el-table-column
-        fixed
+        id="dishes-image"
         prop="imgUrl"
         label="预览图"
         width="180">
@@ -36,20 +34,22 @@
       <el-table-column
         prop="name"
         label="商品名"
-        width="200">
+        :width="dishesNameColWidth">
       </el-table-column>
       <el-table-column
         prop="price"
-        width="120"
+        :width="dishesPriceColWidth"
         label="单价">
       </el-table-column>
       <el-table-column
+        fixed="right"
+        :width="dishesNumColWidth"
         prop="num"
         label="数量">
         <template slot-scope="scope">
           <el-input-number
             size="mini"
-            style="width: 130px"
+            :style="dishesNumWidth"
             v-model="scope.row.num"
             @change="getDishesNum"
             :min="1"
@@ -57,6 +57,7 @@
         </template>
       </el-table-column>
       <el-table-column
+        fixed="right"
         prop="operation"
         width="120"
         label="操作">
@@ -69,7 +70,7 @@
     </el-table>
     <el-divider>基本信息</el-divider>
     <div class="basic-info">
-      <el-row>
+      <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">预约日期：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-date-picker
@@ -106,6 +107,7 @@
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-input
             size="mini"
+            class="trolley-number"
             placeholder="提供您的姓名"
             prefix-icon="el-icon-user"
             v-model="customerName"></el-input>
@@ -117,6 +119,7 @@
         <el-col :xs="8" :sm="4" :md="4" :lg="3">联系电话：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-input
+            class="trolley-number"
             size="mini"
             placeholder="提供您的联系电话"
             prefix-icon="el-icon-phone-outline"
@@ -155,6 +158,17 @@
 <script>
 export default {
   name: 'MerchantTrolleyPopups',
+  mounted () {
+    let screenWidth = window.screen.width
+    if (screenWidth > 1380) this.dishesNumColWidth = 160
+    if (screenWidth <= 1380) this.dishesNumWidth = 'width: 100px'
+    if (screenWidth <= 1330) this.dishesNameColWidth = 170
+    if (screenWidth <= 1330) this.dishesNameColWidth = 150
+    if (screenWidth <= 1250) {
+      this.dishesPriceColWidth = 80
+      this.dishesNameColWidth = 100
+    }
+  },
   methods: {
     deleteRow (index, rows) {
       rows.splice(index, 1)
@@ -166,6 +180,10 @@ export default {
   },
   data () {
     return {
+      dishesNumWidth: 'width: 130px',
+      dishesNumColWidth: 110,
+      dishesNameColWidth: 200,
+      dishesPriceColWidth: 120,
       pickerOptions: {
         disabledDate (time) {
           return time.getTime() > Date.now() + 3600 * 1000 * 24 * 7 || time.getTime() < new Date() - 3600 * 1000 * 24
@@ -210,24 +228,28 @@ export default {
       dishes: [
         {
           id: 1,
+          name: '炸鸡腿',
           imgUrl: 'http://oss.norza.cn/imgs/food/food01.jpg',
           price: 30.5,
           num: 1
         },
         {
           id: 2,
+          name: '奥利奥鲜奶茶',
           imgUrl: 'http://oss.norza.cn/imgs/food/food02.jpg',
           price: 12,
           num: 1
         },
         {
           id: 3,
+          name: '炸鸡块',
           imgUrl: 'http://oss.norza.cn/imgs/food/food03.jpg',
           price: 13,
           num: 1
         },
         {
           id: 4,
+          name: '日本拉面',
           imgUrl: 'http://oss.norza.cn/imgs/food/food04.jpg',
           price: 14,
           num: 1
@@ -239,11 +261,25 @@ export default {
 </script>
 
 <style scoped>
-.basic-info {
-  margin-top: 20px;
-}
+  .basic-info {
+    margin-top: 20px;
+  }
 
-.trolley-date-picker, .trolley-number {
-  width: 210px
-}
+  @media screen and (min-width: 730px) {
+    .trolley-number, .trolley-date-picker {
+      width: 220px;
+    }
+  }
+
+  @media screen and (max-width: 730px) {
+    .trolley-date-picker, .trolley-number {
+      width: 130px;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .trolley-number, .trolley-date-picker {
+      width: 100%;
+    }
+  }
 </style>

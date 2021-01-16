@@ -62,24 +62,28 @@ export default {
           dishes: [
             {
               id: 1,
+              name: '炸鸡腿',
               imgUrl: 'http://oss.norza.cn/imgs/food/food01.jpg',
               price: 30.5,
               num: 1
             },
             {
               id: 2,
+              name: '奥利奥鲜奶茶',
               imgUrl: 'http://oss.norza.cn/imgs/food/food02.jpg',
               price: 12,
               num: 1
             },
             {
               id: 3,
+              name: '炸鸡块',
               imgUrl: 'http://oss.norza.cn/imgs/food/food03.jpg',
               price: 13,
               num: 1
             },
             {
               id: 4,
+              name: '日本拉面',
               imgUrl: 'http://oss.norza.cn/imgs/food/food04.jpg',
               price: 14,
               num: 1
