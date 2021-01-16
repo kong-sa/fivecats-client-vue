@@ -74,6 +74,7 @@
         <el-col :xs="8" :sm="4" :md="4" :lg="3">预约日期：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-date-picker
+            :style="timePickerWidth"
             v-model="date"
             size="mini"
             class="trolley-date-picker"
@@ -89,6 +90,7 @@
         <el-col :xs="8" :sm="4" :md="4" :lg="3">到店时间：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-time-picker
+            :style="timePickerWidth"
             class="trolley-date-picker"
             is-range
             size="mini"
@@ -168,6 +170,7 @@ export default {
       this.dishesPriceColWidth = 80
       this.dishesNameColWidth = 100
     }
+    if (screenWidth <= 730) this.timePickerWidth = 'width: 130px'
   },
   methods: {
     deleteRow (index, rows) {
@@ -184,6 +187,7 @@ export default {
       dishesNumColWidth: 110,
       dishesNameColWidth: 200,
       dishesPriceColWidth: 120,
+      timePickerWidth: 'width: 100%',
       pickerOptions: {
         disabledDate (time) {
           return time.getTime() > Date.now() + 3600 * 1000 * 24 * 7 || time.getTime() < new Date() - 3600 * 1000 * 24
@@ -265,19 +269,15 @@ export default {
     margin-top: 20px;
   }
 
-  @media screen and (min-width: 730px) {
-    .trolley-number, .trolley-date-picker {
-      width: 220px;
-    }
-  }
-
+  /*小于730px*/
   @media screen and (max-width: 730px) {
     .trolley-date-picker, .trolley-number {
       width: 130px;
     }
   }
 
-  @media screen and (min-width: 750px) {
+  /*大于730px*/
+  @media screen and (min-width: 730px) {
     .trolley-number, .trolley-date-picker {
       width: 100%;
     }

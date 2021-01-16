@@ -69,6 +69,7 @@
         <el-col :xs="8" :span="8">选择日期：</el-col>
         <el-col :xs="16" :span="16">
           <el-date-picker
+            :style="timePickerWidth"
             v-model="order.date"
             size="mini"
             class="trolley-date-picker"
@@ -82,6 +83,7 @@
         <el-col :xs="8" :span="8">选择时间：</el-col>
         <el-col :xs="16" :span="16">
           <el-time-picker
+            :style="timePickerWidth"
             class="trolley-date-picker"
             is-range
             size="mini"
@@ -121,8 +123,13 @@
 <script>
 export default {
   name: 'FilterTrolleyPopups',
+  mounted () {
+    let screenWidth = window.screen.width
+    if (screenWidth <= 750) this.timePickerWidth = 'width: 130px'
+  },
   data () {
     return {
+      timePickerWidth: 'width: 100%',
       showMap: false,
       pickerOptions: {
         disabledDate (time) {
@@ -192,21 +199,16 @@ export default {
     text-align: center;
   }
 
-  @media screen and (min-width: 730px) {
-    .trolley-number, .trolley-date-picker {
-      width: 220px;
-    }
-  }
-
-  @media screen and (max-width: 730px) {
-    .trolley-date-picker, .trolley-customer-input {
-      width: 130px;
-    }
-  }
-
   @media screen and (min-width: 750px) {
-    .trolley-number, .trolley-date-picker {
+    .trolley-number {
       width: 100%;
+    }
+  }
+
+  /*小于730px*/
+  @media screen and (max-width: 750px) {
+   .trolley-customer-input {
+      width: 130px;
     }
   }
 
@@ -218,4 +220,5 @@ export default {
       text-align: center;
     }
   }
+
 </style>
