@@ -17,7 +17,8 @@
         <template slot-scope="scope">
           <el-tooltip
             class="item"
-            effect="dark"
+            :enterable="true"
+            effect="light"
             content="点击查看大图"
             placement="top">
             <el-image
@@ -34,22 +35,22 @@
       <el-table-column
         prop="name"
         label="商品名"
-        :width="dishesNameColWidth">
+        :width="dishesWidth.dishesNameColWidth">
       </el-table-column>
       <el-table-column
         prop="price"
-        :width="dishesPriceColWidth"
+        :width="dishesWidth.dishesPriceColWidth"
         label="单价">
       </el-table-column>
       <el-table-column
         fixed="right"
-        :width="dishesNumColWidth"
+        :width="dishesWidth.dishesNumColWidth"
         prop="num"
         label="数量">
         <template slot-scope="scope">
           <el-input-number
             size="mini"
-            :style="dishesNumWidth"
+            :style="dishesWidth.dishesNumWidth"
             v-model="scope.row.num"
             @change="getDishesNum"
             :min="1"
@@ -74,13 +75,12 @@
         <el-col :xs="8" :sm="4" :md="4" :lg="3">预约日期：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-date-picker
-            :style="timePickerWidth"
+            :style="dishesWidth.timePickerWidth"
             v-model="date"
             size="mini"
             class="trolley-date-picker"
-            align="right"
             type="date"
-            placeholder="选择日期"
+            placeholder="请选择预约的日期"
             :picker-options="pickerOptions"></el-date-picker>
         </el-col>
       </el-row>
@@ -90,15 +90,14 @@
         <el-col :xs="8" :sm="4" :md="4" :lg="3">到店时间：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-time-picker
-            :style="timePickerWidth"
+            :style="dishesWidth.timePickerWidth"
             class="trolley-date-picker"
             is-range
             size="mini"
             v-model="time"
             range-separator="-"
             start-placeholder="开始时间"
-            end-placeholder="结束时间"
-            placeholder="选择时间范围">
+            end-placeholder="结束时间">
           </el-time-picker>
         </el-col>
       </el-row>
@@ -110,7 +109,7 @@
           <el-input
             size="mini"
             class="trolley-number"
-            placeholder="提供您的姓名"
+            placeholder="请提供您的姓名"
             prefix-icon="el-icon-user"
             v-model="customerName"></el-input>
         </el-col>
@@ -123,7 +122,7 @@
           <el-input
             class="trolley-number"
             size="mini"
-            placeholder="提供您的联系电话"
+            placeholder="请提供您的联系电话"
             prefix-icon="el-icon-phone-outline"
             v-model="telephone"></el-input>
         </el-col>
@@ -140,6 +139,27 @@
             @change="getCustomerNum"
             :min="1"
             :max="99"></el-input-number>
+        </el-col>
+      </el-row>
+    </div>
+    <div class="basic-info table">
+      <el-row :gutter="10">
+        <el-col :xs="8" :sm="4" :md="4" :lg="3">选择座位：</el-col>
+        <el-col :xs="15" :sm="10" :md="8" :lg="8">
+          <el-tooltip
+            :enterable="true"
+            class="item"
+            effect="light"
+            content="大桌8人 中桌4人 小桌2人"
+            placement="top">
+            <el-cascader
+              size="mini"
+              class="trolley-number"
+              placeholder="请选择预约的桌号"
+              :options="tableOptions"
+              :props="{ expandTrigger: 'hover' }"
+              @change="getTableOptions"></el-cascader>
+          </el-tooltip>
         </el-col>
       </el-row>
     </div>
@@ -162,15 +182,15 @@ export default {
   name: 'MerchantTrolleyPopups',
   mounted () {
     let screenWidth = window.screen.width
-    if (screenWidth > 1380) this.dishesNumColWidth = 160
-    if (screenWidth <= 1380) this.dishesNumWidth = 'width: 100px'
-    if (screenWidth <= 1330) this.dishesNameColWidth = 170
-    if (screenWidth <= 1330) this.dishesNameColWidth = 150
+    if (screenWidth > 1380) this.dishesWidth.dishesNumColWidth = 160
+    if (screenWidth <= 1380) this.dishesWidth.dishesNumWidth = 'width: 100px'
+    if (screenWidth <= 1330) this.dishesWidth.dishesNameColWidth = 170
+    if (screenWidth <= 1330) this.dishesWidth.dishesNameColWidth = 150
     if (screenWidth <= 1250) {
-      this.dishesPriceColWidth = 80
-      this.dishesNameColWidth = 100
+      this.dishesWidth.dishesPriceColWidth = 80
+      this.dishesWidth.dishesNameColWidth = 100
     }
-    if (screenWidth <= 730) this.timePickerWidth = 'width: 130px'
+    if (screenWidth <= 730) this.dishesWidth.timePickerWidth = 'width: 130px'
   },
   methods: {
     deleteRow (index, rows) {
@@ -179,15 +199,119 @@ export default {
     getDishesNum (value) {
     },
     getCustomerNum (value) {
+    },
+    getTableOptions (value) {
     }
   },
   data () {
     return {
-      dishesNumWidth: 'width: 130px',
-      dishesNumColWidth: 110,
-      dishesNameColWidth: 200,
-      dishesPriceColWidth: 120,
-      timePickerWidth: 'width: 100%',
+      dishesWidth: {
+        dishesNumWidth: 'width: 130px',
+        timePickerWidth: 'width: 100%',
+        dishesNameColWidth: 200,
+        dishesPriceColWidth: 120,
+        dishesNumColWidth: 110
+      },
+      tableOptions: [
+        {
+          value: '大厅',
+          label: '大厅',
+          children: [
+            {
+              value: '大桌',
+              label: '大桌',
+              children: [
+                {
+                  value: '1号',
+                  label: '1号'
+                },
+                {
+                  value: '2号',
+                  label: '2号'
+                },
+                {
+                  value: '3号',
+                  label: '3号'
+                }
+              ]
+            },
+            {
+              value: '中桌',
+              label: '中桌',
+              children: [
+                {
+                  value: '1号',
+                  label: '1号'
+                },
+                {
+                  value: '2号',
+                  label: '2号'
+                },
+                {
+                  value: '3号',
+                  label: '3号'
+                },
+                {
+                  value: '4号',
+                  label: '4号'
+                }
+              ]
+            },
+            {
+              value: '小桌',
+              label: '小桌',
+              children: [
+                {
+                  value: '1号',
+                  label: '1号'
+                },
+                {
+                  value: '2号',
+                  label: '2号'
+                },
+                {
+                  value: '3号',
+                  label: '3号'
+                },
+                {
+                  value: '4号',
+                  label: '4号'
+                },
+                {
+                  value: '5号',
+                  label: '5号'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          value: '包间',
+          label: '包间',
+          children: [
+            {
+              value: '1号',
+              label: '1号'
+            },
+            {
+              value: '2号',
+              label: '2号'
+            },
+            {
+              value: '3号',
+              label: '3号'
+            },
+            {
+              value: '4号',
+              label: '4号'
+            },
+            {
+              value: '5号',
+              label: '5号'
+            }
+          ]
+        }
+      ],
       pickerOptions: {
         disabledDate (time) {
           return time.getTime() > Date.now() + 3600 * 1000 * 24 * 7 || time.getTime() < new Date() - 3600 * 1000 * 24
@@ -271,7 +395,7 @@ export default {
 
   /*小于730px*/
   @media screen and (max-width: 730px) {
-    .trolley-date-picker, .trolley-number {
+    .trolley-number, .trolley-date-picker {
       width: 130px;
     }
   }
