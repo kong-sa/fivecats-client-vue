@@ -4,18 +4,18 @@
     <div
       class="abbr-page"
       v-for="orderItem in order"
-      :key="orderItem.orderNum">
+      :key="orderItem.id">
       <el-row>
         <!-- 第一行 商品图片-->
         <el-row>
           <!-- 第一列 -->
           <el-col
             :span="6"
-            v-for="dishesItem in orderItem.dishes"
+            v-for="dishesItem in orderItem.orderDishes"
             :key="dishesItem.id">
             <el-image
               class="abbr-image"
-              :src="dishesItem.imgUrl">
+              :src="dishesItem.dishes.imgUrl">
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
               </div>
@@ -27,7 +27,7 @@
           <!-- 第一列 -->
           <el-col :xs="10" :span="8">排队号：{{orderItem.queueNum}}</el-col>
           <!-- 第二列 -->
-          <el-col :xs="10" :span="8">总价：{{orderItem.total}} ¥</el-col>
+          <el-col :xs="10" :span="8">总价：{{orderItem.tempTotal}} ¥</el-col>
           <!-- 第三列 跳转详细订单页面 -->
           <el-col :xs="12" :span="8">
             <router-link to="/detail/order">查看详细</router-link>
@@ -41,85 +41,19 @@
 <script>
 export default {
   name: 'CustomerOrderAbbPopups',
-  // 页面DOM元素挂载完成后，计算每一行简略订单的总价
-  mounted () {
-    this.order.forEach(function (order, index, arr) {
-      let total = 0
-      order.dishes.forEach(function (value, index, arr) {
-        total += value.price * value.num
+  async created () {
+    let { data: _order } = await this.$http.get('/getting/abb/order?customerId=1')
+    this.order = _order
+    _order.forEach(value => {
+      value.orderDishes.forEach(orderValue => {
+        value.tempTotal += orderValue.dishes.price * orderValue.num
       })
-      order.total = total
     })
   },
   data () {
     return {
       total: 0,
-      order: [
-        {
-          id: 1,
-          customerId: 1,
-          total: 0,
-          dishes: [
-            {
-              id: 1,
-              name: '炸鸡腿',
-              imgUrl: 'http://oss.norza.cn/imgs/food/food01.jpg',
-              price: 30.5,
-              num: 1
-            },
-            {
-              id: 2,
-              name: '奥利奥鲜奶茶',
-              imgUrl: 'http://oss.norza.cn/imgs/food/food02.jpg',
-              price: 12,
-              num: 1
-            },
-            {
-              id: 3,
-              name: '炸鸡块',
-              imgUrl: 'http://oss.norza.cn/imgs/food/food03.jpg',
-              price: 13,
-              num: 1
-            },
-            {
-              id: 4,
-              name: '日本拉面',
-              imgUrl: 'http://oss.norza.cn/imgs/food/food04.jpg',
-              price: 14,
-              num: 1
-            }
-          ],
-          orderNum: 'EF20210113',
-          queueNum: '10'
-        },
-        {
-          id: 2,
-          customerId: 1,
-          total: 0,
-          dishes: [
-            {
-              id: 2,
-              imgUrl: 'http://oss.norza.cn/imgs/food/food02.jpg',
-              price: 12,
-              num: 1
-            },
-            {
-              id: 3,
-              imgUrl: 'http://oss.norza.cn/imgs/food/food03.jpg',
-              price: 13,
-              num: 1
-            },
-            {
-              id: 4,
-              imgUrl: 'http://oss.norza.cn/imgs/food/food04.jpg',
-              price: 14,
-              num: 1
-            }
-          ],
-          orderNum: 'EF20210114',
-          queueNum: '21'
-        }
-      ]
+      order: []
     }
   }
 }
