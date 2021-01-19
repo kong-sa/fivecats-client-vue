@@ -209,8 +209,8 @@ export default {
 </script>
 
 <style scoped>
-  /* 当屏幕 < 767px */
-  @media screen and (max-width: 767px) {
+  /* 当屏幕 < 768px */
+  @media screen and (max-width: 768px) {
     #order-detail-main {
       padding: 0;
     }
@@ -218,7 +218,7 @@ export default {
       text-align: center;
     }
   }
-  /* 当屏幕 > 767px */
+  /* 当屏幕 > 768px */
   @media screen and (min-width: 768px) {
     #order-detail-main {
       padding: 0 10%;
