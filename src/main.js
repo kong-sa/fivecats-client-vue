@@ -26,6 +26,9 @@ Vue.prototype.$confirm = MessageBox.confirm
 // set global axios and jqeury
 Vue.prototype.$ = jqeury
 Vue.prototype.$http = axios
+// axios configuration
+// axios.defaults.baseURL = 'http://120.77.245.208:8001/'
+axios.defaults.baseURL = 'http://localhost:8001/'
 // set interceptors
 axios.interceptors.request.use(config => {
   NProgress.start()

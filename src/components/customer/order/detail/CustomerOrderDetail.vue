@@ -8,8 +8,9 @@
         <!-- 第一列 商家图片-->
         <el-col id="merchant-image" :xs="24" :span="6">
           <el-image
-            style="width: 150px; height: 150px; border-radius: 6px;"
-            src="http://oss.norza.cn/imgs/84917906_p0.png">
+            v-if="order"
+            :src="order.merchant.avatar"
+            style="width: 150px; height: 150px; border-radius: 6px;">
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div>
@@ -19,7 +20,7 @@
         <el-col :xs="24" :span="12">
           <!-- 第一行 商家地理位置 -->
           <el-row style="margin-bottom: 25px">
-              <el-card class="box-card">地理位置：{{merchant.location}}</el-card>
+              <el-card class="box-card">地理位置：{{order.merchant.location}}</el-card>
           </el-row>
           <!-- 第二行 排队号信息-->
           <el-row>
@@ -61,10 +62,10 @@
           <!-- 第三行 订单信息折叠面板 -->
           <el-row style="margin-top: 15px">
             <el-collapse class="third-col">
-              <el-collapse-item :title="order.status" name="1">
+              <el-collapse-item title="订单状态" name="1">
                 <el-timeline :reverse="reverse" style="margin-top: 20px">
                   <el-timeline-item
-                    v-for="(activity, index) in activities"
+                    v-for="(activity, index) in order.orderStatus"
                     :key="index"
                     :timestamp="activity.timestamp">
                     {{activity.content}}
@@ -88,7 +89,7 @@
       <!-- 第三行 订单表格 -->
       <el-table
         class="table-column"
-        :data="dishes"
+        :data="order.orderDishes"
         :fit="true"
         :stripe="true"
         :border="true"
@@ -98,14 +99,14 @@
         style="width: 100%">
         <el-table-column
           fixed
-          prop="imgUrl"
+          prop="dishes.imgUrl"
           label="预览图">
           <template slot-scope="scope">
             <el-tooltip class="item" effect="dark" content="点击查看大图" placement="top">
               <el-image
                 style="width: 100px; height: 100px"
-                :src="scope.row.imgUrl"
-                :preview-src-list="[scope.row.imgUrl]">
+                :src="scope.row.dishes.imgUrl"
+                :preview-src-list="[scope.row.dishes.imgUrl]">
                 <div slot="error" class="image-slot">
                   <i class="el-icon-picture-outline"></i>
                 </div>
@@ -114,11 +115,11 @@
           </template>
         </el-table-column>
         <el-table-column
-          prop="name"
+          prop="dishes.name"
           label="商品名">
         </el-table-column>
         <el-table-column
-          prop="price"
+          prop="dishes.price"
           width="120"
           label="单价">
         </el-table-column>
@@ -142,11 +143,11 @@
       <!-- 预约信息 -->
       <div class="appointment-information">
         <el-row :gutter="10">
-          <el-col style="margin: 10px" :span="7">预约日期：{{order.date}}</el-col>
-          <el-col style="margin: 10px" :span="7">到店时间：{{order.time}}</el-col>
-          <el-col style="margin: 10px" :span="7">客户姓名：{{customer.name}}</el-col>
-          <el-col style="margin: 10px" :span="7">联系电话：{{customer.telephone}}</el-col>
-          <el-col style="margin: 10px" :span="7">约定人数：{{order.customerNum}}</el-col>
+          <el-col style="margin: 10px" :span="7">预约日期：{{order.appointmentDate}}</el-col>
+          <el-col style="margin: 10px" :span="7">到店时间：{{order.appointmentDate}}</el-col>
+          <el-col style="margin: 10px" :span="7">客户姓名：{{order.customer.name}}</el-col>
+          <el-col style="margin: 10px" :span="7">联系电话：{{order.customer.phone}}</el-col>
+          <el-col style="margin: 10px" :span="7">约定人数：{{order.appointmentNum}}</el-col>
         </el-row>
       </div>
       <!-- 订单操作 -->
@@ -160,7 +161,7 @@
             icon-color="red"
             title="确定要取消订单吗？">
             <el-button
-              :disabled="order.notCancelable"
+              :disabled="order.isHandle = 0 ? true : false"
               type="primary"
               slot="reference"
               size="mini">取消订单</el-button>
@@ -181,10 +182,13 @@ export default {
       this.showMap = true
     }
   },
-  mounted () {
+  async created () {
+    let { data: _order } = await this.$http.get('/getting/detail/order?customerId=1&id=1&merchantId=1')
+    this.order = _order
+    console.log(_order)
     let total = 0
-    this.dishes.forEach(function (dishes, index, arr) {
-      total += dishes.price * dishes.num
+    _order.orderDishes.forEach(value => {
+      total += value.num * value.dishes.price
     })
     this.total = total
   },
@@ -193,82 +197,11 @@ export default {
       showMap: false,
       reverse: true,
       total: 0,
-      merchant: {
-        merchantId: 1,
-        telephone: '18508153489',
-        location: '四川省绵阳市涪城区万达广场2号门2楼'
-      },
-      customer: {
-        id: 1,
-        name: '小明',
-        telephone: '18508153489'
-      },
-      order: {
-        id: 1,
-        orderNum: 'EF20210113',
-        customerId: 1,
-        status: '订单状态：订单已完成',
-        notCancelable: true,
-        date: '2020-01-13',
-        time: '12:30:00-1:30:00',
-        queueNum: '10',
-        customerNum: 2
-      },
-      dishes: [
-        {
-          id: 1,
-          name: '炸鸡腿',
-          imgUrl: 'http://oss.norza.cn/imgs/food/food01.jpg',
-          price: 30.5,
-          num: 1
-        },
-        {
-          id: 2,
-          name: '奥利奥鲜奶茶',
-          imgUrl: 'http://oss.norza.cn/imgs/food/food02.jpg',
-          price: 12,
-          num: 1
-        },
-        {
-          id: 3,
-          name: '炸鸡块',
-          imgUrl: 'http://oss.norza.cn/imgs/food/food03.jpg',
-          price: 13,
-          num: 1
-        },
-        {
-          id: 4,
-          name: '日本拉面',
-          imgUrl: 'http://oss.norza.cn/imgs/food/food04.jpg',
-          price: 14,
-          num: 1
-        }
-      ],
+      dishes: [],
+      order: {},
       time: [
         new Date(2016, 9, 10, 8, 40),
         new Date(2016, 9, 10, 9, 40)
-      ],
-      activities: [
-        {
-          content: '订单已完成',
-          timestamp: '2021-1-13 22:56:00'
-        },
-        {
-          content: '正在使用中',
-          timestamp: '2021-1-13 22:01:00'
-        },
-        {
-          content: '订单排队中',
-          timestamp: '2021-1-13 21:40:00'
-        },
-        {
-          content: '商家已接单',
-          timestamp: '2021-1-13 21:38:00'
-        },
-        {
-          content: '订单创建成功',
-          timestamp: '2021-1-13 21:36:00'
-        }
       ]
     }
   }
