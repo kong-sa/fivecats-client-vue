@@ -42,7 +42,7 @@ export default {
   },
   data () {
     return {
-      dialogWidth: '60%',
+      dialogWidth: '50%',
       showTrolley: false,
       showDishes: false
     }
