@@ -182,13 +182,16 @@ export default {
       this.showMap = true
     }
   },
+  /**
+   * 获取订单信息，并计算该订单的总价
+   * @returns {Promise<void>}
+   */
   async created () {
-    let { data: _order } = await this.$http.get('/getting/detail/order?customerId=1&id=1&merchantId=1')
-    this.order = _order
-    console.log(_order)
+    let { data: value } = await this.$http.get('/getting/detail/order?customerId=1&id=1&merchantId=1')
+    this.order = value
     let total = 0
-    _order.orderDishes.forEach(value => {
-      total += value.num * value.dishes.price
+    value.orderDishes.forEach(calculation => {
+      total += calculation.num * calculation.dishes.price
     })
     this.total = total
   },

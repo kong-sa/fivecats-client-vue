@@ -41,12 +41,16 @@
 <script>
 export default {
   name: 'CustomerOrderAbbPopups',
+  /**
+   * 遍历该数组，从index为0开始，并计算每一个订单的总价
+   * @returns {Promise<void>}
+   */
   async created () {
-    let { data: _order } = await this.$http.get('/getting/abb/order?customerId=1')
-    this.order = _order
-    _order.forEach(value => {
-      value.orderDishes.forEach(orderValue => {
-        value.tempTotal += orderValue.dishes.price * orderValue.num
+    let { data: value } = await this.$http.get('/getting/abb/order?customerId=1')
+    this.order = value
+    value.forEach(order => {
+      order.orderDishes.forEach(calculation => {
+        order.tempTotal += calculation.dishes.price * calculation.num
       })
     })
   },
