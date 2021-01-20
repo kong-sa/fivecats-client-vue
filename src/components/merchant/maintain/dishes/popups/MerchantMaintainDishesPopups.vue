@@ -6,36 +6,31 @@
       <el-col class="dishes-upload" :span="12">
         <el-upload
           :action="action"
-          ref="upload"
           :limit="1"
           :multiple="false"
-          :before-upload="beforeUpload"
+          :before-upload="checkPicture"
           list-type="picture-card">
           <i slot="default" class="el-icon-plus"></i>
           <div slot="file" slot-scope="{file}">
             <img
               class="el-upload-list__item-thumbnail"
-              :src="file.url" alt=""
-            >
+              :src="file.url" alt="">
             <span class="el-upload-list__item-actions">
         <span
           class="el-upload-list__item-preview"
-          @click="handlePictureCardPreview(file)"
-        >
+          @click="handlePictureCardPreview(file)">
           <i class="el-icon-zoom-in"></i>
         </span>
         <span
           v-if="!disabled"
           class="el-upload-list__item-delete"
-          @click="handleDownload(file)"
-        >
+          @click="handleDownload(file)">
           <i class="el-icon-download"></i>
         </span>
         <span
           v-if="!disabled"
           class="el-upload-list__item-delete"
-          @click="handleRemove(file)"
-        >
+          @click="handleRemove(file)">
           <i class="el-icon-delete"></i>
         </span>
       </span>
@@ -59,7 +54,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-button type="primary" size="mini" @click="submitUpload">确定添加</el-button>
+      <el-button type="primary" size="mini" @click="saveDishes">确定添加</el-button>
     </el-row>
   </div>
 </template>
@@ -69,9 +64,13 @@ export default {
   name: 'MerchantMaintainDishesPopups',
   data () {
     return {
+      // 图片请求的URL
       action: 'http://localhost:8001/setting/dishes/img?merchantId=1',
+      // 要添加的菜品价格
       price: '',
+      // 要添加的菜品名字
       name: '',
+      // 商家信息
       merchant: {},
       dialogImageUrl: '',
       disabled: false,
@@ -79,47 +78,40 @@ export default {
       dialogVisible: false
     }
   },
-  // 页面创建之后查询商家信息
   async mounted () {
     let { data: _merchant } = await this.$http.get('getting/merchant?merchantId=1')
     this.merchant = _merchant
   },
   methods: {
     handleRemove (file) {
-      console.log(file)
     },
     handlePictureCardPreview (file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
     handleDownload (file) {
-      console.log(file)
     },
-    handleClose (done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
-        }).catch(_ => {
-        })
-    },
-    async submitUpload () {
-      // 将菜品信息上传到数据库中
-      await this.$http.post('/setting/dishes', {
-        merchantId: this.merchant.id,
-        price: this.price,
-        name: this.name
-      })
+    /**
+     * 该方法会保存编辑完成的菜品信息到数据库中
+     * @returns {Promise<void>}
+     */
+    async saveDishes () {
+      await this.$http.post('/setting/dishes', { merchantId: this.merchant.id, price: this.price, name: this.name })
       this.$message.success('菜品保存成功！')
     },
-    beforeUpload (file) {
+    /**
+     * 检测商家上传的图片类型以及图片大小是否满足要求
+     * @param file 要上传oss服务器中的图片信息
+     * @returns {boolean|boolean} 若满足规则，则返回true，否则返回false
+     */
+    checkPicture (file) {
+      // 图片的类型只能是jpeg或者png或者jpg
       const imageType = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg'
+      // 图片的大小不能大于1MB
       const imageLimit = file.size / 1024 / 1024 < 1
-      if (!imageType) {
-        this.$message.error('上传图片只能是 JPG 或 PNG 格式!')
-      }
-      if (!imageLimit) {
-        this.$message.error('上传图片大小不能超过 1MB!')
-      }
+      // 如果不满足规则，就在页面中提示对应的错误信息
+      if (!imageType) this.$message.error('上传图片只能是 JPG 或 PNG 格式!')
+      if (!imageLimit) this.$message.error('上传图片大小不能超过 1MB!')
       return imageType && imageLimit
     }
   }
@@ -127,37 +119,6 @@ export default {
 </script>
 
 <style scoped>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.avatar-uploader .el-upload:hover {
-  border-color: #409EFF;
-}
-
-.avatar-uploader {
-  border: 1px #cccccc solid; border-radius: 4px
-}
-
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
-
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
-
 .dishes-upload {
   text-align: center
 }
