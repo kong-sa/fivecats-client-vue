@@ -11,7 +11,7 @@
           <!-- 第一列 -->
           <el-col
             :span="6"
-            v-for="dishesItem in orderItem.orderDishes"
+            v-for="dishesItem in orderItem.orderDishRelations"
             :key="dishesItem.id">
             <el-image
               class="abbr-image"
@@ -49,7 +49,7 @@ export default {
     let { data: value } = await this.$http.get('/getting/abb/order?customerId=1')
     this.order = value
     value.forEach(order => {
-      order.orderDishes.forEach(calculation => {
+      order.orderDishRelations.forEach(calculation => {
         order.tempTotal += calculation.dishes.price * calculation.num
       })
     })

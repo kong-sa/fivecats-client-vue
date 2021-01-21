@@ -89,7 +89,7 @@
       <!-- 第三行 订单表格 -->
       <el-table
         class="table-column"
-        :data="order.orderDishes"
+        :data="order.orderDishRelations"
         :fit="true"
         :stripe="true"
         :border="true"
@@ -190,7 +190,7 @@ export default {
     let { data: value } = await this.$http.get('/getting/detail/order?customerId=1&id=1&merchantId=1')
     this.order = value
     let total = 0
-    value.orderDishes.forEach(calculation => {
+    value.orderDishRelations.forEach(calculation => {
       total += calculation.num * calculation.dishes.price
     })
     this.total = total

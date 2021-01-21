@@ -24,8 +24,8 @@
                 </el-avatar>
               </el-col>
               <el-col :xs="21" :span="22">
-                <el-row>用户名：<a href="">{{customer.nickname}}</a></el-row>
-                <el-row>个人简介：{{customer.introduction}}</el-row>
+                <el-row>用户名：<a href="">{{customer.username}}</a></el-row>
+                <el-row>个人简介：{{customer.profile}}</el-row>
                 <el-row>粉丝数：{{customer.fans}}</el-row>
               </el-col>
             </el-row>
@@ -58,11 +58,10 @@ export default {
       player: null,
       activeNames: ['1'],
       customer: {
-        customerId: 1,
-        fans: 2,
-        introduction: 'Time tick away, dream faded away!',
-        nickname: 'Kongsama',
-        avatar: 'http://oss.norza.cn/imgs/avatar/avatar01.jpg'
+        fans: 150,
+        profile: 'Time tick away, dream faded away!',
+        username: 'kongsama',
+        avatar: 'http://oss.norza.cn/imgs/avatar/customer/1/avatar01.jpg'
       }
     }
   },
