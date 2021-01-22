@@ -25,13 +25,14 @@ export default {
 </script>
 
 <style scoped>
-  /* 当屏幕小于767px时 */
-  @media screen and (max-width: 767px) {
-    #video-main {
-      padding: 0;
-    }
+/* 当屏幕小于767px时 */
+@media screen and (max-width: 767px) {
+  #video-main {
+    padding: 0;
   }
-  /* 当屏幕大于于767px时 */
-  @media screen and (min-width: 768px) {
-  }
+}
+
+/* 当屏幕大于于767px时 */
+@media screen and (min-width: 768px) {
+}
 </style>

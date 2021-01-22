@@ -41,9 +41,9 @@
                 </div>
               </el-avatar>
               <!--相关信息-->
-              <div>用户名：<a id="nickname" href="">{{item.organizer.username}}</a></div>
-              <div>个人简介：{{item.organizer.profile}}</div>
-              <div>粉丝数：{{item.organizer.fans}}</div>
+              <div>用户名：<a id="nickname" href="">{{ item.organizer.username }}</a></div>
+              <div>个人简介：{{ item.organizer.profile }}</div>
+              <div>粉丝数：{{ item.organizer.fans }}</div>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -51,17 +51,19 @@
       <!--2列 评论-->
       <el-col :xs="21" :span="22" id="comment-col">
         <!--1行 用户名-->
-        <el-row class="comment-row" id="comment-nickname">{{item.organizer.username}}  <el-tag size="mini" v-if="commentObj.organizerId === item.organizerId">作者</el-tag></el-row>
+        <el-row class="comment-row" id="comment-nickname">{{ item.organizer.username }}
+          <el-tag size="mini" v-if="commentObj.organizerId === item.organizerId">作者</el-tag>
+        </el-row>
         <!--2行 内容-->
-        <el-row class="comment-row" id="comment-content">{{item.content}}</el-row>
+        <el-row class="comment-row" id="comment-content">{{ item.content }}</el-row>
         <!--3行 点赞-->
         <el-row class="comment-row" id="comment-info">
           <!--点赞图标-->
           <span id="like">
-            <i></i><span>{{item.likes}}</span>
+            <i></i><span>{{ item.likes }}</span>
           </span>
           <!--点赞数-->
-          <span id="comment-time">{{item.date}}</span>
+          <span id="comment-time">{{ item.date }}</span>
         </el-row>
       </el-col>
     </el-row>
@@ -85,7 +87,7 @@ export default {
     }
   },
   async created () {
-    let { data: value } = await this.$http.get('/getting/video/comment?id=3')
+    let {data: value} = await this.$http.get('/getting/video/comment?id=3')
     this.commentObj = value
   },
   data () {
@@ -104,65 +106,65 @@ export default {
 </script>
 
 <style scoped>
-  #comment-col {
-    margin-bottom: 10px;
-  }
+#comment-col {
+  margin-bottom: 10px;
+}
 
-  .comment-row {
-    margin: 10px 0 10px 0;
-  }
+.comment-row {
+  margin: 10px 0 10px 0;
+}
 
-  #comment-nickname {
-    font-size: 13px;
-    font-weight: bold;
-  }
+#comment-nickname {
+  font-size: 13px;
+  font-weight: bold;
+}
 
-  #comment-info {
-    font-size: 13px;
-  }
+#comment-info {
+  font-size: 13px;
+}
 
-  .el-dropdown-link {
-    cursor: pointer;
-    color: #409EFF;
-  }
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409EFF;
+}
 
-  .el-icon-arrow-down {
-    font-size: 12px;
-  }
+.el-icon-arrow-down {
+  font-size: 12px;
+}
 
-  #like {
-    cursor: pointer;
-    margin-right: 10px;
-  }
+#like {
+  cursor: pointer;
+  margin-right: 10px;
+}
 
-  i {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-size: 20px 20px;
-    background-image: url("http://oss.norza.cn/imgs/thumb.png");
-    background-position: center center;
-  }
+i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  background-image: url("http://oss.norza.cn/imgs/thumb.png");
+  background-position: center center;
+}
 
-  #publish-button {
-    background-color: rgb(140, 197, 255);
-  }
+#publish-button {
+  background-color: rgb(140, 197, 255);
+}
 
-  #divider {
-    margin-top: 50px;
-  }
+#divider {
+  margin-top: 50px;
+}
 
-  /* 当屏幕宽度小于768px时 */
-  @media screen and (max-width: 768px) {
-    #video-comment {
-      padding: 0;
-    }
+/* 当屏幕宽度小于768px时 */
+@media screen and (max-width: 768px) {
+  #video-comment {
+    padding: 0;
   }
+}
 
-  /* 当屏幕宽度大于768px时 */
-  @media screen and (min-width: 768px) {
-    #video-comment {
-      padding: 5% 12%;
-    }
+/* 当屏幕宽度大于768px时 */
+@media screen and (min-width: 768px) {
+  #video-comment {
+    padding: 5% 12%;
   }
+}
 </style>
