@@ -3,10 +3,10 @@
       <div id="video-title">
         <el-tag>{{video.type}}</el-tag>{{video.title}}
         <div id="abb-info">
-          <span id="play-volume">播放量:{{video.playNum}}</span><span id="upload-time">  投稿时间:{{video.createdDate}}</span>
+          <span id="play-volume">播放量:{{video.playNum}}</span><span id="upload-time">  投稿时间:{{video.date}}</span>
         </div>
       </div>
-      <video :src="video.videoUrl" controls="controls" style="width: 100%; height: 100%"></video>
+      <video :src="video.url" controls="controls" style="width: 100%; height: 100%"></video>
       <div id="video-bottom">
         <span class="copyright"><i class="prohibit"></i>禁止转载</span>
         <el-collapse id="collapse" v-model="activeNames" @change="handleChange">
@@ -16,16 +16,16 @@
           <el-collapse-item class="collapse-item" title="作者信息 ↓↓↓ 点击展开更多" name="2">
             <el-row>
               <el-col :xs="3" :span="2">
-                <el-avatar id="avatar" :src="video.author.avatar">
+                <el-avatar id="avatar" :src="video.organizer.avatar">
                   <div slot="error" class="image-slot">
                     <i class="el-icon-picture-outline"></i>
                   </div>
                 </el-avatar>
               </el-col>
               <el-col :xs="21" :span="22">
-                <el-row>用户名：<a href="">{{video.author.username}}</a></el-row>
-                <el-row>个人简介：{{video.author.profile}}</el-row>
-                <el-row>粉丝数：{{video.author.fans}}</el-row>
+                <el-row>用户名：<a href="">{{video.organizer.username}}</a></el-row>
+                <el-row>个人简介：{{video.organizer.profile}}</el-row>
+                <el-row>粉丝数：{{video.organizer.fans}}</el-row>
               </el-col>
             </el-row>
           </el-collapse-item>
@@ -42,7 +42,7 @@ export default {
     }
   },
   async created () {
-    let { data: value } = await this.$http.get('/getting/video?id=1')
+    let { data: value } = await this.$http.get('/getting/video?id=3')
     this.video = value
   },
   data () {

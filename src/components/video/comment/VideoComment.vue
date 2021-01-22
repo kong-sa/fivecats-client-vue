@@ -21,12 +21,12 @@
     </el-row>
     <el-divider id="divider"></el-divider>
     <!--2行 评论区-->
-    <el-row v-for="CommentItem in comment" :key="CommentItem.id">
+    <el-row v-for="item in commentObj.videoComment" :key="item.id">
       <!--1列 头像-->
       <el-col :xs="3" :span="2">
         <!--下拉框，鼠标悬停显示用户详细信息-->
         <el-dropdown>
-          <el-avatar fit="fill" :src="CommentItem.avatar">
+          <el-avatar fit="fill" :src="item.organizer.avatar">
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div>
@@ -35,15 +35,15 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
               <!--用户头像-->
-              <el-avatar fit="fill" :src="CommentItem.avatar">
+              <el-avatar fit="fill" :src="item.organizer.avatar">
                 <div slot="error" class="image-slot">
                   <i class="el-icon-picture-outline"></i>
                 </div>
               </el-avatar>
               <!--相关信息-->
-              <div>用户名：<a id="nickname" href="">{{CommentItem.username}}</a></div>
-              <div>个人简介：{{CommentItem.profile}}</div>
-              <div>粉丝数：{{CommentItem.fans}}</div>
+              <div>用户名：<a id="nickname" href="">{{item.organizer.username}}</a></div>
+              <div>个人简介：{{item.organizer.profile}}</div>
+              <div>粉丝数：{{item.organizer.fans}}</div>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -51,17 +51,17 @@
       <!--2列 评论-->
       <el-col :xs="21" :span="22" id="comment-col">
         <!--1行 用户名-->
-        <el-row class="comment-row" id="comment-nickname">{{CommentItem.username}}</el-row>
+        <el-row class="comment-row" id="comment-nickname">{{item.organizer.username}}  <el-tag size="mini" v-if="commentObj.organizerId === item.organizerId">作者</el-tag></el-row>
         <!--2行 内容-->
-        <el-row class="comment-row" id="comment-content">{{CommentItem.content}}</el-row>
+        <el-row class="comment-row" id="comment-content">{{item.content}}</el-row>
         <!--3行 点赞-->
         <el-row class="comment-row" id="comment-info">
           <!--点赞图标-->
           <span id="like">
-            <i></i><span>{{CommentItem.likes}}</span>
+            <i></i><span>{{item.likes}}</span>
           </span>
           <!--点赞数-->
-          <span id="comment-time">{{CommentItem.createdDate}}</span>
+          <span id="comment-time">{{item.date}}</span>
         </el-row>
       </el-col>
     </el-row>
@@ -85,8 +85,8 @@ export default {
     }
   },
   async created () {
-    let { data: value } = await this.$http.get('/getting/video/comment?videoId=1')
-    this.comment = value
+    let { data: value } = await this.$http.get('/getting/video/comment?id=3')
+    this.commentObj = value
   },
   data () {
     return {
@@ -97,7 +97,7 @@ export default {
         username: 'kongsama',
         avatar: 'http://oss.norza.cn/imgs/avatar/customer/1/avatar01.jpg'
       },
-      comment: []
+      commentObj: {}
     }
   }
 }
