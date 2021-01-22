@@ -21,7 +21,7 @@
     </el-row>
     <el-divider id="divider"></el-divider>
     <!--2行 评论区-->
-    <el-row v-for="CommentItem in videoComment" :key="CommentItem.id">
+    <el-row v-for="CommentItem in comment" :key="CommentItem.id">
       <!--1列 头像-->
       <el-col :xs="3" :span="2">
         <!--下拉框，鼠标悬停显示用户详细信息-->
@@ -86,7 +86,7 @@ export default {
   },
   async created () {
     let { data: value } = await this.$http.get('/getting/video/comment?videoId=1')
-    this.videoComment = value
+    this.comment = value
   },
   data () {
     return {
@@ -97,7 +97,7 @@ export default {
         username: 'kongsama',
         avatar: 'http://oss.norza.cn/imgs/avatar/customer/1/avatar01.jpg'
       },
-      videoComment: []
+      comment: []
     }
   }
 }

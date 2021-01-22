@@ -1,32 +1,31 @@
 <template>
     <div id="video-player">
       <div id="video-title">
-        <el-tag>番剧</el-tag>豪赌之渊第二季 02
+        <el-tag>{{video.type}}</el-tag>{{video.title}}
         <div id="abb-info">
-          <span id="play-volume">播放量:1132k</span><span id="upload-time">2021-01-14 17:55:41</span>
+          <span id="play-volume">播放量:{{video.playNum}}</span><span id="upload-time">  投稿时间:{{video.createdDate}}</span>
         </div>
       </div>
-      <video ref="videoPlayer" class="video-js vjs-big-play-centered vjs-matrix"></video>
+      <video :src="video.videoUrl" controls="controls" style="width: 100%; height: 100%"></video>
       <div id="video-bottom">
         <span class="copyright"><i class="prohibit"></i>禁止转载</span>
         <el-collapse id="collapse" v-model="activeNames" @change="handleChange">
           <el-collapse-item class="collapse-item" title="视频简介" name="1">
-            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            {{video.profile}}
           </el-collapse-item>
           <el-collapse-item class="collapse-item" title="作者信息 ↓↓↓ 点击展开更多" name="2">
             <el-row>
               <el-col :xs="3" :span="2">
-                <el-avatar id="avatar" :src="customer.avatar">
+                <el-avatar id="avatar" :src="video.author.avatar">
                   <div slot="error" class="image-slot">
                     <i class="el-icon-picture-outline"></i>
                   </div>
                 </el-avatar>
               </el-col>
               <el-col :xs="21" :span="22">
-                <el-row>用户名：<a href="">{{customer.username}}</a></el-row>
-                <el-row>个人简介：{{customer.profile}}</el-row>
-                <el-row>粉丝数：{{customer.fans}}</el-row>
+                <el-row>用户名：<a href="">{{video.author.username}}</a></el-row>
+                <el-row>个人简介：{{video.author.profile}}</el-row>
+                <el-row>粉丝数：{{video.author.fans}}</el-row>
               </el-col>
             </el-row>
           </el-collapse-item>
@@ -36,42 +35,21 @@
 </template>
 
 <script>
-import videoJs from 'video.js'
-
 export default {
   name: 'VideoPlayer',
   methods: {
     handleChange (val) {
     }
   },
-  props: {
-    options: {
-      type: Object,
-      default () {
-        return {
-        }
-      }
-    }
+  async created () {
+    let { data: value } = await this.$http.get('/getting/video?id=1')
+    this.video = value
   },
   data () {
     return {
+      video: {},
       player: null,
-      activeNames: ['1'],
-      customer: {
-        fans: 150,
-        profile: 'Time tick away, dream faded away!',
-        username: 'kongsama',
-        avatar: 'http://oss.norza.cn/imgs/avatar/customer/1/avatar01.jpg'
-      }
-    }
-  },
-  mounted: function () {
-    this.player = videoJs(this.$refs.videoPlayer, this.options, function onPlayerReady () {
-    })
-  },
-  beforeDestroy () {
-    if (this.player) {
-      this.player.dispose()
+      activeNames: ['1']
     }
   }
 }
@@ -130,10 +108,6 @@ i {
   height: 14px;
   background-size: 14px 14px;
   background-image: url("http://oss.norza.cn/imgs/prohibit.png");
-}
-
-#play-volume {
-  margin-right: 10px;
 }
 
 #abb-info {

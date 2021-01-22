@@ -2,7 +2,7 @@
   <el-container>
     <el-header>Header</el-header>
     <el-main id="video-main">
-      <video-player :options="videoOptions"/>
+      <video-player/>
       <video-comment/>
     </el-main>
   </el-container>
@@ -19,21 +19,7 @@ export default {
     VideoComment
   },
   data () {
-    return {
-      videoOptions: {
-        autoplay: false,
-        controls: true,
-        sources: [
-          {
-            src: 'http://oss.norza.cn/videos/%E8%B1%AA%E8%B5%8C%E4%B9%8B%E6%B8%8AXX%2002.mp4',
-            type: 'video/mp4'
-          }
-        ],
-        fluid: true,
-        aspectRatio: '16:9',
-        playbackRates: [0.5, 1, 1.5, 2]
-      }
-    }
+    return {}
   }
 }
 </script>
