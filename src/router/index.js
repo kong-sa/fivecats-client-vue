@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // my components
+import ComponentTesting from '../components/ComponentTesting'
 import FilterMain from '../components/filter/FilterMain'
 import VideoMain from '../components/video/VideoMain'
-import ComponentTesting from '../components/ComponentTesting'
 import MerchantMain from '../components/merchant/MerchantMain'
 import CustomerMain from '../components/customer/CustomerMain'
-import CustomerOrderDetail from '../components/customer/order/detail/CustomerOrderDetail'
+import CustomerOrderList from '../components/customer/order/CustomerOrderList'
 
 Vue.use(Router)
 
@@ -42,7 +42,7 @@ export default new Router({
       children: [
         {
           path: '/detail/order',
-          component: CustomerOrderDetail,
+          component: CustomerOrderList,
           meta: {
             title: '订单详细'
           }

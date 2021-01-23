@@ -1,16 +1,16 @@
 <template>
   <div id="customer-menu">
-    <customer-order-detail/>
+    <customer-order-list/>
   </div>
 </template>
 
 <script>
-import CustomerOrderDetail from './order/detail/CustomerOrderDetail'
+import CustomerOrderList from './order/CustomerOrderList'
 
 export default {
-  name: 'CustomerMenu',
+  name: 'CustomerMain',
   components: {
-    CustomerOrderDetail
+    CustomerOrderList
   }
 }
 </script>

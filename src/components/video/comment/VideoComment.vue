@@ -21,7 +21,7 @@
     </el-row>
     <el-divider id="divider"></el-divider>
     <!--2行 评论区-->
-    <el-row v-for="item in commentObj.videoComment" :key="item.id">
+    <el-row v-for="item in comment" :key="item.id">
       <!--1列 头像-->
       <el-col :xs="3" :span="2">
         <!--下拉框，鼠标悬停显示用户详细信息-->
@@ -52,7 +52,7 @@
       <el-col :xs="21" :span="22" id="comment-col">
         <!--1行 用户名-->
         <el-row class="comment-row" id="comment-nickname">{{ item.organizer.username }}
-          <el-tag size="mini" v-if="commentObj.organizerId === item.organizerId">作者</el-tag>
+          <el-tag size="mini" v-if="video.organizerId === item.organizerId">作者</el-tag>
         </el-row>
         <!--2行 内容-->
         <el-row class="comment-row" id="comment-content">{{ item.content }}</el-row>
@@ -73,22 +73,19 @@
 <script>
 export default {
   name: 'VideoComment',
+  props: ['comment', 'video'],
   methods: {
     publish () {
       this.$http.post('setting/video/comment', {
-        avatar: 'http://oss.norza.cn/imgs/avatar/customer/1/avatar01.jpg',
-        username: 'kongsama',
-        profile: 'Time tick away, dream faded away!',
-        fans: 150,
-        videoId: 1,
+        // 发送者ID
+        organizerId: 1,
+        // 被评论的视频ID
+        videoId: 3,
+        // 评论内容
         content: this.content
       })
       this.$forceUpdate()
     }
-  },
-  async created () {
-    let {data: value} = await this.$http.get('/getting/video/comment?id=3')
-    this.commentObj = value
   },
   data () {
     return {
@@ -97,9 +94,8 @@ export default {
         fans: 150,
         profile: 'Time tick away, dream faded away!',
         username: 'kongsama',
-        avatar: 'http://oss.norza.cn/imgs/avatar/customer/1/avatar01.jpg'
-      },
-      commentObj: {}
+        avatar: 'http://oss.norza.cn/imgs/avatar/organizer/1/avatar01.jpg'
+      }
     }
   }
 }

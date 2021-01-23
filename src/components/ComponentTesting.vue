@@ -7,7 +7,7 @@
       title="订单列表"
       :visible.sync="showAbbOrder"
       :width="dialogWidth">
-      <customer-order-abb-popups/>
+      <customer-order-popups/>
     </el-dialog>
     <router-link style="margin: 15px" to="/customer/main">个人中心</router-link>
     <router-link style="margin: 15px" to="/video/main">视频播放</router-link>
@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import CustomerOrderAbbPopups from './customer/order/abb/popups/CustomerOrderAbbPopups'
+import CustomerOrderPopups from './customer/order/popups/CustomerOrderPopups'
 
 export default {
   name: 'ComponentTesting',
   components: {
-    CustomerOrderAbbPopups
+    CustomerOrderPopups
   },
   mounted () {
     let width = window.screen.width

@@ -1,6 +1,6 @@
 <template>
   <!-- 简略订单列表（弹窗） -->
-  <div id="abbr-order">
+  <div id="order-popups">
     <div
       class="abbr-page"
       v-for="orderItem in order"
@@ -40,7 +40,7 @@
 
 <script>
 export default {
-  name: 'CustomerOrderAbbPopups',
+  name: 'CustomerOrderPopups',
   /**
    * 遍历该数组，从index为0开始，并计算每一个订单的总价
    * @returns {Promise<void>}
@@ -64,7 +64,7 @@ export default {
 </script>
 
 <style scoped>
-#abbr-order {
+#order-popups {
   height: 453px;
   overflow-y: auto
 }

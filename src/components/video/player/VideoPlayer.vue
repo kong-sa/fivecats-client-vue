@@ -38,18 +38,13 @@
 <script>
 export default {
   name: 'VideoPlayer',
+  props: ['video'],
   methods: {
     handleChange (val) {
     }
   },
-  async created () {
-    let {data: value} = await this.$http.get('/getting/video?id=3')
-    this.video = value
-  },
   data () {
     return {
-      video: {},
-      player: null,
       activeNames: ['1']
     }
   }

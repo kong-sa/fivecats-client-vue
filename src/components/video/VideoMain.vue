@@ -2,8 +2,8 @@
   <el-container>
     <el-header>Header</el-header>
     <el-main id="video-main">
-      <video-player/>
-      <video-comment/>
+      <video-player :video="video"/>
+      <video-comment :comment="comment" :video="video"/>
     </el-main>
   </el-container>
 </template>
@@ -14,12 +14,21 @@ import VideoPlayer from './player/VideoPlayer'
 
 export default {
   name: 'VideoMain',
+  async created () {
+    let {data: video} = await this.$http.get('/getting/video?id=3')
+    let {data: comment} = await this.$http.get('/getting/video/comment?id=3')
+    this.video = video
+    this.comment = comment
+  },
   components: {
     VideoPlayer,
     VideoComment
   },
   data () {
-    return {}
+    return {
+      video: {},
+      comment: []
+    }
   }
 }
 </script>
