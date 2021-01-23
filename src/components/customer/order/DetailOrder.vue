@@ -2,7 +2,7 @@
   <!-- 详细订单页 -->
   <el-container>
     <el-header>Header</el-header>
-    <el-main id="order-list-main">
+    <el-main id="detail-order-main">
       <!-- 第一行 商家信息 -->
       <el-row>
         <!-- 第一列 商家图片-->
@@ -175,7 +175,7 @@
 
 <script>
 export default {
-  name: 'CustomerOrderList',
+  name: 'DetailOrder',
   methods: {
     getDishesNum (value) {
     },
@@ -215,7 +215,7 @@ export default {
 <style scoped>
 /* 当屏幕 < 768px */
 @media screen and (max-width: 768px) {
-  #order-list-main {
+  #detail-order-main {
     padding: 0;
   }
 
@@ -226,7 +226,7 @@ export default {
 
 /* 当屏幕 > 768px */
 @media screen and (min-width: 768px) {
-  #order-list-main {
+  #detail-order-main {
     padding: 0 10%;
   }
 

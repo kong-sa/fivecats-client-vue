@@ -1,8 +1,8 @@
 <template>
   <!-- 简略订单列表（弹窗） -->
-  <div id="order-popups">
+  <div id="brief-order">
     <div
-      class="abbr-page"
+      class="brief-page"
       v-for="orderItem in order"
       :key="orderItem.id">
       <el-row>
@@ -14,7 +14,7 @@
             v-for="dishesItem in orderItem.orderDishRelations"
             :key="dishesItem.id">
             <el-image
-              class="abbr-image"
+              class="brief-img"
               :src="dishesItem.dishes.imgUrl">
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
@@ -25,9 +25,9 @@
         <!-- 第二行 订单简略信息-->
         <el-row>
           <!-- 第一列 -->
-          <el-col :xs="10" :span="8">排队号：{{orderItem.queueNum}}</el-col>
+          <el-col :xs="10" :span="8">排队号：{{ orderItem.queueNum }}</el-col>
           <!-- 第二列 -->
-          <el-col :xs="10" :span="8">总价：{{orderItem.tempTotal}} ¥</el-col>
+          <el-col :xs="10" :span="8">总价：{{ orderItem.tempTotal }} ¥</el-col>
           <!-- 第三列 跳转详细订单页面 -->
           <el-col :xs="12" :span="8">
             <router-link to="/detail/order">查看详细</router-link>
@@ -40,13 +40,13 @@
 
 <script>
 export default {
-  name: 'CustomerOrderPopups',
+  name: 'BriefOrder',
   /**
    * 遍历该数组，从index为0开始，并计算每一个订单的总价
    * @returns {Promise<void>}
    */
   async created () {
-    let { data: value } = await this.$http.get('/getting/abb/order?customerId=1')
+    let {data: value} = await this.$http.get('/getting/abb/order?customerId=1')
     this.order = value
     value.forEach(order => {
       order.orderDishRelations.forEach(calculation => {
@@ -64,18 +64,18 @@ export default {
 </script>
 
 <style scoped>
-#order-popups {
+#brief-order {
   height: 453px;
   overflow-y: auto
 }
 
-.abbr-page {
+.brief-page {
   margin: 5px;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
 }
 
-.abbr-image {
+.brief-img {
   width: 50px;
   height: 50px;
   border-radius: 6px

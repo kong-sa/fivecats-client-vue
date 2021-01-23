@@ -26,8 +26,46 @@ export default {
   },
   data () {
     return {
-      video: {},
-      comment: []
+      video: {
+        'id': 0,
+        'organizerId': 0,
+        'date': '',
+        'url': '',
+        'title': '',
+        'profile': '',
+        'type': '',
+        'playNum': 0,
+        'videoComment': null,
+        'organizer': {
+          'id': 0,
+          'date': null,
+          'avatar': '',
+          'username': '',
+          'password': null,
+          'profile': '',
+          'fans': 0
+        }
+      },
+      comment: [
+        {
+          'id': 0,
+          'organizerId': 0,
+          'videoId': 0,
+          'content': '',
+          'likes': 0,
+          'date': '',
+          'organizer': {
+            'id': 0,
+            'date': null,
+            'avatar': '',
+            'username': '',
+            'password': null,
+            'profile': '',
+            'fans': 0
+          },
+          'video': null
+        }
+      ]
     }
   }
 }

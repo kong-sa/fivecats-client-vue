@@ -13,11 +13,12 @@
     <router-link style="margin: 15px" to="/video/main">视频播放</router-link>
     <router-link style="margin: 15px" to="/merchant/main">商家详情</router-link>
     <router-link style="margin: 15px" to="/filter/main">寻找美食</router-link>
+    <router-link style="margin: 15px" to="/bbs/main">BBS</router-link>
   </div>
 </template>
 
 <script>
-import CustomerOrderPopups from './customer/order/popups/CustomerOrderPopups'
+import CustomerOrderPopups from './customer/order/popups/BriefOrder'
 
 export default {
   name: 'ComponentTesting',

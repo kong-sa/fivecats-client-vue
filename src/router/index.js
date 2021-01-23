@@ -6,7 +6,8 @@ import FilterMain from '../components/filter/FilterMain'
 import VideoMain from '../components/video/VideoMain'
 import MerchantMain from '../components/merchant/MerchantMain'
 import CustomerMain from '../components/customer/CustomerMain'
-import CustomerOrderList from '../components/customer/order/CustomerOrderList'
+import DetailOrder from '../components/customer/order/DetailOrder'
+import BbsMain from '../components/bbs/BbsMain'
 
 Vue.use(Router)
 
@@ -42,7 +43,7 @@ export default new Router({
       children: [
         {
           path: '/detail/order',
-          component: CustomerOrderList,
+          component: DetailOrder,
           meta: {
             title: '订单详细'
           }
@@ -54,6 +55,13 @@ export default new Router({
       component: FilterMain,
       meta: {
         title: '寻找美食'
+      }
+    },
+    {
+      path: '/bbs/main',
+      component: BbsMain,
+      meta: {
+        title: '馋猫社区'
       }
     }
   ]
