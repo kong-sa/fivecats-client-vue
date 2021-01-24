@@ -8,6 +8,7 @@ import MerchantMain from '../components/merchant/MerchantMain'
 import CustomerMain from '../components/customer/CustomerMain'
 import DetailOrder from '../components/customer/order/DetailOrder'
 import BbsMain from '../components/bbs/BbsMain'
+import PostBbsArticle from '../components/bbs/child/PostBbsArticle'
 
 Vue.use(Router)
 
@@ -62,6 +63,13 @@ export default new Router({
       component: BbsMain,
       meta: {
         title: '馋猫社区'
+      }
+    },
+    {
+      path: '/bbs/post/article',
+      component: PostBbsArticle,
+      meta: {
+        title: '发表帖子'
       }
     }
   ]

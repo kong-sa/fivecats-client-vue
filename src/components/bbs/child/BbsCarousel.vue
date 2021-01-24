@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'Carousel',
+  name: 'BbsCarousel',
   data () {
     return {
       carousel: [
