@@ -85,13 +85,11 @@ export default {
 }
 </script>
 
-<style>
-.el-divider--horizontal {
+<style scoped>
+/deep/ .el-divider--horizontal {
   margin: 0;
 }
-</style>
 
-<style scoped>
 .bbs-content {
   margin-bottom: 15px;
 }
@@ -118,6 +116,12 @@ export default {
 .post-brief-content {
   color: #999;
   font-size: 14px;
+  width: 670px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  cursor: pointer;
 }
 
 .post-title {

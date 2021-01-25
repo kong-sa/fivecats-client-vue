@@ -23,17 +23,16 @@ export default {
 }
 </script>
 
-<style>
-.el-card__body {
+<style scoped>
+
+/deep/ .el-card__body {
   padding: 10px;
 }
 
-.el-card__header {
+/deep/ .el-card__header {
   padding: 10px 10px;
 }
-</style>
 
-<style scoped>
 #publish {
   font-size: 16px;
   font-weight: 600;
