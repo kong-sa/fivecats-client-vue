@@ -9,6 +9,7 @@ import CustomerMain from '../components/customer/CustomerMain'
 import DetailOrder from '../components/customer/order/DetailOrder'
 import BbsMain from '../components/bbs/BbsMain'
 import PostBbsArticle from '../components/bbs/child/PostBbsArticle'
+import BbsArticleContent from '../components/bbs/child/BbsArticleContent'
 
 Vue.use(Router)
 
@@ -70,6 +71,13 @@ export default new Router({
       component: PostBbsArticle,
       meta: {
         title: '发表帖子'
+      }
+    },
+    {
+      path: '/bbs/article/content/:articleId',
+      component: BbsArticleContent,
+      meta: {
+        title: '帖子内容'
       }
     }
   ]

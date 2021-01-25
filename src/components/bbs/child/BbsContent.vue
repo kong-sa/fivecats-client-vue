@@ -15,8 +15,11 @@
       </el-row>
       <el-divider></el-divider>
       <!--   标题   -->
-      <el-row>
-        <h3 class="post-title">{{ item.title }}</h3>
+      <el-row style="margin: 10px 0">
+        <div style="line-height: 32px">
+          <el-tag>{{ item.type }}</el-tag>
+          <span class="post-title">{{ item.title }}</span>
+        </div>
       </el-row>
       <!--   简略内容   -->
       <el-row>
@@ -49,13 +52,16 @@
         </el-col>
       </el-row>
       <!--   赞数、讨论数   -->
-      <el-row style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px">
+      <el-row style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; font-size: 13px; color: #666">
          <span style="margin-right: 10px">
           <i class="el-icon--left el-icon-chat-line-round"></i>{{ item.times }}
         </span>
-        <span>
+        <span style="margin-right: 10px">
           <i class="el-icon--left el-icon-thumb"></i>{{ item.likes }}
         </span>
+        <a @click="lookDetail(item.id)">
+          <span>查看帖子<i class="el-icon-right el-icon-caret-right"></i></span>
+        </a>
       </el-row>
     </el-card>
   </div>
@@ -68,11 +74,13 @@ export default {
   methods: {
     errorHandler () {
       return true
+    },
+    lookDetail (articleId) {
+      this.$router.push('/bbs/article/content/' + articleId)
     }
   },
   data () {
-    return {
-    }
+    return {}
   }
 }
 </script>

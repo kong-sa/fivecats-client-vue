@@ -53,6 +53,7 @@ html, body, #app {
 
 a:link {
   color: rgb(140, 197, 255);
+  text-decoration: none;
 }
 
 a:visited {
@@ -62,8 +63,10 @@ a:visited {
 
 a:hover {
   color: rgb(140, 197, 255);
+  text-decoration: none;
 }
 
 a:active {
   color: rgb(140, 197, 255);
+  text-decoration: none;
 }

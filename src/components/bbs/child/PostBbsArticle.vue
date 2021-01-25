@@ -2,14 +2,14 @@
   <el-container style="background: rgb(245,245,250)">
     <el-header>Header</el-header>
     <el-main style="margin: 0 20%; padding: 0;">
-      <el-card>
+      <el-card style="padding: 15px">
         <el-form :rules="rules" :model="formData" ref="formData">
           <el-row style="margin-bottom: 10px; font-size: 18px; font-weight: 600; text-align: center">
             发布帖子
           </el-row>
           <el-divider/>
           <!--   输入标题   -->
-          <el-row style="margin-bottom: 20px; margin-top: 20px">
+          <el-row style="margin-top: 20px">
             <el-col class="label" :span="3">帖子标题：</el-col>
             <el-col :span="20">
               <el-form-item prop="title">
@@ -21,6 +21,20 @@
                   v-model="formData.title">
                 </el-input>
               </el-form-item>
+            </el-col>
+          </el-row>
+          <!--     帖子类型     -->
+          <el-row style="margin-bottom: 20px">
+            <el-col class="label" :span="3">帖子类型：</el-col>
+            <el-col :span="20">
+              <el-select v-model="optionValue" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-col>
           </el-row>
           <!--   输入内容   -->
@@ -40,14 +54,14 @@
             </el-col>
           </el-row>
           <el-row style="margin-bottom: 20px">
-            <el-col :span="3">上传图片：</el-col>
+            <el-col class="label" :span="3">上传图片：</el-col>
             <el-col :span="20">
               <el-switch
                 v-model="value"
                 active-color="rgb(76,195,255)"
                 inactive-color="rgb(204,204,204)">
               </el-switch>
-              <span style="font-size: 12px; color: #ccc">如果要上传图片打开即可上传，不上传请关闭，谢谢配合</span>
+              <span style="font-size: 12px; color: #ccc">如果要上传图片打开即可上传，不上传请关闭。</span>
             </el-col>
           </el-row>
           <!--   插入图片   -->
@@ -115,9 +129,28 @@ export default {
         title: ''
       },
       disabled: false,
+      optionValue: '请选择帖子类型',
       value: false,
       dialogImageUrl: '',
       dialogVisible: false,
+      options: [
+        {
+          value: '节约粮食打卡',
+          label: '节约粮食打卡'
+        },
+        {
+          value: '制作美食心得',
+          label: '制作美食心得'
+        },
+        {
+          value: '农村美食分享',
+          label: '农村美食分享'
+        },
+        {
+          value: '其他',
+          label: '其他'
+        }
+      ],
       rules: {
         title: [
           {required: true, message: '请输入帖子标题', trigger: 'blur'},
@@ -125,7 +158,7 @@ export default {
         ],
         textarea: [
           {required: true, message: '请输入帖子内容', trigger: 'blur'},
-          {min: 20, max: 1000, message: '长度在 20 到 1000 个字符', trigger: 'blur'}
+          {min: 10, max: 1000, message: '长度在 10 到 1000 个字符', trigger: 'blur'}
         ]
       }
     }
@@ -141,6 +174,7 @@ export default {
     },
     publish () {
       this.$refs.formData.validate((valid) => {
+        let goldNum = 0
         if (valid) {
           if (this.value === true) {
             this.$refs.upload.submit()
@@ -148,7 +182,27 @@ export default {
           this.$http.post('/setting/article', {
             title: this.formData.title,
             content: this.formData.textarea,
-            organizerId: 1
+            organizerId: 1,
+            type: this.optionValue
+          })
+          switch (this.optionValue) {
+            case '节约粮食打卡':
+              goldNum = 6
+              break
+            case '制作美食心得':
+              goldNum = 4
+              break
+            case '农村美食分享':
+              goldNum = 3
+              break
+            case '其他':
+              goldNum = 1
+              break
+          }
+          this.$message({
+            message: '发表帖子成功！金币 ' + '+' + goldNum + '，前往个人中心查收~',
+            duration: 6000,
+            type: 'success'
           })
         } else {
           return false

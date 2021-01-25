@@ -43,6 +43,7 @@ export default {
           'url1': '',
           'url2': '',
           'url3': '',
+          'type': '',
           'times': 0,
           'organizer': {
             'id': 0,
