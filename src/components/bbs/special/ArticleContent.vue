@@ -69,8 +69,8 @@
 
 <script>
 export default {
-  name: 'BbsContent',
   props: ['articles'],
+  name: 'ArticleContent',
   methods: {
     errorHandler () {
       return true

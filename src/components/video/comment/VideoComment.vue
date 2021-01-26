@@ -138,7 +138,7 @@ i {
   width: 20px;
   height: 20px;
   background-size: 20px 20px;
-  background-image: url("http://oss.norza.cn/imgs/thumb.png");
+  background-image: url("../../../assets/icon/thumb-icon.png");
   background-position: center center;
 }
 

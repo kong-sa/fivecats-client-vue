@@ -1,6 +1,8 @@
 <template>
-  <el-container style="background: rgb(245,245,250)">
-    <el-header>Header</el-header>
+  <el-container style="background: rgb(245,245,250); min-height: 760px">
+    <el-header style="padding: 0; margin-bottom: 25px">
+      <navigation-bar/>
+    </el-header>
     <el-main style="margin: 0 20%; padding: 0;">
       <el-card style="padding: 15px">
         <el-form :rules="rules" :model="formData" ref="formData">
@@ -41,16 +43,9 @@
           <el-row style="margin-bottom: 20px">
             <el-col class="label" :span="3">帖子内容：</el-col>
             <el-col :span="20">
-              <el-form-item prop="textarea">
-                <el-input
-                  type="textarea"
-                  maxlength="1000"
-                  show-word-limit
-                  placeholder="输入你想要说的话吧(*^▽^*)"
-                  v-model="formData.textarea"
-                  rows="20">
-                </el-input>
-              </el-form-item>
+              <vue-tinymce
+                v-model="content"
+                :setting="setting"/>
             </el-col>
           </el-row>
           <el-row style="margin-bottom: 20px">
@@ -120,13 +115,25 @@
 </template>
 
 <script>
+import NavigationBar from '../navbar/NavigationBar'
+
 export default {
   name: 'PostBbsArticle',
+  components: {NavigationBar},
   data () {
     return {
       formData: {
-        textarea: '',
         title: ''
+      },
+      content: '',
+      setting: {
+        menubar: false,
+        toolbar: 'undo redo | fullscreen | formatselect alignleft aligncenter alignright alignjustify | link unlink | numlist bullist | image media table | fontselect fontsizeselect forecolor backcolor | bold italic underline strikethrough | indent outdent | superscript subscript | removeformat |',
+        toolbar_drawer: 'sliding',
+        quickbars_selection_toolbar: 'removeformat | bold italic underline strikethrough | fontsizeselect forecolor backcolor',
+        plugins: 'link image media table lists fullscreen quickbars',
+        language: 'zh_CN',
+        height: 350
       },
       disabled: false,
       optionValue: '请选择帖子类型',
@@ -158,52 +165,68 @@ export default {
         ],
         textarea: [
           {required: true, message: '请输入帖子内容', trigger: 'blur'},
-          {min: 10, max: 1000, message: '长度在 10 到 1000 个字符', trigger: 'blur'}
+          {min: 10, max: 5000, message: '长度在 10 到 5000 个字符', trigger: 'blur'}
         ]
+      },
+      rewordValue: {
+        gold: 0,
+        experience: 0
       }
     }
   },
   methods: {
-    handleRemove (file) {
-    },
+    handleRemove (file) {},
     handlePictureCardPreview (file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
     },
-    handleDownload (file) {
+    handleDownload (file) {},
+    judgeReword (value) {
+      switch (value) {
+        case '节约粮食打卡':
+          this.rewordValue.gold = 6
+          this.rewordValue.experience = 5
+          break
+        case '制作美食心得':
+          this.rewordValue.gold = 4
+          this.rewordValue.experience = 4
+          break
+        case '农村美食分享':
+          this.rewordValue.gold = 3
+          this.rewordValue.experience = 3
+          break
+        case '其他':
+          this.rewordValue.gold = 1
+          this.rewordValue.experience = 2
+          break
+      }
     },
     publish () {
       this.$refs.formData.validate((valid) => {
-        let goldNum = 0
         if (valid) {
           if (this.value === true) {
             this.$refs.upload.submit()
           }
-          this.$http.post('/setting/article', {
-            title: this.formData.title,
-            content: this.formData.textarea,
-            organizerId: 1,
-            type: this.optionValue
-          })
-          switch (this.optionValue) {
-            case '节约粮食打卡':
-              goldNum = 6
-              break
-            case '制作美食心得':
-              goldNum = 4
-              break
-            case '农村美食分享':
-              goldNum = 3
-              break
-            case '其他':
-              goldNum = 1
-              break
+          if (this.content.length >= 20) {
+            this.$http.post('/setting/article', {
+              title: this.formData.title,
+              content: this.content,
+              organizerId: 1,
+              type: this.optionValue
+            })
+            this.judgeReword(this.optionValue)
+            this.$message({
+              message: '发表帖子成功！金币 +' + this.rewordValue.gold + '经验 +' + this.rewordValue.experience + '，前往个人中心查收~',
+              duration: 6000,
+              type: 'success'
+            })
+          } else {
+            this.$message({
+              message: '你至少要输入20个字符的内容',
+              duration: 6000,
+              type: 'error'
+            })
           }
-          this.$message({
-            message: '发表帖子成功！金币 ' + '+' + goldNum + '，前往个人中心查收~',
-            duration: 6000,
-            type: 'success'
-          })
         } else {
           return false
         }

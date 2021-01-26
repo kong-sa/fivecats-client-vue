@@ -1,6 +1,8 @@
 <template>
   <el-container style="background: rgb(245,245,250)">
-    <el-header>Header</el-header>
+    <el-header style="padding: 0; margin-bottom: 25px">
+      <navigation-bar/>
+    </el-header>
     <el-main style="margin: 0 20%; padding: 0;">
       <el-card style="padding: 20px">
         <!--    帖子具体内容展示    -->
@@ -29,12 +31,11 @@
           <el-divider></el-divider>
           <!--     帖子具体内容     -->
           <el-row style="margin-bottom: 20px">
-            <div style="margin: 15px 0">
-              {{ articleObj.content }}
+            <div v-html="articleObj.content" style="margin: 15px 0">
             </div>
-            <el-image v-if="articleObj.url1" :src="articleObj.url1"></el-image>
-            <el-image v-if="articleObj.url2" :src="articleObj.url2"></el-image>
-            <el-image v-if="articleObj.url3" :src="articleObj.url3"></el-image>
+            <el-image :preview-src-list="[articleObj.url1]" v-if="articleObj.url1" :src="articleObj.url1"></el-image>
+            <el-image :preview-src-list="[articleObj.url2]" v-if="articleObj.url2" :src="articleObj.url2"></el-image>
+            <el-image :preview-src-list="[articleObj.url3]" v-if="articleObj.url3" :src="articleObj.url3"></el-image>
           </el-row>
           <!--     为该文章点赞     -->
           <el-row style="text-align: center; margin: 40px">
@@ -98,7 +99,8 @@
               </el-dropdown>
             </el-col>
             <el-col :span="5" class="comment-row" id="comment-nickname">{{ item.organizer.username }}
-              <el-tag v-if="item.organizer.id === articleObj.organizer.id" style="margin-left: 10px" size="small">发帖人</el-tag>
+              <el-tag v-if="item.organizer.id === articleObj.organizer.id" style="margin-left: 10px" size="small">发帖人
+              </el-tag>
             </el-col>
           </el-row>
           <el-row class="comment-row" id="comment-content">
@@ -108,8 +110,8 @@
             <el-col :offset="2">
               <!--点赞图标-->
               <span id="like">
-              <i class="el-icon--left el-icon-thumb"></i><span>{{ item.likes }}</span>
-            </span>
+                  <i class="el-icon--left el-icon-thumb"></i><span>{{ item.likes }}</span>
+                </span>
               <!--点赞数-->
               <span id="comment-time">{{ item.date }}</span>
             </el-col>
@@ -122,8 +124,11 @@
 </template>
 
 <script>
+import NavigationBar from '../navbar/NavigationBar'
+
 export default {
   name: 'BbsArticleContent',
+  components: {NavigationBar},
   async created () {
     this.articleId = this.$route.params.articleId
     let {data: articleObj} = await this.$http.get('/getting/article/content?articleId=' + this.articleId)

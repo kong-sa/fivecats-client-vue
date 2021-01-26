@@ -1,12 +1,10 @@
 .el-card {
   box-shadow: 0 1px 1px rgb(0, 0, 0, 0.15) !important;
+  border: 0;
 }
 
-html, body, #app {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+body {
+  margin: 0 !important;
 }
 
 @font-face {
@@ -49,24 +47,4 @@ html, body, #app {
   /*-webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);*/
   border-radius: 0;
   background: rgba(0, 0, 0, 0);
-}
-
-a:link {
-  color: rgb(140, 197, 255);
-  text-decoration: none;
-}
-
-a:visited {
-  color: rgb(140, 197, 255);
-  text-decoration: none;
-}
-
-a:hover {
-  color: rgb(140, 197, 255);
-  text-decoration: none;
-}
-
-a:active {
-  color: rgb(140, 197, 255);
-  text-decoration: none;
 }

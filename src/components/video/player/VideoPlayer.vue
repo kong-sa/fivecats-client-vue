@@ -104,7 +104,7 @@ i {
   width: 14px;
   height: 14px;
   background-size: 14px 14px;
-  background-image: url("http://oss.norza.cn/imgs/prohibit.png");
+  background-image: url("../../../assets/icon/prohibit-icon.png");
 }
 
 #abb-info {

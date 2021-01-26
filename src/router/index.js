@@ -10,6 +10,7 @@ import DetailOrder from '../components/customer/order/DetailOrder'
 import BbsMain from '../components/bbs/BbsMain'
 import PostBbsArticle from '../components/bbs/child/PostBbsArticle'
 import BbsArticleContent from '../components/bbs/child/BbsArticleContent'
+import SpecialArea from '../components/bbs/special/SpecialArea'
 
 Vue.use(Router)
 
@@ -78,6 +79,13 @@ export default new Router({
       component: BbsArticleContent,
       meta: {
         title: '帖子内容'
+      }
+    },
+    {
+      path: '/bbs/:type',
+      component: SpecialArea,
+      meta: {
+        title: '馋猫专区'
       }
     }
   ]
