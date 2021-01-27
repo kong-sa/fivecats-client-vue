@@ -3,10 +3,11 @@
     <div slot="header" class="clearfix" style="text-align: center; font-weight: 600">
       <span>热门的美食心得帖子</span>
     </div>
-    <el-row v-for="(item) in articles" :key="item.id" v-if="item.type === '制作美食心得' && item.likes >= 50">
+    <el-row class="popular-article-item" v-for="item in articles" :key="item.id"
+            v-if="item.tag === '制作美食心得' && item.likes >= 50">
       <a @click="lookDetail(item.id)">
-        <el-col class="popular-articles">
-          <el-tag class="popular-articles-tag" size="mini">热门</el-tag>
+        <el-col class="announce-articles">
+          <el-tag class="announce-articles-tag" size="mini">热门</el-tag>
           {{ item.title }}
         </el-col>
       </a>
@@ -35,7 +36,7 @@ export default {
   padding: 10px 10px;
 }
 
-.popular-articles {
+.announce-articles {
   width: 289px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -45,7 +46,11 @@ export default {
   cursor: pointer;
 }
 
-.popular-articles-tag {
+.announce-articles-tag {
   margin-right: 10px;
+}
+
+.announce-articles-tag {
+  margin-top: 10px;
 }
 </style>

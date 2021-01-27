@@ -6,10 +6,18 @@
       </el-col>
       <el-col :span="12">
         <el-row class="special-area">
-          <el-col :span="6"><a @click="goClock">打卡专区</a></el-col>
-          <el-col :span="6"><a @click="goRecipe">食谱专区</a></el-col>
-          <el-col :span="6"><a @click="goCooking">制作专区</a></el-col>
-          <el-col :span="6"><a @click="goSharing">分享专区</a></el-col>
+          <el-col :span="6">
+            <router-link to="/bbs/clock">打卡专区</router-link>
+          </el-col>
+          <el-col :span="6">
+            <router-link to="/bbs/recipe">食谱专区</router-link>
+          </el-col>
+          <el-col :span="6">
+            <router-link to="/bbs/cooking">制作专区</router-link>
+          </el-col>
+          <el-col :span="6">
+            <router-link to="/bbs/sharing">分享专区</router-link>
+          </el-col>
         </el-row>
       </el-col>
       <el-col :span="8" class="navigation-right">
@@ -68,26 +76,7 @@
 
 <script>
 export default {
-  props: ['userObj'],
   name: 'NavigationBar',
-  methods: {
-    goClock () {
-      this.$router.push('/bbs/clock')
-      this.$router.go(0)
-    },
-    goSharing () {
-      this.$router.push('/bbs/sharing')
-      this.$router.go(0)
-    },
-    goCooking () {
-      this.$router.push('/bbs/cooking')
-      this.$router.go(0)
-    },
-    goRecipe () {
-      this.$router.push('/bbs/recipe')
-      this.$router.go(0)
-    }
-  },
   data () {
     return {
       value: {

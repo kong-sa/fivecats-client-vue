@@ -14,10 +14,10 @@
         </el-carousel-item>
       </el-carousel>
     </el-row>
-    <el-row style="margin-top: 15px" v-for="(item) in articles" :key="item.id" v-if="item.isAnn === 1">
+    <el-row class="announce-item" style="margin-top: 15px" v-for="item in articles" :key="item.id" v-if="item.isAnn === 1">
       <a @click="lookDetail(item.id)">
-        <el-col class="popular-articles">
-          <el-tag class="popular-articles-tag" size="mini">公告</el-tag>
+        <el-col class="announce-articles">
+          <el-tag class="announce-articles-tag" size="mini">公告</el-tag>
           {{ item.title }}
         </el-col>
       </a>
@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style scoped>
-.popular-articles {
+.announce-articles {
   width: 289px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -62,7 +62,11 @@ export default {
   cursor: pointer;
 }
 
-.popular-articles-tag {
+.announce-articles-tag {
   margin-right: 10px;
+}
+
+.announce-item {
+  margin-top: 10px;
 }
 </style>

@@ -23,6 +23,8 @@ import 'tinymce/skins/ui/oxide/content.min.css'
 import 'tinymce/themes/silver'
 import 'tinymce/icons/default/icons'
 import 'tinymce/plugins/fullscreen'
+import 'tinymce/plugins/image'
+import 'tinymce/langs/zh_CN'
 import 'tinymce/plugins/link'
 
 Vue.use(Element)

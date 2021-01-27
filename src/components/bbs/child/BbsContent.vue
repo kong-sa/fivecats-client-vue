@@ -1,7 +1,6 @@
 <template>
   <el-card class="box-card">
     <div class="bbs-content" v-for="item in articles" :key="item.id">
-      <!--   头像、用户名、发表时间   -->
       <el-row>
         <el-col :span="2" class="article-organizer">
           <el-avatar :size="35" :src="item.organizer.avatar" @error="errorHandler">
@@ -18,7 +17,7 @@
       <!--   标题   -->
       <el-row style="margin: 10px 0">
         <div style="line-height: 32px">
-          <el-tag>{{ item.type }}</el-tag>
+          <el-tag>{{ item.tag }}</el-tag>
           <span class="post-title">{{ item.title }}</span>
         </div>
       </el-row>
@@ -26,30 +25,6 @@
       <el-row>
         <div v-html="item.content" class="post-brief-content">
         </div>
-      </el-row>
-      <!--   帖子封面   -->
-      <el-row :gutter="10" class="image-preview-box">
-        <el-col :span="8" class="image-preview" v-if="item.url1">
-          <el-image style="width: 100%; height: 100%" :src="item.url1">
-            <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline"></i>
-            </div>
-          </el-image>
-        </el-col>
-        <el-col :span="8" class="image-preview" v-if="item.url2">
-          <el-image style="width: 100%; height: 100%" :src="item.url2">
-            <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline"></i>
-            </div>
-          </el-image>
-        </el-col>
-        <el-col :span="8" class="image-preview" v-if="item.url3">
-          <el-image style="width: 100%; height: 100%" :src="item.url3">
-            <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline"></i>
-            </div>
-          </el-image>
-        </el-col>
       </el-row>
       <!--   赞数、讨论数   -->
       <el-row style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; font-size: 13px; color: #666">
@@ -70,13 +45,58 @@
 <script>
 export default {
   name: 'BbsContent',
-  props: ['articles'],
+  // async beforeRouteUpdate (to, from, next) {
+  //   if (to.params.type === 'main') {
+  //     let {data: articles} = await this.$http.get('/getting/articles')
+  //     this.articles = articles
+  //   } else {
+  //     let {data: articles} = await this.$http.get('/getting/articles/by?type=' + to.params.type)
+  //     this.articles = articles
+  //   }
+  // },
+  watch: {
+    async $route (to, from) {
+      if (to.params.type === 'main') {
+        let {data: articles} = await this.$http.get('/getting/articles')
+        this.articles = articles
+      } else {
+        let {data: articles} = await this.$http.get('/getting/articles/by?type=' + to.params.type)
+        this.articles = articles
+      }
+    }
+  },
   methods: {
     errorHandler () {
       return true
     },
     lookDetail (articleId) {
       this.$router.push('/bbs/article/content/' + articleId)
+    }
+  },
+  data () {
+    return {
+      articles: [
+        {
+          'id': 0,
+          'tag': '',
+          'title': '',
+          'date': '',
+          'likes': 0,
+          'type': '',
+          'times': 0,
+          'isAnn': 0,
+          'content': '',
+          'organizerId': 0,
+          'organizer':
+            {
+              'username': '',
+              'avatar': '',
+              'profile': '',
+              'fans': 0,
+              'id': 0
+            }
+        }
+      ]
     }
   }
 }

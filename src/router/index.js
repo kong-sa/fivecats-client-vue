@@ -1,20 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// my components
+// components
 import ComponentTesting from '../components/ComponentTesting'
 import FilterMain from '../components/filter/FilterMain'
 import VideoMain from '../components/video/VideoMain'
 import MerchantMain from '../components/merchant/MerchantMain'
 import CustomerMain from '../components/customer/CustomerMain'
 import DetailOrder from '../components/customer/order/DetailOrder'
+// bbs components
 import BbsMain from '../components/bbs/BbsMain'
+import BbsContent from '../components/bbs/child/BbsContent'
 import PostBbsArticle from '../components/bbs/child/PostBbsArticle'
 import BbsArticleContent from '../components/bbs/child/BbsArticleContent'
-import SpecialArea from '../components/bbs/special/SpecialArea'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -65,7 +66,13 @@ export default new Router({
       component: BbsMain,
       meta: {
         title: '馋猫社区'
-      }
+      },
+      children: [
+        {
+          path: '/bbs/:type',
+          component: BbsContent
+        }
+      ]
     },
     {
       path: '/bbs/post/article',
@@ -80,13 +87,8 @@ export default new Router({
       meta: {
         title: '帖子内容'
       }
-    },
-    {
-      path: '/bbs/:type',
-      component: SpecialArea,
-      meta: {
-        title: '馋猫专区'
-      }
     }
   ]
 })
+
+export default router

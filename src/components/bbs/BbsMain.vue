@@ -19,7 +19,7 @@
       <!-- 社区主要内容区域 -->
       <el-row class="bbs-main-area">
         <el-col :span="16">
-          <bbs-content v-bind:articles="articles"/>
+          <router-view/>
         </el-col>
         <el-col :span="7" class="bbs-main__right-menu">
           <popular-food-making-article v-bind:articles="articles"/>
@@ -36,41 +36,13 @@
 import BbsPosting from './child/BbsPosting'
 import BbsContent from './child/BbsContent'
 import BbsCarousel from './child/BbsCarousel'
-import NavigationBar from './navbar/NavigationBar'
+import NavigationBar from './child/NavigationBar'
 import OfficialAnnouncement from './child/OfficialAnnouncement'
 import PopularCountrysideFood from './child/PopularCountrysideFood'
 import PopularFoodMakingArticle from './child/PopularFoodMakingArticle'
 
 export default {
   name: 'BBSMain',
-  data () {
-    return {
-      articles: [
-        {
-          'id': 0,
-          'organizerId': 0,
-          'title': '',
-          'content': '',
-          'date': '',
-          'likes': 0,
-          'url1': '',
-          'url2': '',
-          'url3': '',
-          'type': '',
-          'times': 0,
-          'isAnn': 0,
-          'organizer':
-            {
-              'id': 0,
-              'avatar': '',
-              'username': '',
-              'profile': '',
-              'fans': 0
-            }
-        }
-      ]
-    }
-  },
   components: {
     BbsPosting,
     BbsContent,
@@ -83,6 +55,30 @@ export default {
   async created () {
     let {data: articles} = await this.$http.get('/getting/articles')
     this.articles = articles
+  },
+  data () {
+    return {
+      articles: [
+        {
+          'id': 0,
+          'organizerId': 0,
+          'title': '',
+          'content': '',
+          'date': '',
+          'likes': 0,
+          'type': '',
+          'isAnn': 0,
+          'organizer':
+            {
+              'id': 0,
+              'avatar': '',
+              'username': '',
+              'profile': '',
+              'fans': 0
+            }
+        }
+      ]
+    }
   }
 }
 </script>
