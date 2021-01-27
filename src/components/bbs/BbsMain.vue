@@ -1,15 +1,14 @@
 <template>
-  <!--BBS社区父组件-->
   <el-container class="bbs-container">
     <el-header class="bbs-header">
       <!--导航栏-->
-      <navigation-bar/>
+      <bbs-navigation-bar/>
     </el-header>
     <el-main class="bbs-main">
       <el-row>
         <!-- 轮播图 -->
         <el-col :span="16">
-          <bbs-carousel/>
+          <bbs-revolving-lantern/>
         </el-col>
         <!-- 发表菜单 -->
         <el-col class="bbs-main__right-menu" :span="7">
@@ -22,9 +21,9 @@
           <router-view/>
         </el-col>
         <el-col :span="7" class="bbs-main__right-menu">
-          <popular-food-making-article v-bind:articles="articles"/>
-          <popular-countryside-food class="bbs-main__right-menu-item" v-bind:articles="articles"/>
-          <official-announcement class="bbs-main__right-menu-item" v-bind:articles="articles"/>
+          <bbs-popular-foodmaking-article v-bind:articles="articles"/>
+          <bbs-popular-countryside-food class="bbs-main__right-menu-item" v-bind:articles="articles"/>
+          <bbs-official-announcement class="bbs-main__right-menu-item" v-bind:articles="articles"/>
         </el-col>
       </el-row>
     </el-main>
@@ -34,23 +33,21 @@
 
 <script>
 import BbsPosting from './child/BbsPosting'
-import BbsContent from './child/BbsContent'
-import BbsCarousel from './child/BbsCarousel'
-import NavigationBar from './child/NavigationBar'
-import OfficialAnnouncement from './child/OfficialAnnouncement'
-import PopularCountrysideFood from './child/PopularCountrysideFood'
-import PopularFoodMakingArticle from './child/PopularFoodMakingArticle'
+import BbsNavigationBar from './child/BbsNavigationBar'
+import BbsRevolvingLantern from './child/BbsRevolvingLantern'
+import BbsOfficialAnnouncement from './child/BbsOfficialAnnouncement'
+import BbsPopularCountrysideFood from './child/BbsPopularCountrysideFood'
+import BbsPopularFoodmakingArticle from './child/BbsPopularFoodmakingArticle'
 
 export default {
   name: 'BBSMain',
   components: {
     BbsPosting,
-    BbsContent,
-    BbsCarousel,
-    NavigationBar,
-    OfficialAnnouncement,
-    PopularCountrysideFood,
-    PopularFoodMakingArticle
+    BbsNavigationBar,
+    BbsRevolvingLantern,
+    BbsOfficialAnnouncement,
+    BbsPopularCountrysideFood,
+    BbsPopularFoodmakingArticle
   },
   async created () {
     let {data: articles} = await this.$http.get('/getting/articles')
@@ -61,20 +58,21 @@ export default {
       articles: [
         {
           'id': 0,
-          'organizerId': 0,
+          'tag': '',
           'title': '',
-          'content': '',
+          'type': '',
           'date': '',
           'likes': 0,
-          'type': '',
           'isAnn': 0,
+          'content': '',
+          'organizerId': 0,
           'organizer':
             {
               'id': 0,
+              'fans': 0,
               'avatar': '',
-              'username': '',
               'profile': '',
-              'fans': 0
+              'username': ''
             }
         }
       ]

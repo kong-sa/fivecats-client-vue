@@ -1,21 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// components
+
 import ComponentTesting from '../components/ComponentTesting'
 import FilterMain from '../components/filter/FilterMain'
 import VideoMain from '../components/video/VideoMain'
 import MerchantMain from '../components/merchant/MerchantMain'
 import CustomerMain from '../components/customer/CustomerMain'
 import DetailOrder from '../components/customer/order/DetailOrder'
-// bbs components
+// bbs
 import BbsMain from '../components/bbs/BbsMain'
-import BbsContent from '../components/bbs/child/BbsContent'
-import PostBbsArticle from '../components/bbs/child/PostBbsArticle'
-import BbsArticleContent from '../components/bbs/child/BbsArticleContent'
+import BbsArticles from '../components/bbs/child/BbsArticles'
+import BbsPostArticle from '../components/bbs/child/BbsPostArticle'
+import BbsArticleDetails from '../components/bbs/child/BbsArticleDetails'
 
 Vue.use(Router)
 
-const router = new Router({
+export default new Router({
   routes: [
     {
       path: '/',
@@ -61,34 +61,27 @@ const router = new Router({
         title: '寻找美食'
       }
     },
+    // 社区路由
     {
       path: '/bbs/main',
       component: BbsMain,
-      meta: {
-        title: '馋猫社区'
-      },
+      meta: {title: '馋猫社区'},
       children: [
         {
           path: '/bbs/:type',
-          component: BbsContent
+          component: BbsArticles
         }
       ]
     },
     {
       path: '/bbs/post/article',
-      component: PostBbsArticle,
-      meta: {
-        title: '发表帖子'
-      }
+      component: BbsPostArticle,
+      meta: {title: '发表帖子'}
     },
     {
       path: '/bbs/article/content/:articleId',
-      component: BbsArticleContent,
-      meta: {
-        title: '帖子内容'
-      }
+      component: BbsArticleDetails,
+      meta: {title: '帖子内容'}
     }
   ]
 })
-
-export default router

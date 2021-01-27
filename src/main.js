@@ -3,17 +3,20 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// tinymce
 import tinymce from 'tinymce'
 import VueTinymce from '@packy-tang/vue-tinymce'
-// The third-party components
+// axios and jquery
 import axios from 'axios'
 import jqeury from 'jquery'
+// nprogress
+import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
-// element-ui components
+// element-ui
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
 import Element, {Message, MessageBox} from 'element-ui'
-// my assets file
+// assets file
 import './assets/js/dialog'
 import './assets/css/global.css'
 // vue-tinymce
@@ -30,18 +33,18 @@ import 'tinymce/plugins/link'
 Vue.use(Element)
 Vue.use(VueTinymce)
 Vue.config.productionTip = false
-// set global tinymce
+// tinymce
 Vue.prototype.$tinymce = tinymce
-// set global element-ui
+// element-ui
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
-// set global axios and jqeury
+// axios and jqeury
 Vue.prototype.$ = jqeury
 Vue.prototype.$http = axios
-// set axios configuration
+// axios base url
 // axios.defaults.baseURL = 'http://120.77.245.208:8001/'
 axios.defaults.baseURL = 'http://localhost:8001'
-// set interceptors
+// axios interceptors
 axios.interceptors.request.use(config => {
   NProgress.start()
   return config
@@ -50,6 +53,7 @@ axios.interceptors.response.use(config => {
   NProgress.done()
   return config
 })
+// router
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title

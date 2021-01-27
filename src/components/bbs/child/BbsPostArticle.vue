@@ -1,7 +1,7 @@
 <template>
   <el-container class="post-article">
     <el-header class="post-article__header">
-      <navigation-bar/>
+      <bbs-navigation-bar/>
     </el-header>
     <el-main class="post-article__main">
       <el-card class="main-card">
@@ -60,11 +60,11 @@
 </template>
 
 <script>
-import NavigationBar from './NavigationBar'
+import BbsNavigationBar from './BbsNavigationBar'
 
 export default {
   name: 'PostBbsArticle',
-  components: {NavigationBar},
+  components: {BbsNavigationBar},
   data () {
     return {
       formData: {

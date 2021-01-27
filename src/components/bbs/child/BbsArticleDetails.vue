@@ -1,28 +1,26 @@
 <template>
-  <el-container style="background: rgb(245,245,250)">
-    <el-header style="padding: 0; margin-bottom: 25px">
-      <navigation-bar/>
+  <el-container class="bbs-article-details">
+    <el-header class="bbs-article-details__header">
+      <bbs-navigation-bar/>
     </el-header>
-    <el-main style="margin: 0 20%; padding: 0;">
-      <el-card style="padding: 20px">
-        <!--    帖子具体内容展示    -->
+    <el-main class="bbs-article-details__main">
+      <el-card class="main_card__body">
         <el-row>
           <!--     标题     -->
-          <el-row style="margin-bottom: 15px">
-            <div style="line-height: 38px;">
-              <el-tag>{{ articleObj.type }}</el-tag>
-              <span style="margin-left: 10px">{{ articleObj.title }}</span>
+          <el-row class="main-card__title">
+            <div class="title-info">
+              <el-tag>{{ articleObj.tag }}</el-tag>
+              <span class="title-info__right">{{ articleObj.title }}</span>
             </div>
           </el-row>
           <!--     时间、点赞数、讨论数     -->
-          <el-row
-            style="background: rgb(247,248,252); color: #999999; height: 40px; font-size: 15px; font-weight: 400; line-height: 40px; padding: 0 10px">
+          <el-row class="brief-info">
             <el-col :span="12">发表日期：{{ articleObj.date }}</el-col>
             <el-col :span="4" :offset="3">点赞数：{{ articleObj.likes }}</el-col>
             <el-col :span="4">回复数：{{ articleObj.times }}</el-col>
           </el-row>
           <!--     用户信息     -->
-          <el-row style="line-height: 54px; margin-top: 20px; font-size: 15px; color: #525050">
+          <el-row class="user-info">
             <el-col :span="2">
               <el-avatar :size="50" :src="articleObj.organizer.avatar"></el-avatar>
             </el-col>
@@ -31,15 +29,11 @@
           <el-divider></el-divider>
           <!--     帖子具体内容     -->
           <el-row style="margin-bottom: 20px">
-            <div v-html="articleObj.content" style="margin: 15px 0">
-            </div>
-            <el-image :preview-src-list="[articleObj.url1]" v-if="articleObj.url1" :src="articleObj.url1"></el-image>
-            <el-image :preview-src-list="[articleObj.url2]" v-if="articleObj.url2" :src="articleObj.url2"></el-image>
-            <el-image :preview-src-list="[articleObj.url3]" v-if="articleObj.url3" :src="articleObj.url3"></el-image>
+            <div v-html="articleObj.content" style="margin: 15px 0"></div>
           </el-row>
           <!--     为该文章点赞     -->
           <el-row style="text-align: center; margin: 40px">
-            <i style="font-size: 45px; cursor: pointer" @click="like" class="el-icon--left el-icon-thumb">
+            <i @click="like" class="el-icon--left el-icon-thumb like-article-icon">
               {{ articleObj.likes }}</i>
           </el-row>
         </el-row>
@@ -98,22 +92,22 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </el-col>
-            <el-col :span="5" class="comment-row" id="comment-nickname">{{ item.organizer.username }}
+            <el-col :span="5" class="comment-row comment-nickname">{{ item.organizer.username }}
               <el-tag v-if="item.organizer.id === articleObj.organizer.id" style="margin-left: 10px" size="small">发帖人
               </el-tag>
             </el-col>
           </el-row>
-          <el-row class="comment-row" id="comment-content">
+          <el-row class="comment-row comment-content">
             <el-col :offset="2">{{ item.content }}</el-col>
           </el-row>
-          <el-row class="comment-row" id="comment-info">
+          <el-row class="comment-row comment-info">
             <el-col :offset="2">
               <!--点赞图标-->
-              <span id="like">
+              <span class="like">
                   <i class="el-icon--left el-icon-thumb"></i><span>{{ item.likes }}</span>
                 </span>
               <!--点赞数-->
-              <span id="comment-time">{{ item.date }}</span>
+              <span class="comment-time">{{ item.date }}</span>
             </el-col>
           </el-row>
         </div>
@@ -124,17 +118,17 @@
 </template>
 
 <script>
-import NavigationBar from './NavigationBar'
+import BbsNavigationBar from './BbsNavigationBar'
 
 export default {
   name: 'BbsArticleContent',
-  components: {NavigationBar},
+  components: {BbsNavigationBar},
   async created () {
     this.articleId = this.$route.params.articleId
     let {data: articleObj} = await this.$http.get('/getting/article/content?articleId=' + this.articleId)
     let {data: articleCommentsArr} = await this.$http.get('/getting/article/comments?articleId=' + this.articleId)
-    this.articleCommentsArr = articleCommentsArr
     this.articleObj = articleObj
+    this.articleCommentsArr = articleCommentsArr
   },
   methods: {
     async like () {
@@ -150,16 +144,13 @@ export default {
     },
     pushComment () {
       this.$refs.formData.validate((valid) => {
-        if (valid) {
-          this.$http.post('setting/article/comment', {
-            content: this.formData.textareaValue,
-            articleId: this.articleId,
-            organizerId: 1
-          })
-          this.$message.success('发送成功！刷新页面可以看见哦~')
-        } else {
-          return false
-        }
+        if (!valid) return false
+        this.$http.post('setting/article/comment', {
+          content: this.formData.textareaValue,
+          articleId: this.articleId,
+          organizerId: 1
+        })
+        this.$message.success('发送成功！刷新页面可以看见哦~')
       })
     }
   },
@@ -178,37 +169,34 @@ export default {
       articleCommentsArr: [
         {
           'id': 0,
-          'content': '',
-          'date': '',
           'likes': 0,
+          'date': '',
+          'content': '',
           'organizer': {
             'id': 0,
+            'gold': 0,
+            'fans': 0,
             'date': '',
             'avatar': '',
-            'username': '',
             'profile': '',
-            'fans': 100,
-            'gold': 0
+            'username': ''
           }
         }
       ],
       articleObj: {
         'id': 0,
-        'organizerId': 0,
+        'tag': '',
         'title': '',
-        'content': '',
         'date': '',
-        'url1': '',
-        'url2': '',
-        'url3': '',
         'type': '',
         'likes': 0,
-        'times': 0,
+        'content': '',
+        'organizerId': 0,
         'organizer': {
           'id': 0,
-          'avatar': '',
           'username': '',
           'profile': '',
+          'avatar': '',
           'fans': 0
         }
       }
@@ -230,17 +218,69 @@ export default {
   margin: 0;
 }
 
-#comment-nickname {
+.user-info {
+  line-height: 54px;
+  margin-top: 20px;
+  font-size: 15px;
+  color: #525050;
+}
+
+.brief-info {
+  background: rgb(247, 248, 252);
+  color: #999999;
+  height: 40px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 40px;
+  padding: 0 10px;
+}
+
+.like-article-icon {
+  font-size: 45px;
+  cursor: pointer;
+}
+
+.main-card__title {
+  margin-bottom: 15px;
+}
+
+.title-info__right {
+  margin-left: 10px;
+}
+
+.title-info {
+  line-height: 38px;
+}
+
+.main_card__body {
+  padding: 20px;
+}
+
+.comment-nickname {
   font-size: 13px;
   font-weight: bold;
 }
 
-#comment-info {
+.bbs-article-details__main {
+  margin: 0 20%;
+  padding: 0;
+}
+
+.bbs-article-details__header {
+  padding: 0;
+  margin-bottom: 25px;
+}
+
+.bbs-article-details {
+  background: rgb(245, 245, 250);
+}
+
+.comment-info {
   font-size: 13px;
   color: #999999;
 }
 
-#like {
+.like {
   cursor: pointer;
   margin-right: 10px;
 }
