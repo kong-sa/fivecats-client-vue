@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import store from './store'
 import router from './router'
 // tinymce
 import tinymce from 'tinymce'
@@ -19,6 +20,7 @@ import Element, {Message, MessageBox} from 'element-ui'
 // assets file
 import './assets/js/dialog'
 import './assets/css/global.css'
+import './assets/iconfont/iconfont.css'
 // vue-tinymce
 import 'tinymce/skins/content/default/content.min.css'
 import 'tinymce/skins/ui/oxide/skin.min.css'
@@ -64,6 +66,7 @@ router.beforeEach((to, from, next) => {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: {App},
   template: '<App/>'

@@ -1,12 +1,12 @@
 <template>
   <el-card>
-    <div slot="header" class="clearfix" style="text-align: center; font-weight: 600">
+    <div slot="header" class="clearfix card-title">
       <span>馋猫社区公告</span>
     </div>
-    <el-row style="width: 270px; height: 150px">
+    <el-row class="card-carousel">
       <el-carousel height="150px">
-        <el-carousel-item v-for="item in announce" :key="item.id">
-          <el-image :src="item.url" style="height: 100%; width: 100%">
+        <el-carousel-item v-for="item in carousel" :key="item.id">
+          <el-image :src="item.url" class="carousel-image">
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div>
@@ -14,7 +14,7 @@
         </el-carousel-item>
       </el-carousel>
     </el-row>
-    <el-row class="announce-item" style="margin-top: 15px" v-for="item in articles" :key="item.id" v-if="item.isAnn === 1">
+    <el-row class="announce-item" v-for="item in articles" :key="item.id" v-if="item.isAnn === 1">
       <a @click="lookDetail(item.id)">
         <el-col class="announce-articles">
           <el-tag class="announce-articles-tag" size="mini">公告</el-tag>
@@ -29,29 +29,39 @@
 export default {
   props: ['articles'],
   name: 'OfficialAnnouncement',
-  async created () {
-    let {data: announce} = await this.$http.get('/getting/bbs/announce/carousel/urls')
-    this.announce = announce
-  },
-  data () {
-    return {
-      announce: [
-        {
-          'id': 0,
-          'url': ''
-        }
-      ]
-    }
-  },
   methods: {
     lookDetail (articleId) {
       this.$router.push('/bbs/article/content/' + articleId)
+    }
+  },
+  data () {
+    return {
+      carousel: [
+        {id: 0, url: 'http://oss.norza.cn/imgs/bbs/77493707_p0.png'},
+        {id: 1, url: 'http://oss.norza.cn/imgs/bbs/79422437_p0.png'},
+        {id: 2, url: 'http://oss.norza.cn/imgs/bbs/86b0-hwsffza7766335.jpg'}
+      ]
     }
   }
 }
 </script>
 
 <style scoped>
+
+.carousel-image {
+  height: 100%; width: 100%;
+}
+
+.card-carousel {
+  width: 270px;
+  height: 150px;
+}
+
+.card-title {
+  text-align: center;
+  font-weight: 600;
+}
+
 .announce-articles {
   width: 289px;
   overflow: hidden;
@@ -67,6 +77,6 @@ export default {
 }
 
 .announce-item {
-  margin-top: 10px;
+  margin-top: 15px
 }
 </style>

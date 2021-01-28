@@ -17,7 +17,7 @@ export default {
   name: 'BbsPosting',
   methods: {
     postArticle () {
-      this.$router.replace('/bbs/post/article')
+      this.$router.push('/bbs/post/article')
     }
   }
 }

@@ -33,7 +33,7 @@
           </el-row>
           <!--     为该文章点赞     -->
           <el-row style="text-align: center; margin: 40px">
-            <i @click="like" class="el-icon--left el-icon-thumb like-article-icon">
+            <i @click="like" class="el-icon--left el-icon-third-dianzan like-article-icon">
               {{ articleObj.likes }}</i>
           </el-row>
         </el-row>
@@ -103,9 +103,7 @@
           <el-row class="comment-row comment-info">
             <el-col :offset="2">
               <!--点赞图标-->
-              <span class="like">
-                  <i class="el-icon--left el-icon-thumb"></i><span>{{ item.likes }}</span>
-                </span>
+              <span><i class="el-icon--left el-icon-third-dianzan"></i>{{ item.likes }}</span>
               <!--点赞数-->
               <span class="comment-time">{{ item.date }}</span>
             </el-col>

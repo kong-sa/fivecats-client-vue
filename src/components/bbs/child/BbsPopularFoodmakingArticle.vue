@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <div slot="header" class="clearfix" style="text-align: center; font-weight: 600">
+    <div slot="header" class="clearfix card-title">
       <span>热门的美食心得帖子</span>
     </div>
     <el-row class="popular-article-item" v-for="item in articles" :key="item.id"
@@ -28,6 +28,11 @@ export default {
 </script>
 
 <style scoped>
+.card-title {
+  text-align: center;
+  font-weight: 600;
+}
+
 /deep/ .el-card__body {
   padding: 10px;
 }
@@ -47,10 +52,7 @@ export default {
 }
 
 .announce-articles-tag {
-  margin-right: 10px;
-}
-
-.announce-articles-tag {
   margin-top: 10px;
+  margin-right: 10px;
 }
 </style>

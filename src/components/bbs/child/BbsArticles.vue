@@ -28,12 +28,8 @@
       </el-row>
       <!--   赞数、讨论数   -->
       <el-row style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; font-size: 13px; color: #666">
-         <span style="margin-right: 10px">
-          <i class="el-icon--left el-icon-chat-line-round"></i>{{ item.times }}
-        </span>
-        <span style="margin-right: 10px">
-          <i class="el-icon--left el-icon-thumb"></i>{{ item.likes }}
-        </span>
+         <span style="margin-right: 10px"><i class="el-icon--left el-icon-chat-line-round"></i>{{ item.times }}</span>
+        <span style="margin-right: 10px"><i class="el-icon--left el-icon-third-dianzan"></i>{{ item.likes }}</span>
         <a @click="lookDetail(item.id)">
           <span>查看帖子<i class="el-icon-right el-icon-caret-right"></i></span>
         </a>
