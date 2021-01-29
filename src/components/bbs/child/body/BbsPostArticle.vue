@@ -1,66 +1,60 @@
 <template>
-  <el-container class="post-article">
-    <el-header class="post-article__header">
-      <bbs-navigation-bar/>
-    </el-header>
-    <el-main class="post-article__main">
-      <el-card class="main-card">
-        <el-form :rules="rules" :model="formData" ref="formData">
-          <el-row class="main-card__header">发布帖子</el-row>
-          <el-divider/>
-          <!--帖子的标题-->
-          <el-row style="margin-top: 20px">
-            <el-col class="label" :span="3">帖子标题：</el-col>
-            <el-col :span="20">
-              <el-form-item prop="title">
-                <el-input
-                  type="text"
-                  maxlength="15"
-                  show-word-limit
-                  placeholder="取一个简短的标题吧\(^o^)/~"
-                  v-model="formData.title">
-                </el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--帖子的类型-->
-          <el-row class="input-area">
-            <el-col class="label" :span="3">帖子类型：</el-col>
-            <el-col :span="20">
-              <el-select v-model="optionValue" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </el-col>
-          </el-row>
-          <!--帖子的内容-->
-          <el-row class="input-area">
-            <el-col class="label" :span="3">帖子内容：</el-col>
-            <el-col :span="20">
-              <vue-tinymce
-                v-model="content"
-                :setting="setting"/>
-            </el-col>
-          </el-row>
-          <!--发表帖子按钮-->
-          <el-row class="main-card__footer">
-            <el-button @click="deliver" class="deliver-button">
-              <i class="el-icon--left el-icon-check"></i>发布
-            </el-button>
-          </el-row>
-        </el-form>
-      </el-card>
-    </el-main>
-    <el-footer></el-footer>
-  </el-container>
+  <div id="post-article">
+    <el-card class="main-card">
+      <el-form :rules="rules" :model="formData" ref="formData">
+        <el-row class="main-card__header">发布帖子</el-row>
+        <el-divider/>
+        <!--帖子的标题-->
+        <el-row style="margin-top: 20px">
+          <el-col class="label" :span="3">帖子标题：</el-col>
+          <el-col :span="20">
+            <el-form-item prop="title">
+              <el-input
+                type="text"
+                maxlength="15"
+                show-word-limit
+                placeholder="取一个简短的标题吧\(^o^)/~"
+                v-model="formData.title">
+              </el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <!--帖子的类型-->
+        <el-row class="input-area">
+          <el-col class="label" :span="3">帖子类型：</el-col>
+          <el-col :span="20">
+            <el-select v-model="optionValue" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-col>
+        </el-row>
+        <!--帖子的内容-->
+        <el-row class="input-area">
+          <el-col class="label" :span="3">帖子内容：</el-col>
+          <el-col :span="20">
+            <vue-tinymce
+              v-model="content"
+              :setting="setting"/>
+          </el-col>
+        </el-row>
+        <!--发表帖子按钮-->
+        <el-row class="main-card__footer">
+          <el-button @click="deliver" class="deliver-button">
+            <i class="el-icon--left el-icon-check"></i>发布
+          </el-button>
+        </el-row>
+      </el-form>
+    </el-card>
+  </div>
 </template>
 
 <script>
-import BbsNavigationBar from './BbsNavigationBar'
+import BbsNavigationBar from '../header/BbsNavigationBar'
 
 export default {
   name: 'PostBbsArticle',
@@ -70,7 +64,6 @@ export default {
       formData: {
         title: ''
       },
-      confirmDialogTip: '',
       content: '',
       setting: {
         menubar: false,
@@ -83,7 +76,6 @@ export default {
       },
       optionValue: '请选择帖子类型',
       disabled: false,
-      dialogImageUrl: '',
       options: [
         {
           value: '节约粮食打卡',
@@ -144,14 +136,14 @@ export default {
       }
     },
     deliver () {
-      this.$refs.formData.validate((isValid) => {
-        if (!isValid) return false
+      this.$refs.formData.validate((valida) => {
+        if (!valida) return false
         if (this.content.length >= 20) {
           this.$http.post('/setting/article', {
             title: this.formData.title,
             tag: this.optionValue,
             content: this.content,
-            organizerId: 1
+            userId: this.$store.state.var1.data.id
           })
           this.determineReword(this.optionValue)
           this.$message({
@@ -175,21 +167,6 @@ export default {
 <style scoped>
 .label {
   font-size: 14px;
-}
-
-.post-article {
-  background: rgb(245, 245, 250);
-  min-height: 760px;
-}
-
-.post-article__header {
-  padding: 0;
-  margin-bottom: 25px;
-}
-
-.post-article__main {
-  margin: 0 20%;
-  padding: 0;
 }
 
 .main-card {

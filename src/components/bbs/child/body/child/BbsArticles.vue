@@ -1,15 +1,15 @@
 <template>
   <el-card class="box-card">
-    <div class="bbs-content" v-for="item in articles" :key="item.id">
+    <div class="bbs-content" v-for="item in obj" :key="item.id">
       <el-row>
         <el-col :span="2" class="article-organizer">
-          <el-avatar :size="35" :src="item.organizer.avatar" @error="errorHandler">
+          <el-avatar :size="35" :src="item.user.avatar" @error="errorHandler">
             <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt=""/>
           </el-avatar>
         </el-col>
         <el-col :span="22">
           <p>
-            <span class="username">{{ item.organizer.username }}</span>
+            <span class="username">{{ item.user.username }}</span>
             <span class="publish-timestamp">{{ item.date }}</span>
           </p>
         </el-col>
@@ -29,7 +29,7 @@
       <!--   赞数、讨论数   -->
       <el-row style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; font-size: 13px; color: #666">
          <span style="margin-right: 10px"><i class="el-icon--left el-icon-chat-line-round"></i>{{ item.times }}</span>
-        <span style="margin-right: 10px"><i class="el-icon--left el-icon-third-dianzan"></i>{{ item.likes }}</span>
+        <span style="margin-right: 10px"><i class="el-icon--left el-icon-third-dianzan"></i>{{ item.like }}</span>
         <a @click="lookDetail(item.id)">
           <span>查看帖子<i class="el-icon-right el-icon-caret-right"></i></span>
         </a>
@@ -52,12 +52,12 @@ export default {
   // },
   watch: {
     async $route (to, from) {
-      if (to.params.type === 'main') {
-        let {data: articles} = await this.$http.get('/getting/articles')
-        this.articles = articles
+      if (to.params.type === 'index') {
+        let {data: obj} = await this.$http.get('/getting/articles')
+        this.obj = obj
       } else {
-        let {data: articles} = await this.$http.get('/getting/articles/by?type=' + to.params.type)
-        this.articles = articles
+        let {data: obj} = await this.$http.get('/getting/articles/by?type=' + to.params.type)
+        this.obj = obj
       }
     }
   },
@@ -66,24 +66,24 @@ export default {
       return true
     },
     lookDetail (articleId) {
-      this.$router.push('/bbs/article/content/' + articleId)
+      this.$router.push('/bbs/article/details/' + articleId)
     }
   },
   data () {
     return {
-      articles: [
+      obj: [
         {
           'id': 0,
           'tag': '',
           'title': '',
           'date': '',
-          'likes': 0,
+          'like': 0,
           'type': '',
           'times': 0,
           'isAnn': 0,
           'content': '',
-          'organizerId': 0,
-          'organizer':
+          'userId': 0,
+          'user':
             {
               'username': '',
               'avatar': '',
@@ -114,21 +114,12 @@ export default {
 
 .bbs-content {
   padding: 20px;
-  border-bottom: #ebebeb solid 1px;;
+  border-bottom: #ebebeb solid 1px;
 }
 
 .publish-timestamp {
   color: #ccc;
   font-size: 12px;
-}
-
-.image-preview {
-  width: 223px;
-  height: 151px;
-}
-
-.image-preview-box {
-  margin-top: 10px;
 }
 
 .username {

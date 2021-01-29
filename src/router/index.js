@@ -7,11 +7,17 @@ import VideoMain from '../components/video/VideoMain'
 import MerchantMain from '../components/merchant/MerchantMain'
 import CustomerMain from '../components/customer/CustomerMain'
 import DetailOrder from '../components/customer/order/DetailOrder'
-// bbs
+// 馋猫社区组件
 import BbsMain from '../components/bbs/BbsMain'
-import BbsArticles from '../components/bbs/child/BbsArticles'
-import BbsPostArticle from '../components/bbs/child/BbsPostArticle'
-import BbsArticleDetails from '../components/bbs/child/BbsArticleDetails'
+import BbsArticles from '../components/bbs/child/body/child/BbsArticles'
+import BbsPartition from '../components/bbs/child/body/BbsPartition'
+import BbsPostArticle from '../components/bbs/child/body/BbsPostArticle'
+import BbsArticleDetails from '../components/bbs/child/body/BbsArticleDetails'
+import BbsSelfCenter from '../components/bbs/child/body/BbsSelfCenter'
+import BbsBasicInfo from '../components/bbs/child/body/child/BbsBasicInfo'
+import BbsAvatarInfo from '../components/bbs/child/body/child/BbsAvatarInfo'
+import BbsAccountInfo from '../components/bbs/child/body/child/BbsAccountInfo'
+import BbsArticleManagement from '../components/bbs/child/body/child/BbsArticleManagement'
 
 Vue.use(Router)
 
@@ -61,27 +67,64 @@ export default new Router({
         title: '寻找美食'
       }
     },
-    // 社区路由
+    // 馋猫社区路由
     {
-      path: '/bbs/main',
+      path: '/bbs',
+      redirect: '/bbs/index',
       component: BbsMain,
       meta: {title: '馋猫社区'},
       children: [
         {
-          path: '/bbs/:type',
-          component: BbsArticles
+          path: '/bbs/index',
+          component: BbsPartition,
+          meta: {title: '馋猫社区'},
+          children: [
+            {
+              path: '/bbs/:type',
+              component: BbsArticles,
+              meta: {title: '专区内容'}
+            }
+          ]
+        },
+        {
+          path: '/bbs/article/posting',
+          component: BbsPostArticle,
+          meta: {title: '发表帖子'}
+        },
+        {
+          path: '/bbs/article/details/:articleId',
+          component: BbsArticleDetails,
+          meta: {title: '详细帖子'}
+        },
+        {
+          path: '/bbs/self/center',
+          redirect: '/bbs/self/center/basic',
+          component: BbsSelfCenter,
+          meta: {title: '个人中心'},
+          children: [
+            {
+              path: '/bbs/self/center/basic',
+              component: BbsBasicInfo,
+              meta: {title: '基本信息'}
+            },
+            {
+              path: '/bbs/self/center/avatar',
+              component: BbsAvatarInfo,
+              meta: {title: '我的头像'}
+            },
+            {
+              path: '/bbs/self/center/account',
+              component: BbsAccountInfo,
+              meta: {title: '我的账户'}
+            },
+            {
+              path: '/bbs/self/center/articles',
+              component: BbsArticleManagement,
+              meta: {title: '我的帖子'}
+            }
+          ]
         }
       ]
-    },
-    {
-      path: '/bbs/post/article',
-      component: BbsPostArticle,
-      meta: {title: '发表帖子'}
-    },
-    {
-      path: '/bbs/article/content/:articleId',
-      component: BbsArticleDetails,
-      meta: {title: '帖子内容'}
     }
   ]
 })

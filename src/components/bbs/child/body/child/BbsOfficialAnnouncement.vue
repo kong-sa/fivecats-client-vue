@@ -31,7 +31,7 @@ export default {
   name: 'OfficialAnnouncement',
   methods: {
     lookDetail (articleId) {
-      this.$router.push('/bbs/article/content/' + articleId)
+      this.$router.push('/bbs/article/details/' + articleId)
     }
   },
   data () {

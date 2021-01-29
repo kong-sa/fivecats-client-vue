@@ -1,10 +1,10 @@
 <template>
   <el-card>
-    <div slot="header" class="clearfix card-title">
-      <span>热门的美食心得帖子</span>
+    <div class="clearfix card-title">
+      <span>热门的农村美食分享</span>
     </div>
     <el-row class="popular-article-item" v-for="item in articles" :key="item.id"
-            v-if="item.tag === '制作美食心得' && item.likes >= 50">
+            v-if="item.tag === '农村美食分享' && item.like >= 50">
       <a @click="lookDetail(item.id)">
         <el-col class="announce-articles">
           <el-tag class="announce-articles-tag" size="mini">热门</el-tag>
@@ -18,10 +18,10 @@
 <script>
 export default {
   props: ['articles'],
-  name: 'PopularFoodMakingArticle',
+  name: 'PopularCountrysideFood',
   methods: {
     lookDetail (articleId) {
-      this.$router.push('/bbs/article/content/' + articleId)
+      this.$router.push('/bbs/article/details/' + articleId)
     }
   }
 }
@@ -52,7 +52,10 @@ export default {
 }
 
 .announce-articles-tag {
-  margin-top: 10px;
   margin-right: 10px;
+}
+
+.announce-articles-tag {
+  margin-top: 10px;
 }
 </style>
