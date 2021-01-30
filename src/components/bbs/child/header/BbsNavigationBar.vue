@@ -53,12 +53,10 @@
                     </el-col>
                   </el-row>
                 </el-dropdown-item>
-                <el-dropdown-item>
-                  <el-row><i class="fans"></i>粉丝: {{ var1.data.fans }}</el-row>
-                </el-dropdown-item>
                 <el-dropdown-item command="1"><i class="el-icon--left el-icon-user"></i>个人中心</el-dropdown-item>
-                <el-dropdown-item command="2"><i class="el-icon--left el-icon-folder"></i>我的帖子</el-dropdown-item>
-                <el-dropdown-item command="3"><i class="el-icon--left el-icon-third-tuichudenglu"></i>退出登陆</el-dropdown-item>
+                <el-dropdown-item command="2"><i class="el-icon--left el-icon-user"></i>个人空间</el-dropdown-item>
+                <el-dropdown-item command="3"><i class="el-icon--left el-icon-folder"></i>我的帖子</el-dropdown-item>
+                <el-dropdown-item command="4"><i class="el-icon--left el-icon-third-tuichudenglu"></i>退出登陆</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-col>
@@ -191,8 +189,10 @@ export default {
       if (command === '1') {
         this.$router.push('/bbs/self/center')
       } else if (command === '2') {
-        this.$router.push('/bbs/self/center/articles')
+        this.$router.push('/bbs/person/space/' + this.$store.state.var1.data.id)
       } else if (command === '3') {
+        this.$router.push('/bbs/self/center/articles')
+      } else if (command === '4') {
         this.$store.commit('setVar1', null)
         this.$message.success('退出登陆成功！')
       }

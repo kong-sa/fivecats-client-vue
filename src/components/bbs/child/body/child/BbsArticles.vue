@@ -30,7 +30,7 @@
       <el-row style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; font-size: 13px; color: #666">
          <span style="margin-right: 10px"><i class="el-icon--left el-icon-chat-line-round"></i>{{ item.times }}</span>
         <span style="margin-right: 10px"><i class="el-icon--left el-icon-third-dianzan"></i>{{ item.like }}</span>
-        <a @click="lookDetail(item.id)">
+        <a class="look-article" @click="lookDetail(item.id)">
           <span>查看帖子<i class="el-icon-right el-icon-caret-right"></i></span>
         </a>
       </el-row>
@@ -105,6 +105,10 @@ export default {
 
 /deep/ .el-divider--horizontal {
   margin: 0;
+}
+
+.look-article {
+  cursor: pointer;
 }
 
 .article-organizer {

@@ -73,6 +73,7 @@
                 </div>
               </el-avatar>
               <el-dropdown-menu slot="dropdown">
+                <a class="other-username" @click="lookUser(item.user.id)">
                 <el-dropdown-item>
                   <!--用户头像-->
                   <el-avatar fit="fill" :src="item.user.avatar">
@@ -81,10 +82,11 @@
                     </div>
                   </el-avatar>
                   <!--相关信息-->
-                  <div>用户名：<a id="nickname" href="">{{ item.user.username }}</a></div>
+                  <div>用户名：{{ item.user.username }}</div>
                   <div>粉丝数：{{ item.user.fans }}</div>
                   <div>个人简介：{{ item.user.profile }}</div>
                 </el-dropdown-item>
+                </a>
               </el-dropdown-menu>
             </el-dropdown>
           </el-col>
@@ -123,6 +125,9 @@ export default {
     this.var2 = var2
   },
   methods: {
+    lookUser (userId) {
+      this.$router.push('/bbs/person/space/' + userId)
+    },
     async like () {
       await this.$http.post('/setting/article/like', {
         id: this.var1.id,
@@ -242,6 +247,26 @@ export default {
 
 .main_card__body {
   padding: 20px;
+}
+
+a:link {
+  color: rgb(140, 197, 255);
+  text-decoration: none;
+}
+
+a:visited {
+  color: rgb(140, 197, 255);
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(140, 197, 255);
+  text-decoration: none;
+}
+
+a:active {
+  color: rgb(140, 197, 255);
+  text-decoration: none;
 }
 
 .comment-nickname {

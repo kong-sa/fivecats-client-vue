@@ -18,6 +18,7 @@ import BbsBasicInfo from '../components/bbs/child/body/child/BbsBasicInfo'
 import BbsAvatarInfo from '../components/bbs/child/body/child/BbsAvatarInfo'
 import BbsAccountInfo from '../components/bbs/child/body/child/BbsAccountInfo'
 import BbsArticleManagement from '../components/bbs/child/body/child/BbsArticleManagement'
+import BbsPersonSpace from '../components/bbs/child/body/BbsPersonSpace'
 
 Vue.use(Router)
 
@@ -123,6 +124,11 @@ export default new Router({
               meta: {title: '我的帖子'}
             }
           ]
+        },
+        {
+          path: '/bbs/person/space/:userId',
+          component: BbsPersonSpace,
+          meta: {title: '个人空间'}
         }
       ]
     }

@@ -33,5 +33,6 @@ export default {
 .bbs-main {
   margin: 0 15%;
   padding: 0;
+  min-height: 1000px;
 }
 </style>

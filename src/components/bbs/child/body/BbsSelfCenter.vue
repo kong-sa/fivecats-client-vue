@@ -2,27 +2,24 @@
   <div id="self-center">
     <el-card class="box-card">
       <el-container>
-        <el-aside style="width: 160px">
+        <el-aside style="width: 150px">
           <el-menu
             default-active="1"
-            @select="selected"
-            background-color="#545c64"
-            text-color="#fff"
-            active-text-color="#ffd04b">
+            @select="selected">
             <el-menu-item index="1">
-              <i class="el-icon-menu"></i>
+              <i class="el-icon-info"></i>
               <span slot="title">基本信息</span>
             </el-menu-item>
             <el-menu-item index="2">
-              <i class="el-icon-document"></i>
+              <i class="el-icon-picture-outline-round"></i>
               <span slot="title">我的头像</span>
             </el-menu-item>
             <el-menu-item index="3">
-              <i class="el-icon-setting"></i>
+              <i class="el-icon-user"></i>
               <span slot="title">我的账户</span>
             </el-menu-item>
             <el-menu-item index="4">
-              <i class="el-icon-setting"></i>
+              <i class="el-icon-document"></i>
               <span slot="title">我的帖子</span>
             </el-menu-item>
           </el-menu>
@@ -60,7 +57,6 @@ export default {
 }
 
 /deep/ .el-aside {
-  background: rgb(84,92,100);
   height: 550px;
 }
 </style>

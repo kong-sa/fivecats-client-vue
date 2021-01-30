@@ -131,6 +131,10 @@ export default {
   margin-top: 20px;
 }
 
+/deep/ .el-avatar {
+  border: 5px #666 solid;
+}
+
 .avatar-upload {
   padding-top: 20px;
   border-top: #ebebeb solid 1px;

@@ -13,7 +13,7 @@
       </el-col>
       <el-col :span="19" class="user-info">
         <el-row>{{ var1.data.username }}</el-row>
-        <el-row class="sub-info">
+        <el-row class="two-item">
           <el-col :span="3">
             <i class="el-icon--left el-icon-coin"></i>馋币：{{ var1.data.gold }}
           </el-col>
@@ -38,24 +38,28 @@
       <el-col :span="6" class="mission-item">
         <span class="mission-title">每日登陆</span>
         <div class="icon"><i class="el-icon el-icon-s-check"></i></div>
+        <el-divider></el-divider>
         <span class="mission-desc">经验 +2</span>
         <div><i class="el-icon el-icon-check"></i></div>
       </el-col>
       <el-col :span="6" class="mission-item">
         <span class="mission-title">每日点赞</span>
         <div class="icon"><i class="el-icon el-icon-thumb"></i></div>
+        <el-divider></el-divider>
         <span class="mission-desc">经验 +1</span>
         <div><i class="el-icon el-icon-check"></i></div>
       </el-col>
       <el-col :span="6" class="mission-item">
         <span class="mission-title">每日回复</span>
         <div class="icon"><i class="el-icon el-icon-chat-round"></i></div>
+        <el-divider></el-divider>
         <span class="mission-desc">经验 +1</span>
         <div><i class="el-icon el-icon-check"></i></div>
       </el-col>
       <el-col :span="6">
         <span class="mission-title">每日投币</span>
         <div class="icon"><i class="el-icon el-icon-coin"></i></div>
+        <el-divider></el-divider>
         <span class="mission-desc">经验 +3</span>
         <div><i class="el-icon el-icon-check"></i></div>
       </el-col>
@@ -94,7 +98,7 @@ export default {
 </script>
 
 <style scoped>
-.sub-info {
+.two-item {
   margin-top: 10px;
   font-size: 15px;
   text-align: center;
@@ -134,6 +138,10 @@ export default {
 
 .icon {
   font-size: 55px;
+}
+
+/deep/ .el-avatar {
+  border: 5px #666 solid;
 }
 
 .avatar {
