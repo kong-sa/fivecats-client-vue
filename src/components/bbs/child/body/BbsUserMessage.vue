@@ -7,15 +7,15 @@
             default-active="1"
             @select="selected">
             <el-menu-item index="1">
-              <i class="el-icon-info"></i>
+              <i class="el-icon-third-dianzan"></i>
               <span slot="title">获得的赞</span>
             </el-menu-item>
             <el-menu-item index="2">
-              <i class="el-icon-picture-outline-round"></i>
+              <i class="el-icon-third-huifu1"></i>
               <span slot="title">回复我的</span>
             </el-menu-item>
             <el-menu-item index="3">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-third-xitongxiaoxi"></i>
               <span slot="title">系统通知</span>
             </el-menu-item>
           </el-menu>

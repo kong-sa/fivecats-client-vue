@@ -47,14 +47,14 @@
                     <span v-else>1050</span>
                   </el-row>
                   <el-row>
-                    <el-col :span="12" style="text-align: left"><i class="level"></i>LV:{{ var1.data.level }}</el-col>
+                    <el-col :span="12" style="text-align: left"><i class="el-icon--left el-icon-third-dengji1"></i>LV:{{ var1.data.level }}</el-col>
                     <el-col :span="12" style="text-align: right"><i
-                      class="el-icon--left el-icon-coin"></i>馋币:{{ var1.data.gold }}
+                      class="el-icon--left el-icon-third-jinbi"></i>馋币:{{ var1.data.gold }}
                     </el-col>
                   </el-row>
                 </el-dropdown-item>
                 <el-dropdown-item command="1"><i class="el-icon--left el-icon-user"></i>个人中心</el-dropdown-item>
-                <el-dropdown-item command="2"><i class="el-icon--left el-icon-user"></i>个人空间</el-dropdown-item>
+                <el-dropdown-item command="2"><i class="el-icon--left el-icon-third-kongjian"></i>个人空间</el-dropdown-item>
                 <el-dropdown-item command="3"><i class="el-icon--left el-icon-tickets"></i>我的帖子</el-dropdown-item>
                 <el-dropdown-item command="4"><i class="el-icon--left el-icon-third-tuichudenglu"></i>退出登陆</el-dropdown-item>
               </el-dropdown-menu>
@@ -266,25 +266,6 @@ export default {
 .avatar, .item {
   cursor: pointer;
   text-align: center;
-}
-
-.level, .fans {
-  display: inline-block;
-  background-position: center center;
-}
-
-.level {
-  width: 16px;
-  height: 16px;
-  background-size: 16px 16px;
-  background-image: url("../../../../assets/icon/level-icon.png");
-}
-
-.fans {
-  width: 12px;
-  height: 12px;
-  background-size: 12px 12px;
-  background-image: url("../../../../assets/icon/fans-icon.png");
 }
 
 .avatar {
