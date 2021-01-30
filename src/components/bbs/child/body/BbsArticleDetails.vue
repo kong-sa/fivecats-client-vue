@@ -123,6 +123,7 @@ export default {
     this.var1 = var1
     let {data: var2} = await this.$http.get('/getting/article/comments?articleId=' + this.articleId)
     this.var2 = var2
+    document.title = var1.user.username + '的帖子 - 馋猫社区'
   },
   methods: {
     lookUser (userId) {

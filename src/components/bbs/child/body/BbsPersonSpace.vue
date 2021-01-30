@@ -74,6 +74,7 @@ export default {
     let {data: res2} = await this.$http.get('/bbs/my/articles?id=' + this.userId)
     this.httpResValue1 = res1
     this.httpResValue2 = res2
+    document.title = res1.data.username + '的空间 - 馋猫社区'
   },
   methods: {
     lookDetail (articleId) {

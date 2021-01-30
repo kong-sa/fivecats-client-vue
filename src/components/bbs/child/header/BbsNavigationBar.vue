@@ -55,17 +55,21 @@
                 </el-dropdown-item>
                 <el-dropdown-item command="1"><i class="el-icon--left el-icon-user"></i>个人中心</el-dropdown-item>
                 <el-dropdown-item command="2"><i class="el-icon--left el-icon-user"></i>个人空间</el-dropdown-item>
-                <el-dropdown-item command="3"><i class="el-icon--left el-icon-folder"></i>我的帖子</el-dropdown-item>
+                <el-dropdown-item command="3"><i class="el-icon--left el-icon-tickets"></i>我的帖子</el-dropdown-item>
                 <el-dropdown-item command="4"><i class="el-icon--left el-icon-third-tuichudenglu"></i>退出登陆</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-col>
           <el-col class="item" :span="8">
-            <el-badge :value="1" :max="99" class="message"><i class="el-icon--left el-icon-chat-round"></i>回复我的
-            </el-badge>
+            <a @click="goReplay">
+              <el-badge :value="1" :max="99" class="message"><i class="el-icon--left el-icon-chat-round"></i>回复我的
+              </el-badge>
+            </a>
           </el-col>
           <el-col class="item" :span="8">
-            <el-badge :value="1" :max="99" class="message"><i class="el-icon--left el-icon-thumb"></i>获得的赞</el-badge>
+            <a @click="goLike">
+              <el-badge :value="1" :max="99" class="message"><i class="el-icon--left el-icon-thumb"></i>获得的赞</el-badge>
+            </a>
           </el-col>
         </el-row>
       </el-col>
@@ -185,6 +189,12 @@ export default {
     }
   },
   methods: {
+    goReplay () {
+      this.$router.push('/bbs/message/replay')
+    },
+    goLike () {
+      this.$router.push('/bbs/message/like')
+    },
     clickDropdownItem (command) {
       if (command === '1') {
         this.$router.push('/bbs/self/center')

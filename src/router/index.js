@@ -19,6 +19,10 @@ import BbsAvatarInfo from '../components/bbs/child/body/child/BbsAvatarInfo'
 import BbsAccountInfo from '../components/bbs/child/body/child/BbsAccountInfo'
 import BbsArticleManagement from '../components/bbs/child/body/child/BbsArticleManagement'
 import BbsPersonSpace from '../components/bbs/child/body/BbsPersonSpace'
+import BbsUserMessage from '../components/bbs/child/body/BbsUserMessage'
+import BbsUserMessageReplay from '../components/bbs/child/body/child/BbsUserMessageReplay'
+import BbsUserMessageLike from '../components/bbs/child/body/child/BbsUserMessageLike'
+import BbsMessageOfficial from '../components/bbs/child/body/child/BbsMessageOfficial'
 
 Vue.use(Router)
 
@@ -95,7 +99,7 @@ export default new Router({
         {
           path: '/bbs/article/details/:articleId',
           component: BbsArticleDetails,
-          meta: {title: '详细帖子'}
+          meta: {title: '帖子详情'}
         },
         {
           path: '/bbs/self/center',
@@ -129,6 +133,29 @@ export default new Router({
           path: '/bbs/person/space/:userId',
           component: BbsPersonSpace,
           meta: {title: '个人空间'}
+        },
+        {
+          path: '/bbs/message/',
+          component: BbsUserMessage,
+          redirect: '/bbs/message/replay/',
+          meta: {title: '我的消息'},
+          children: [
+            {
+              path: '/bbs/message/replay/',
+              component: BbsUserMessageReplay,
+              meta: {title: '我的回复'}
+            },
+            {
+              path: '/bbs/message/like/',
+              component: BbsUserMessageLike,
+              meta: {title: '获得的赞'}
+            },
+            {
+              path: '/bbs/message/official',
+              component: BbsMessageOfficial,
+              meta: {title: '系统通知'}
+            }
+          ]
         }
       ]
     }
