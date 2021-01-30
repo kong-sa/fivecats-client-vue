@@ -62,13 +62,13 @@
           </el-col>
           <el-col class="item" :span="8">
             <a @click="goReplay">
-              <el-badge :value="1" :max="99" class="message"><i class="el-icon--left el-icon-chat-round"></i>回复我的
+              <el-badge :value="0" :max="99" class="message"><i class="el-icon--left el-icon-chat-round"></i>回复我的
               </el-badge>
             </a>
           </el-col>
           <el-col class="item" :span="8">
             <a @click="goLike">
-              <el-badge :value="1" :max="99" class="message"><i class="el-icon--left el-icon-thumb"></i>获得的赞</el-badge>
+              <el-badge :value="likeNum" :max="99" class="message"><i class="el-icon--left el-icon-thumb"></i>获得的赞</el-badge>
             </a>
           </el-col>
         </el-row>
@@ -185,8 +185,11 @@ export default {
           {required: true, message: '请输入您的密码', trigger: 'blur'},
           {min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur'}
         ]
-      }
+      },
+      likeNum: 0
     }
+  },
+  async created () {
   },
   methods: {
     goReplay () {
@@ -216,6 +219,8 @@ export default {
           this.loginDialog = false
           this.$store.commit('setVar1', var1)
           this.$message.success('登陆成功！')
+          let {data: res} = await this.$http.get('/getting/user/like/num?id=' + this.$store.state.var1.data.id)
+          this.likeNum = res
         } else {
           this.$message.error('登陆失败！')
         }

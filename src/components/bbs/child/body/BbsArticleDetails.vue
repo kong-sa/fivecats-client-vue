@@ -5,32 +5,32 @@
         <!--     标题     -->
         <el-row class="main-card__title">
           <div class="title-info">
-            <el-tag>{{ var1.tag }}</el-tag>
-            <span class="title-info__right">{{ var1.title }}</span>
+            <el-tag>{{ httpResValue1.tag }}</el-tag>
+            <span class="title-info__right">{{ httpResValue1.title }}</span>
           </div>
         </el-row>
         <!--     时间、点赞数、讨论数     -->
         <el-row class="brief-info">
-          <el-col :span="12">发表日期：{{ var1.date }}</el-col>
-          <el-col :span="4" :offset="3">点赞数：{{ var1.likes }}</el-col>
-          <el-col :span="4">回复数：{{ var1.times }}</el-col>
+          <el-col :span="12">发表日期：{{ httpResValue1.date }}</el-col>
+          <el-col :span="4" :offset="3">点赞数：{{ httpResValue1.likes }}</el-col>
+          <el-col :span="4">回复数：{{ httpResValue1.times }}</el-col>
         </el-row>
         <!--     用户信息     -->
         <el-row class="user-info">
           <el-col :span="2">
-            <el-avatar :size="50" v-bind:src="var1.user.avatar"></el-avatar>
+            <el-avatar :size="50" v-bind:src="httpResValue1.user.avatar"></el-avatar>
           </el-col>
-          <el-col :span="3">{{ var1.user.username }}</el-col>
+          <el-col :span="3">{{ httpResValue1.user.username }}</el-col>
         </el-row>
         <el-divider></el-divider>
         <!--     帖子具体内容     -->
         <el-row style="margin-bottom: 20px">
-          <div v-html="var1.content" style="margin: 15px 0"></div>
+          <div v-html="httpResValue1.content" style="margin: 15px 0"></div>
         </el-row>
         <!--     为该文章点赞     -->
         <el-row style="text-align: center; margin: 40px">
           <i @click="like" class="el-icon--left el-icon-third-dianzan like-article-icon">
-            {{ var1.like }}</i>
+            {{ httpResValue1.like }}</i>
         </el-row>
       </el-row>
     </el-card>
@@ -62,7 +62,7 @@
     </el-card>
     <!--评论区-->
     <el-card style="margin: 10px 0; padding: 0">
-      <div v-for="item in var2" :key="item.id"
+      <div v-for="item in httpResValue2" :key="item.id"
            style="border-top: #ebebeb solid 1px; padding: 20px">
         <el-row>
           <el-col :span="2">
@@ -91,7 +91,7 @@
             </el-dropdown>
           </el-col>
           <el-col :span="5" class="comment-row comment-nickname">{{ item.user.username }}
-            <el-tag v-if="item.user.id === var1.user.id" style="margin-left: 10px" size="small">发帖人
+            <el-tag v-if="item.user.id === httpResValue1.user.id" style="margin-left: 10px" size="small">发帖人
             </el-tag>
           </el-col>
         </el-row>
@@ -119,20 +119,22 @@ export default {
   components: {BbsNavigationBar},
   async created () {
     this.articleId = this.$route.params.articleId
-    let {data: var1} = await this.$http.get('/getting/article/content?articleId=' + this.articleId)
-    this.var1 = var1
-    let {data: var2} = await this.$http.get('/getting/article/comments?articleId=' + this.articleId)
-    this.var2 = var2
-    document.title = var1.user.username + '的帖子 - 馋猫社区'
+    let {data: res1} = await this.$http.get('/getting/article/content?articleId=' + this.articleId)
+    this.httpResValue1 = res1
+    let {data: res2} = await this.$http.get('/getting/article/comments?articleId=' + this.articleId)
+    this.httpResValue2 = res2
+    document.title = res1.user.username + '的帖子 - 馋猫社区'
   },
   methods: {
     lookUser (userId) {
       this.$router.push('/bbs/person/space/' + userId)
     },
     async like () {
-      await this.$http.post('/setting/article/like', {
-        id: this.var1.id,
-        like: this.var1.like + 1
+      await this.$http.post('/setting/article/like', this.httpResValue1)
+      await this.$http.post('/setting/user/info', {
+        userId: this.httpResValue1.userId,
+        articleId: this.httpResValue1.id,
+        likeUserId: this.$store.state.var1.data.id
       })
       this.$message.success('点赞成功！')
     },
@@ -160,24 +162,8 @@ export default {
       formData: {
         textareaValue: ''
       },
-      var2: [
-        {
-          'id': 0,
-          'like': 0,
-          'date': '',
-          'content': '',
-          'user': {
-            'id': 0,
-            'gold': 0,
-            'fans': 0,
-            'date': '',
-            'avatar': '',
-            'profile': '',
-            'username': ''
-          }
-        }
-      ],
-      var1: {
+      // 帖子数据
+      httpResValue1: {
         'id': 0,
         'tag': '',
         'title': '',
@@ -193,7 +179,25 @@ export default {
           'avatar': '',
           'fans': 0
         }
-      }
+      },
+      // 评论数据
+      httpResValue2: [
+        {
+          'id': 0,
+          'like': 0,
+          'date': '',
+          'content': '',
+          'user': {
+            'id': 0,
+            'gold': 0,
+            'fans': 0,
+            'date': '',
+            'avatar': '',
+            'profile': '',
+            'username': ''
+          }
+        }
+      ]
     }
   }
 }
