@@ -1,6 +1,6 @@
 <template>
   <el-card class="box-card">
-    <div class="bbs-content" v-for="item in obj" :key="item.id">
+    <div class="bbs-content" v-for="item in httpResValue1" :key="item.id">
       <el-row>
         <el-col :span="2" class="article-organizer">
           <el-avatar :size="35" :src="item.user.avatar" @error="errorHandler">
@@ -50,14 +50,17 @@ export default {
   //     this.articles = articles
   //   }
   // },
+  // 切换组件之后，会监测路由变化，然后重新发起异步请求，重新渲染页面数据
   watch: {
     async $route (to, from) {
+      // 如果跳转的是主页，就获取所有的帖子
       if (to.params.type === 'index') {
-        let {data: obj} = await this.$http.get('/getting/articles')
-        this.obj = obj
+        let {data: obj} = await this.$http.get('/bbs/getting/articles')
+        this.httpResValue1 = obj
       } else {
-        let {data: obj} = await this.$http.get('/getting/articles/by?type=' + to.params.type)
-        this.obj = obj
+        // 否则根据跳转的页面来获取帖子
+        let {data: obj} = await this.$http.get('/bbs/getting/articles/by?type=' + to.params.type)
+        this.httpResValue1 = obj
       }
     }
   },
@@ -65,13 +68,15 @@ export default {
     errorHandler () {
       return true
     },
+    // 查看帖子详细
     lookDetail (articleId) {
       this.$router.push('/bbs/article/details/' + articleId)
     }
   },
   data () {
     return {
-      obj: [
+      // 帖子数据
+      httpResValue1: [
         {
           'id': 0,
           'tag': '',

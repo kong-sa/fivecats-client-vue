@@ -1,5 +1,5 @@
 <template>
-  <div id="post-article">
+  <div class="bbs-edit-article">
     <el-card class="main-card">
       <el-form :rules="rules" :model="formData" ref="formData">
         <el-row class="main-card__header">发布帖子</el-row>
@@ -44,8 +44,8 @@
         </el-row>
         <!--发表帖子按钮-->
         <el-row class="main-card__footer">
-          <el-button @click="deliver" class="deliver-button">
-            <i class="el-icon--left el-icon-check"></i>发布
+          <el-button @click="saveAnddeliver" class="deliver-button">
+            <i class="el-icon--left el-icon-check"></i>保存发布
           </el-button>
         </el-row>
       </el-form>
@@ -54,11 +54,8 @@
 </template>
 
 <script>
-import BbsNavigationBar from '../header/BbsNavigationBar'
-
 export default {
-  name: 'PostBbsArticle',
-  components: {BbsNavigationBar},
+  name: 'BbsEditArticle',
   data () {
     return {
       // 表单绑定的数据
@@ -111,58 +108,40 @@ export default {
           {min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur'}
         ]
       },
-      // 发表奖励
-      rewordType: {
-        gold: 0,
-        experience: 0
-      }
+      articleId: 0
     }
   },
+  async created () {
+    let {data: res} = await this.$http.get('/bbs/getting/article/by?articleId=' + this.$route.params.editArticleId)
+    this.formData.title = res.title
+    this.content = res.content
+    this.articleId = res.id
+    this.optionValue = res.tag
+  },
   methods: {
-    // 判断属于哪一种文章，并给予对应的奖励
-    determineReword (value) {
-      switch (value) {
-        case '节约粮食打卡':
-          this.rewordType.gold = 6
-          this.rewordType.experience = 5
-          break
-        case '制作美食心得':
-          this.rewordType.gold = 4
-          this.rewordType.experience = 4
-          break
-        case '农村美食分享':
-          this.rewordType.gold = 3
-          this.rewordType.experience = 3
-          break
-        case '食谱分享':
-          this.rewordType.gold = 3
-          this.rewordType.experience = 3
-          break
-        case '其他':
-          this.rewordType.gold = 1
-          this.rewordType.experience = 2
-          break
-      }
-    },
     // 发表帖子
-    deliver () {
+    saveAnddeliver () {
       // 验证表单数据是否错误
       this.$refs.formData.validate((valida) => {
         if (!valida) return false
         // 判断帖子内容是否大于20个字符
         if (this.content.length >= 20) {
           // 发起异步请求，存储文章
-          this.$http.post('/bbs/setting/article', {
+          this.$http.post('/bbs/updating/article', {
+            // 帖子标题
             title: this.formData.title,
+            // 帖子标签
             tag: this.optionValue,
+            // 帖子内容
             content: this.content,
-            userId: this.$store.state.var1.data.id
+            // 用户ID
+            userId: this.$store.state.var1.data.id,
+            // 帖子ID
+            id: this.articleId
           })
-          // 决定哪一种类型
-          this.determineReword(this.optionValue)
           // 根据帖子类型弹出提示
           this.$message({
-            message: '金币 +' + this.rewordType.gold + '，经验 +' + this.rewordType.experience,
+            message: '修改成功！',
             duration: 5000,
             type: 'success'
           })

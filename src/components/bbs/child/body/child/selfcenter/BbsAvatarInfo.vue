@@ -3,7 +3,7 @@
     <el-row class="avatar">
       <el-avatar
         :size="200"
-        :src="var1.data.avatar">
+        :src="httpResValue1.data.avatar">
         <div slot="error" class="image-slot">
           <i class="el-icon-picture-outline"></i>
         </div>
@@ -61,7 +61,7 @@ export default {
   name: 'BbsAvatarInfo',
   async created () {
     let {data: res} = await this.$http.get('/bbs/self/basic?userId=' + this.$store.state.var1.data.id)
-    this.var1 = res
+    this.httpResValue1 = res
   },
   methods: {
     handleRemove (file) {
@@ -72,15 +72,18 @@ export default {
     },
     handleDownload (file) {
     },
+    // 点击按钮上传头像
     submit () {
       this.$refs.upload.submit()
     },
+    // 设置头像参数，封装成formData格式的数据
     upload (file) {
       const formData = new FormData()
       formData.append('file', file.file)
       formData.append('userId', this.$store.state.var1.data.id)
       this.$http.post('/upload/avatar', formData)
     },
+    // 检查头像的格式
     checkImageFormat (file) {
       const limitImageFormat = file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png'
       const limitImageSize = file.size / 1024 / 1024 < 2
@@ -96,7 +99,7 @@ export default {
   },
   data () {
     return {
-      var1: {
+      httpResValue1: {
         code: 0,
         data: {
           'id': 0,
@@ -112,7 +115,8 @@ export default {
           'password': ''
         }
       },
-      action: 'http://localhost:8001/upload/avatar',
+      // 头像上传的url地址
+      action: 'http://fivecats.norza.cn:8001/bbs/upload/avatar',
       dialogImageUrl: '',
       dialogVisible: false,
       disabled: false

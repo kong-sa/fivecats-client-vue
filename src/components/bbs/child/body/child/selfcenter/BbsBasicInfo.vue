@@ -5,30 +5,30 @@
       <el-col :span="5" class="avatar">
         <el-avatar
           :size="120"
-          :src="var1.data.avatar">
+          :src="httpResValue1.data.avatar">
           <div slot="error" class="image-slot">
             <i class="el-icon-picture-outline"></i>
           </div>
         </el-avatar>
       </el-col>
       <el-col :span="19" class="user-info">
-        <el-row>{{ var1.data.username }}</el-row>
+        <el-row>{{ httpResValue1.data.username }}</el-row>
         <el-row class="two-item">
           <el-col :span="3">
-            <i class="el-icon--left el-icon-coin"></i>馋币：{{ var1.data.gold }}
+            <i class="el-icon--left el-icon-coin"></i>馋币：{{ httpResValue1.data.gold }}
           </el-col>
           <el-col :span="5">
-            <i class="el-icon--left el-icon-pie-chart"></i>经验：{{ var1.data.experience }} /
-            <span v-if="var1.data.level === 0">100</span>
-            <span v-else-if="var1.data.level === 1">200</span>
-            <span v-else-if="var1.data.level === 2">400</span>
-            <span v-else-if="var1.data.level === 3">500</span>
-            <span v-else-if="var1.data.level === 4">750</span>
-            <span v-else-if="var1.data.level === 5">950</span>
+            <i class="el-icon--left el-icon-pie-chart"></i>经验：{{ httpResValue1.data.experience }} /
+            <span v-if="httpResValue1.data.level === 0">100</span>
+            <span v-else-if="httpResValue1.data.level === 1">200</span>
+            <span v-else-if="httpResValue1.data.level === 2">400</span>
+            <span v-else-if="httpResValue1.data.level === 3">500</span>
+            <span v-else-if="httpResValue1.data.level === 4">750</span>
+            <span v-else-if="httpResValue1.data.level === 5">950</span>
             <span v-else>1050</span>
           </el-col>
           <el-col :span="3">
-            <i></i>等级：{{ var1.data.level }}
+            <i></i>等级：{{ httpResValue1.data.level }}
           </el-col>
         </el-row>
       </el-col>
@@ -72,11 +72,11 @@ export default {
   name: 'BbsBasicInfo',
   async created () {
     let {data: res} = await this.$http.get('/bbs/self/basic?userId=' + this.$store.state.var1.data.id)
-    this.var1 = res
+    this.httpResValue1 = res
   },
   data () {
     return {
-      var1: {
+      httpResValue1: {
         code: 0,
         data: {
           'id': 0,

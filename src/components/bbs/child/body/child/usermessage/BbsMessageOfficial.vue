@@ -35,7 +35,7 @@
 export default {
   name: 'BbsMessageOfficial',
   async created () {
-    let {data: httpResValue1} = await this.$http.get('/getting/articles/by?type=ann')
+    let {data: httpResValue1} = await this.$http.get('/bbs/getting/articles/by?type=ann')
     this.httpResValue1 = httpResValue1
   },
   methods: {

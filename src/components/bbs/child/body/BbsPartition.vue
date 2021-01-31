@@ -6,14 +6,16 @@
         <bbs-revolving-lantern/>
       </el-col>
       <el-col class="bbs-main__right-menu" :span="7">
+        <!--发表面板-->
         <bbs-posting/>
       </el-col>
     </el-row>
     <el-row class="bbs-main-area">
       <el-col :span="16">
+        <!--child\partition内的子组件-->
         <router-view/>
       </el-col>
-      <!--右侧边栏-->
+      <!--右侧栏-->
       <el-col :span="7" class="bbs-main__right-menu">
         <bbs-popular-foodmaking-article v-bind:articles="articles"/>
         <bbs-popular-countryside-food class="bbs-main__right-menu-item" v-bind:articles="articles"/>
@@ -40,7 +42,7 @@ export default {
     BbsRevolvingLantern
   },
   async created () {
-    let {data: res} = await this.$http.get('/getting/articles')
+    let {data: res} = await this.$http.get('/bbs/getting/articles')
     this.articles = res
   },
   data () {

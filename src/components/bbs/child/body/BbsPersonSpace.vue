@@ -1,7 +1,9 @@
 <template>
   <div id="person-space">
     <el-card>
+      <!--背景图-->
       <el-row class="space-background">
+        <!--头像-->
         <el-col :span="2">
           <el-avatar class="avatar" :size="70" :src="httpResValue1.data.avatar">
             <div slot="error" class="image-slot">
@@ -9,6 +11,7 @@
             </div>
           </el-avatar>
         </el-col>
+        <!--用户信息-->
         <el-col :span="20" class="info">
           <el-row class="info-one">
             <el-col :span="4">
@@ -31,29 +34,38 @@
           </el-row>
         </el-col>
       </el-row>
+      <!--主页内容展示区域-->
       <el-row class="tabs">
+        <!--帖子-->
         <el-tabs type="border-card">
           <el-tab-pane label="帖子">
             <div class="article-management">
               <div class="management-main" v-for="item in httpResValue2" :key="item.id">
-                <!--   标题   -->
+                <!--标题-->
                 <el-row style="margin: 10px 0">
                   <div style="line-height: 32px">
                     <el-tag>{{ item.tag }}</el-tag>
                     <span class="post-title">{{ item.title }}</span>
                   </div>
                 </el-row>
-                <!--   简略内容   -->
+                <!--简略内容-->
                 <el-row>
                   <div v-html="item.content" class="post-brief-content">
                   </div>
                 </el-row>
-                <!--   赞数、讨论数   -->
+                <!--其他菜单按钮-->
                 <el-row style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; font-size: 13px; color: #666">
-                  <span style="margin-right: 10px"><i class="el-icon--left el-icon-chat-line-round"></i>{{ item.times }}</span>
-                  <span style="margin-right: 10px"><i class="el-icon--left el-icon-third-dianzan"></i>{{item.like }}</span>
+                  <span style="margin-right: 10px">
+                    <i class="el-icon--left el-icon-chat-line-round"></i>{{ item.times }}
+                  </span>
+                  <span style="margin-right: 10px">
+                    <i class="el-icon--left el-icon-third-dianzan"></i>{{item.like }}
+                  </span>
                   <a class="look-article" @click="lookDetail(item.id)">
-                    <span>查看帖子<i class="el-icon-right el-icon-caret-right"></i></span>
+                    <span>查看帖子</span>
+                  </a>
+                  <a class="edit-article" @click="edit(item.id)">
+                    <span>编辑</span>
                   </a>
                 </el-row>
               </div>
@@ -70,13 +82,21 @@ export default {
   name: 'BbsPersonSpace',
   async created () {
     this.userId = this.$route.params.userId
+    // 获取此用户的信息
     let {data: res1} = await this.$http.get('/bbs/getting/user?id=' + this.userId)
-    let {data: res2} = await this.$http.get('/bbs/my/articles?id=' + this.userId)
     this.httpResValue1 = res1
+    // 获取此用户的帖子
+    let {data: res2} = await this.$http.get('/bbs/my/articles?id=' + this.userId)
     this.httpResValue2 = res2
+    // 设置页面标题
     document.title = res1.data.username + '的空间 - 馋猫社区'
   },
   methods: {
+    // 编辑评论
+    edit (articleId) {
+      this.$router.push('/bbs/edit/article/' + articleId)
+    },
+    // 获取url参数
     lookDetail (articleId) {
       this.$router.push('/bbs/article/details/' + articleId)
     }
@@ -84,6 +104,7 @@ export default {
   data () {
     return {
       userId: 0,
+      // 用户数据
       httpResValue1: {
         code: 0,
         data: {
@@ -98,6 +119,7 @@ export default {
           'level': 0
         }
       },
+      // 帖子数据
       httpResValue2: [
         {
           'id': 0,
@@ -183,8 +205,13 @@ export default {
   margin: 5px 0;
 }
 
+.edit-article {
+  cursor: pointer;
+}
+
 .look-article {
   cursor: pointer;
+  margin-right: 10px;
 }
 
 .management-main {

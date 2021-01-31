@@ -32,6 +32,7 @@
 export default {
   name: 'BbsUserMessage',
   methods: {
+    // 根据侧边栏，跳转不同的页面
     selected (key, keyPath) {
       if (key === '1') {
         this.$router.push('/bbs/message/like')

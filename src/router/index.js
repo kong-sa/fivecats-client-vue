@@ -23,6 +23,7 @@ import BbsUserMessage from '../components/bbs/child/body/BbsUserMessage'
 import BbsUserMessageReplay from '../components/bbs/child/body/child/usermessage/BbsUserMessageReplay'
 import BbsUserMessageLike from '../components/bbs/child/body/child/usermessage/BbsUserMessageLike'
 import BbsMessageOfficial from '../components/bbs/child/body/child/usermessage/BbsMessageOfficial'
+import BbsEditArticle from '../components/bbs/child/body/BbsEditArticle'
 
 Vue.use(Router)
 
@@ -156,6 +157,11 @@ export default new Router({
               meta: {title: '系统通知'}
             }
           ]
+        },
+        {
+          path: '/bbs/edit/article/:editArticleId',
+          component: BbsEditArticle,
+          meta: {title: '修改帖子'}
         }
       ]
     }

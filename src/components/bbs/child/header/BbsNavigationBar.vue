@@ -189,8 +189,6 @@ export default {
       likeNum: 0
     }
   },
-  async created () {
-  },
   methods: {
     goReplay () {
       this.$router.push('/bbs/message/replay')
@@ -219,7 +217,7 @@ export default {
           this.loginDialog = false
           this.$store.commit('setVar1', var1)
           this.$message.success('登陆成功！')
-          let {data: res} = await this.$http.get('/getting/user/like/num?id=' + this.$store.state.var1.data.id)
+          let {data: res} = await this.$http.get('/bbs/getting/user/like/num?id=' + this.$store.state.var1.data.id)
           this.likeNum = res
         } else {
           this.$message.error('登陆失败！')

@@ -51,7 +51,7 @@ export default {
   name: 'BbsAccountInfo',
   async created () {
     let {data: res} = await this.$http.get('/bbs/self/basic?userId=' + this.$store.state.var1.data.id)
-    this.var1 = res
+    this.httpResValue1 = res
     this.formData = res.data
   },
   methods: {
@@ -69,7 +69,7 @@ export default {
   },
   data () {
     return {
-      var1: {
+      httpResValue1: {
         code: 0,
         data: {
           'id': 0,

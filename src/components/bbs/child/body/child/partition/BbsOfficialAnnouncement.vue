@@ -36,6 +36,7 @@ export default {
   },
   data () {
     return {
+      // 轮播图url地址，从oss服务器拿取
       carousel: [
         {id: 0, url: 'http://oss.norza.cn/imgs/bbs/77493707_p0.png'},
         {id: 1, url: 'http://oss.norza.cn/imgs/bbs/79422437_p0.png'},
