@@ -81,7 +81,7 @@ export default {
       const formData = new FormData()
       formData.append('file', file.file)
       formData.append('userId', this.$store.state.var1.data.id)
-      this.$http.post('/upload/avatar', formData)
+      this.$http.post('/bbs/upload/avatar', formData)
     },
     // 检查头像的格式
     checkImageFormat (file) {
@@ -115,8 +115,6 @@ export default {
           'password': ''
         }
       },
-      // 头像上传的url地址
-      action: 'http://fivecats.norza.cn:8001/bbs/upload/avatar',
       dialogImageUrl: '',
       dialogVisible: false,
       disabled: false

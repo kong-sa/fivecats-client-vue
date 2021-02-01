@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import ComponentTesting from '../components/ComponentTesting'
+// 馋猫主组件
+import FivecatsIndex from '../components/FivecatsIndex'
+// 其他组件
 import FilterMain from '../components/filter/FilterMain'
 import VideoMain from '../components/video/VideoMain'
 import MerchantMain from '../components/merchant/MerchantMain'
@@ -24,6 +26,10 @@ import BbsUserMessageReplay from '../components/bbs/child/body/child/usermessage
 import BbsUserMessageLike from '../components/bbs/child/body/child/usermessage/BbsUserMessageLike'
 import BbsMessageOfficial from '../components/bbs/child/body/child/usermessage/BbsMessageOfficial'
 import BbsEditArticle from '../components/bbs/child/body/BbsEditArticle'
+// 登陆组件
+import Access from '../components/access/Access'
+import Login from '../components/access/Login'
+import Signin from '../components/access/Signin'
 
 Vue.use(Router)
 
@@ -31,10 +37,29 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: ComponentTesting,
-      meta: {
-        title: '已完成部分'
-      }
+      redirect: '/access/login',
+      component: FivecatsIndex,
+      meta: {title: '首页'},
+      children: [
+        // 登陆或注册路由
+        {
+          path: '/access',
+          component: Access,
+          meta: {title: '登陆或注册'},
+          children: [
+            {
+              path: '/access/login',
+              component: Login,
+              meta: {title: '登陆'}
+            },
+            {
+              path: '/access/signin',
+              component: Signin,
+              meta: {title: '注册'}
+            }
+          ]
+        }
+      ]
     },
     {
       path: '/merchant/main',
@@ -53,25 +78,19 @@ export default new Router({
     {
       path: '/customer/main',
       component: CustomerMain,
-      meta: {
-        title: '用户中心'
-      },
+      meta: {title: '用户中心'},
       children: [
         {
           path: '/detail/order',
           component: DetailOrder,
-          meta: {
-            title: '订单详细'
-          }
+          meta: {title: '订单详细'}
         }
       ]
     },
     {
       path: '/filter/main',
       component: FilterMain,
-      meta: {
-        title: '寻找美食'
-      }
+      meta: {title: '寻找美食'}
     },
     // 馋猫社区路由
     {

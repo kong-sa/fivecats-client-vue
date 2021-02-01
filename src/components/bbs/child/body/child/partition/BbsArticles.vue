@@ -9,7 +9,7 @@
         </el-col>
         <el-col :span="22">
           <p>
-            <span class="username">{{ item.user.username }}</span>
+            <span class="email">{{ item.user.username }}</span>
             <span class="publish-timestamp">{{ item.date }}</span>
           </p>
         </el-col>
@@ -131,7 +131,7 @@ export default {
   font-size: 12px;
 }
 
-.username {
+.email {
   font-size: 14px;
   color: #666;
 }
