@@ -1,19 +1,11 @@
 <template>
-  <div class="access-signin">
+  <div class="access-login">
     <el-form
-      ref="signin"
-      class="signin-form"
+      ref="login"
+      class="login-form"
       :model="formData"
       :rules="rules">
-      <h2 class="title">快速注册</h2>
-      <el-form-item prop="username">
-        <span class="label">昵称</span>
-        <el-input
-          class="username"
-          size="mini"
-          v-model="formData.username"
-          type="text"/>
-      </el-form-item>
+      <h2 class="title">欢迎回来</h2>
       <el-form-item prop="email">
         <span class="label">邮箱</span>
         <el-input
@@ -31,49 +23,40 @@
           type="password"/>
       </el-form-item>
     </el-form>
-    <el-button @click="signin" class="submit">注 册</el-button>
-    <div class="have-account">
-      <router-link to="/access/login">已有账号？点击登陆</router-link>
+    <el-button class="submit" @click="login">登 录</el-button>
+    <div class="no-account">
+      <router-link to="/access/signin">没有账号？点击注册</router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Signin',
+  name: 'AccessLogin',
   methods: {
-    signin () {
-      this.$refs.signin.validate(async valida => {
+    login () {
+      this.$refs.login.validate(async valida => {
         if (!valida) {
-          this.$message.error('请填写完全！')
+          this.$message.error('请把信息填写完全！')
         } else {
-          let {data: res} = await this.$http.post('/access/signin', this.formData)
+          let {data: res} = await this.$http.post('/access/login', this.formData)
           if (res.code === 200) {
             this.$message({
-              message: '注册成功，5秒后跳转登陆页面。',
-              duration: 5000,
-              type: 'success'
+              message: '登陆成功！',
+              type: 'success',
+              duration: 2000
             })
-            setInterval(async () => {
-              await this.$router.push('/access/login')
-            }, 5000)
           } else if (res.code === 400) {
             this.$message({
               message: res.data,
-              duration: 3000,
-              type: 'error'
-            })
-          } else if (res.code === 401) {
-            this.$message({
-              message: res.data,
-              duration: 3000,
-              type: 'error'
+              type: 'error',
+              duration: 4500
             })
           } else {
             this.$message({
               message: res.data,
-              duration: 4000,
-              type: 'error'
+              type: 'error',
+              duration: 5000
             })
           }
         }
@@ -82,12 +65,10 @@ export default {
   },
   data () {
     return {
-      count: 5000,
       // 表单数据
       formData: {
         email: '',
-        password: '',
-        username: ''
+        password: ''
       },
       // 表单验证规则
       rules: {
@@ -97,10 +78,6 @@ export default {
         ],
         password: [
           {required: true, message: '请输入密码！', trigger: 'blur'},
-          {min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur'}
-        ],
-        username: [
-          {required: true, message: '请输入昵称！', trigger: 'blur'},
           {min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur'}
         ]
       }
@@ -119,7 +96,7 @@ export default {
   text-align: center;
 }
 
-.access-signin {
+.access-login {
   padding: 0 15%;
   box-shadow: 5px 5px 10px #ccc;
   border-radius: 10px;
@@ -132,7 +109,7 @@ export default {
   text-align: center;
 }
 
-.have-account {
+.no-account {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 14px;
@@ -173,6 +150,7 @@ a:visited {
 a:hover {
   color: rgb(140, 197, 255);
   text-decoration: none;
+  transition: 0.5s;
 }
 
 a:active {

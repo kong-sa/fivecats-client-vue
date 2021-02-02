@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// 馋猫主组件
+// 馋猫项目主组件
 import FivecatsIndex from '../components/FivecatsIndex'
 // 其他组件
 import FilterMain from '../components/filter/FilterMain'
@@ -9,7 +9,7 @@ import VideoMain from '../components/video/VideoMain'
 import MerchantMain from '../components/merchant/MerchantMain'
 import CustomerMain from '../components/customer/CustomerMain'
 import DetailOrder from '../components/customer/order/DetailOrder'
-// 馋猫社区组件
+// 馋猫社区页面组件
 import BbsMain from '../components/bbs/BbsMain'
 import BbsArticles from '../components/bbs/child/body/child/partition/BbsArticles'
 import BbsPartition from '../components/bbs/child/body/BbsPartition'
@@ -26,10 +26,13 @@ import BbsUserMessageReplay from '../components/bbs/child/body/child/usermessage
 import BbsUserMessageLike from '../components/bbs/child/body/child/usermessage/BbsUserMessageLike'
 import BbsMessageOfficial from '../components/bbs/child/body/child/usermessage/BbsMessageOfficial'
 import BbsEditArticle from '../components/bbs/child/body/BbsEditArticle'
-// 登陆组件
-import Access from '../components/access/Access'
-import Login from '../components/access/Login'
-import Signin from '../components/access/Signin'
+// 注册或登录页面组件
+import AccessMain from '../components/access/AccessMain'
+import AccessLogin from '../components/access/child/AccessLogin'
+import AccessSignin from '../components/access/child/AccessSignin'
+// 寻找美食页面组件
+import FindMain from '../components/find/FindMain'
+import Restaurants from '../components/find/child/Restaurants'
 
 Vue.use(Router)
 
@@ -37,25 +40,38 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/access/login',
+      redirect: '/find',
       component: FivecatsIndex,
-      meta: {title: '首页'},
+      meta: {title: '五只馋猫'},
       children: [
-        // 登陆或注册路由
+        // 登陆或注册页面的路由
         {
           path: '/access',
-          component: Access,
+          component: AccessMain,
           meta: {title: '登陆或注册'},
           children: [
             {
               path: '/access/login',
-              component: Login,
+              component: AccessLogin,
               meta: {title: '登陆'}
             },
             {
               path: '/access/signin',
-              component: Signin,
+              component: AccessSignin,
               meta: {title: '注册'}
+            }
+          ]
+        },
+        // 寻找美食页面的路由
+        {
+          path: '/find',
+          component: FindMain,
+          meta: {title: '寻找美食'},
+          children: [
+            {
+              path: '/find/:resType',
+              component: Restaurants,
+              meta: {title: '分类寻找'}
             }
           ]
         }
@@ -92,7 +108,7 @@ export default new Router({
       component: FilterMain,
       meta: {title: '寻找美食'}
     },
-    // 馋猫社区路由
+    // 馋猫社区的路由
     {
       path: '/bbs',
       redirect: '/bbs/index',

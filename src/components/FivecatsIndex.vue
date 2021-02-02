@@ -1,10 +1,9 @@
 <template>
   <el-container class="fivecats-app">
     <el-header>header</el-header>
-    <el-main>
+    <el-main class="fivecats-app__main">
       <router-view/>
     </el-main>
-    <el-footer>footer</el-footer>
   </el-container>
 </template>
 
@@ -15,5 +14,8 @@ export default {
 </script>
 
 <style scoped>
-
+.fivecats-app__main {
+  padding: 0;
+  height: 3000px;
+}
 </style>
