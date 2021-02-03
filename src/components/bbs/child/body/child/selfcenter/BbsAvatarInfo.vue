@@ -51,7 +51,7 @@
       <div class="avatar-upload-desc">只能上传JPG、PNG、JPEG格式的图片，且大小不超过2MB</div>
     </el-row>
     <el-row class="submit-button">
-      <el-button size="mini" type="primary" @click="submit">确认上传</el-button>
+      <el-button style="background: #ffc107" size="mini" type="primary" @click="submit">确认上传</el-button>
     </el-row>
   </div>
 </template>

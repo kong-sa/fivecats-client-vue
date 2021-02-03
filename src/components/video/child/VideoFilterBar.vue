@@ -1,20 +1,30 @@
 <template>
   <el-row>
-    <el-col :span="4" class="bar-item">
-      <router-link to="/video/making">
+    <router-link to="/video/making">
+      <el-col :span="4" class="bar-item">
         美食制作
-      </router-link>
-    </el-col>
-    <el-col :span="4" :offset="1" class="bar-item">
-      <router-link to="/video/sharing">
+      </el-col>
+    </router-link>
+    <router-link to="/video/sharing">
+      <el-col :span="4" :offset="1" class="bar-item">
         美食分享
-      </router-link>
-    </el-col>
-    <el-col :span="4" :offset="1" class="bar-item">
-      <router-link to="/video/countryside">
+      </el-col>
+    </router-link>
+    <router-link to="/video/countryside">
+      <el-col :span="4" :offset="1" class="bar-item">
         农村美食
-      </router-link>
-    </el-col>
+      </el-col>
+    </router-link>
+    <router-link to="/video/other">
+      <el-col :span="4" :offset="1" class="bar-item">
+        其他
+      </el-col>
+    </router-link>
+    <router-link to="/video/all">
+      <el-col :span="4" :offset="1" class="bar-item">
+        全部
+      </el-col>
+    </router-link>
   </el-row>
 </template>
 

@@ -105,7 +105,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button size="mini" @click="loginDialog = false">取消</el-button>
-        <el-button size="mini" type="primary" @click="login">登陆</el-button>
+        <el-button class="btn" size="mini" type="primary" @click="login">登陆</el-button>
       </span>
     </el-dialog>
     <el-dialog
@@ -130,7 +130,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button size="mini" @click="signinDialog = false">取消</el-button>
-        <el-button size="mini" type="primary" @click="signin">注册</el-button>
+        <el-button class="btn" size="mini" type="primary" @click="signin">注册</el-button>
       </span>
     </el-dialog>
   </el-card>
@@ -253,6 +253,10 @@ export default {
   line-height: 67px;
 }
 
+.btn {
+  background: #ffc107;
+}
+
 .message {
   font-size: 15px;
 }
@@ -297,7 +301,7 @@ a:visited {
 }
 
 a:hover {
-  color: rgb(140, 197, 255);
+  color: #ffc107;
   text-decoration: none;
 }
 

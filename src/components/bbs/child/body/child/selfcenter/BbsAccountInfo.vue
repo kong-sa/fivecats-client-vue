@@ -41,7 +41,7 @@
       </el-form-item>
     </el-form>
     <div class="submit-button">
-      <el-button @click="submit" size="mini" type="primary">保存信息</el-button>
+      <el-button style="background: #ffc107" @click="submit" size="mini" type="primary">保存信息</el-button>
     </div>
   </div>
 </template>

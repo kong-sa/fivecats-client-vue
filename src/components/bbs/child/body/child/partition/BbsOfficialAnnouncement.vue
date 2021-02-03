@@ -75,6 +75,8 @@ export default {
 
 .announce-articles-tag {
   margin-right: 10px;
+  background: #ffc107;
+  color: white;
 }
 
 .announce-item {

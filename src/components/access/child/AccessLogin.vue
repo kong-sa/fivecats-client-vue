@@ -123,7 +123,7 @@ export default {
   height: 36px;
   border-radius: 30px;
   font-size: 15px;
-  background: rgb(64, 158, 255);
+  background: #ffc107;
   color: white;
 }
 
@@ -148,7 +148,7 @@ a:visited {
 }
 
 a:hover {
-  color: rgb(140, 197, 255);
+  color: #ffc107;
   text-decoration: none;
   transition: 0.5s;
 }

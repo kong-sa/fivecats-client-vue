@@ -5,7 +5,7 @@
         <!--标题-->
         <el-row class="main-card__title">
           <div class="title-info">
-            <el-tag>{{ httpResValue1.tag }}</el-tag>
+            <el-tag style="color: white; background: #ffc107">{{ httpResValue1.tag }}</el-tag>
             <span class="title-info__right">{{ httpResValue1.title }}</span>
           </div>
         </el-row>
@@ -102,7 +102,7 @@
           <!--如果是发帖人，则附上标签-->
           <el-col :span="5" class="comm-row comment-nickname">
             {{ item.user.username }}
-            <el-tag v-if="item.user.id === httpResValue1.user.id" style="margin-left: 10px" size="small">发帖人</el-tag>
+            <el-tag v-if="item.user.id === httpResValue1.user.id" style="margin-left: 10px; color: white; background: #ffc107" size="small">发帖人</el-tag>
           </el-col>
         </el-row>
         <!--评论的内容-->

@@ -57,5 +57,7 @@ export default {
 
 .announce-articles-tag {
   margin-top: 10px;
+  background: #ffc107;
+  color: white;
 }
 </style>

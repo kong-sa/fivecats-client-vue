@@ -5,8 +5,8 @@
         <div class="item-body">
           <el-image class="item-bg" :src="item.cover"></el-image>
           <div class="item-desc">
-            <div class="item-title">{{item.title}}</div>
-            <div class="item-playnum">播放量:{{item.playNum}}</div>
+            <div class="item-title">{{ item.title }}</div>
+            <div class="item-playnum">播放量:{{ item.playNum }}</div>
           </div>
         </div>
       </a>
@@ -65,25 +65,34 @@ export default {
 .item-title, .item-playnum {
   text-align: center;
 }
+
 .item-title {
+  font-weight: 600;
+  color: #02a388;;
   font-size: 20px;
 }
+
 .item-playnum {
+  color: #9ea2a2;
   font-size: 14px;
 }
+
 .item-desc {
   transition: 0.5s;
   background: #0c0d0d;
   color: white;
 }
+
 .item-desc:hover {
   transition: 0.5s;
   background: #ffc107;
 }
+
 .item {
   cursor: pointer;
   transition: 0.4s;
 }
+
 .item:hover {
   transition: 0.5s;
   transform: translateY(-10px);

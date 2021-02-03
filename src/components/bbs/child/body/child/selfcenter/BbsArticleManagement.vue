@@ -4,7 +4,7 @@
       <!--   标题   -->
       <el-row style="margin: 10px 0">
         <div style="line-height: 32px">
-          <el-tag>{{ item.tag }}</el-tag>
+          <el-tag style="background: #ffc107; color: white">{{ item.tag }}</el-tag>
           <span class="post-title">{{ item.title }}</span>
         </div>
       </el-row>

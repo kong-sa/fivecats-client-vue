@@ -4,6 +4,9 @@
       <el-container>
         <el-aside style="width: 150px">
           <el-menu
+            active-text-color="#ffd04b"
+            background-color="#545c64"
+            text-color="#fff"
             default-active="1"
             @select="selected">
             <el-menu-item index="1">
