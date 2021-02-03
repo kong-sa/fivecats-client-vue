@@ -7,9 +7,8 @@ import router from './router'
 // tinymce
 import tinymce from 'tinymce'
 import VueTinymce from '@packy-tang/vue-tinymce'
-// axios and jquery
+// axios
 import axios from 'axios'
-import jqeury from 'jquery'
 // nprogress
 import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
@@ -40,8 +39,7 @@ Vue.prototype.$tinymce = tinymce
 // element-ui
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
-// axios and jqeury
-Vue.prototype.$ = jqeury
+// axios
 Vue.prototype.$http = axios
 // axios base url
 // axios.defaults.baseURL = 'http://120.77.245.208:8001/'

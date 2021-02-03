@@ -3,36 +3,35 @@ import Router from 'vue-router'
 
 // 馋猫项目主组件
 import FivecatsIndex from '../components/FivecatsIndex'
-// 其他组件
-import FilterMain from '../components/filter/FilterMain'
-import VideoMain from '../components/video/VideoMain'
-import MerchantMain from '../components/merchant/MerchantMain'
-import CustomerMain from '../components/customer/CustomerMain'
-import DetailOrder from '../components/customer/order/DetailOrder'
 // 馋猫社区页面组件
 import BbsMain from '../components/bbs/BbsMain'
 import BbsArticles from '../components/bbs/child/body/child/partition/BbsArticles'
 import BbsPartition from '../components/bbs/child/body/BbsPartition'
-import BbsPostArticle from '../components/bbs/child/body/BbsPostArticle'
-import BbsArticleDetails from '../components/bbs/child/body/BbsArticleDetails'
-import BbsSelfCenter from '../components/bbs/child/body/BbsSelfCenter'
 import BbsBasicInfo from '../components/bbs/child/body/child/selfcenter/BbsBasicInfo'
+import BbsSelfCenter from '../components/bbs/child/body/BbsSelfCenter'
 import BbsAvatarInfo from '../components/bbs/child/body/child/selfcenter/BbsAvatarInfo'
 import BbsAccountInfo from '../components/bbs/child/body/child/selfcenter/BbsAccountInfo'
-import BbsArticleManagement from '../components/bbs/child/body/child/selfcenter/BbsArticleManagement'
 import BbsPersonSpace from '../components/bbs/child/body/BbsPersonSpace'
 import BbsUserMessage from '../components/bbs/child/body/BbsUserMessage'
-import BbsUserMessageReplay from '../components/bbs/child/body/child/usermessage/BbsUserMessageReplay'
-import BbsUserMessageLike from '../components/bbs/child/body/child/usermessage/BbsUserMessageLike'
-import BbsMessageOfficial from '../components/bbs/child/body/child/usermessage/BbsMessageOfficial'
+import BbsPostArticle from '../components/bbs/child/body/BbsPostArticle'
 import BbsEditArticle from '../components/bbs/child/body/BbsEditArticle'
+import BbsArticleDetails from '../components/bbs/child/body/BbsArticleDetails'
+import BbsMessageOfficial from '../components/bbs/child/body/child/usermessage/BbsMessageOfficial'
+import BbsUserMessageLike from '../components/bbs/child/body/child/usermessage/BbsUserMessageLike'
+import BbsUserMessageReplay from '../components/bbs/child/body/child/usermessage/BbsUserMessageReplay'
+import BbsArticleManagement from '../components/bbs/child/body/child/selfcenter/BbsArticleManagement'
 // 注册或登录页面组件
 import AccessMain from '../components/access/AccessMain'
 import AccessLogin from '../components/access/child/AccessLogin'
 import AccessSignin from '../components/access/child/AccessSignin'
 // 寻找美食页面组件
 import FindMain from '../components/find/FindMain'
-import Restaurants from '../components/find/child/Restaurants'
+import FindRestaurants from '../components/find/child/FindRestaurants'
+// 视频区页面组件
+import VideoMain from '../components/video/VideoMain'
+import VideoDetails from '../components/video/child/VideoDetails'
+import VideoType from '../components/video/child/VideoType'
+import VideoAll from '../components/video/child/VideoAll'
 
 Vue.use(Router)
 
@@ -65,48 +64,47 @@ export default new Router({
         // 寻找美食页面的路由
         {
           path: '/find',
+          redirect: '/find/all',
           component: FindMain,
           meta: {title: '寻找美食'},
           children: [
             {
               path: '/find/:resType',
-              component: Restaurants,
+              component: FindRestaurants,
               meta: {title: '分类寻找'}
+            },
+            {
+              path: '/find/all',
+              component: FindRestaurants,
+              meta: {title: '寻找美食'}
+            }
+          ]
+        },
+        {
+          path: '/video/details/:videoId',
+          component: VideoDetails,
+          meta: {title: '视频播放'}
+        },
+        // 视频区路由
+        {
+          path: '/video',
+          redirect: '/video/all',
+          component: VideoMain,
+          meta: {title: '视频区'},
+          children: [
+            {
+              path: '/video/all',
+              component: VideoAll,
+              meta: {title: '视频区'}
+            },
+            {
+              path: '/video/:videoType',
+              component: VideoType,
+              meta: {title: '视频分类'}
             }
           ]
         }
       ]
-    },
-    {
-      path: '/merchant/main',
-      component: MerchantMain,
-      meta: {
-        title: '商家详情'
-      }
-    },
-    {
-      path: '/video/main',
-      component: VideoMain,
-      meta: {
-        title: '美食视频'
-      }
-    },
-    {
-      path: '/customer/main',
-      component: CustomerMain,
-      meta: {title: '用户中心'},
-      children: [
-        {
-          path: '/detail/order',
-          component: DetailOrder,
-          meta: {title: '订单详细'}
-        }
-      ]
-    },
-    {
-      path: '/filter/main',
-      component: FilterMain,
-      meta: {title: '寻找美食'}
     },
     // 馋猫社区的路由
     {

@@ -1,6 +1,5 @@
 <template>
   <div class="restaurant-body">
-    <!--每一行分三列展示-->
     <el-row :gutter="20">
       <!--每一列-->
       <el-col
@@ -15,7 +14,7 @@
             </div>
           </el-image>
           <div class="item-desc">
-            <h4>Xx餐馆</h4>
+            <h3>Xx餐馆</h3>
             <p>人均消费：50¥</p>
             <p>地理位置：绵阳市涪城区万达广场</p>
           </div>
@@ -33,7 +32,7 @@
             </div>
           </el-image>
           <div class="item-desc">
-            <h4>Xx餐馆</h4>
+            <h3>Xx餐馆</h3>
             <p>人均消费：50¥</p>
             <p>地理位置：绵阳市涪城区万达广场</p>
           </div>
@@ -51,7 +50,7 @@
             </div>
           </el-image>
           <div class="item-desc">
-            <h4>Xx餐馆</h4>
+            <h3>Xx餐馆</h3>
             <p>人均消费：50¥</p>
             <p>地理位置：绵阳市涪城区万达广场</p>
           </div>
@@ -69,7 +68,7 @@
             </div>
           </el-image>
           <div class="item-desc">
-            <h4>Xx餐馆</h4>
+            <h3>Xx餐馆</h3>
             <p>人均消费：50¥</p>
             <p>地理位置：绵阳市涪城区万达广场</p>
           </div>
@@ -81,7 +80,7 @@
 
 <script>
 export default {
-  name: 'Restaurants',
+  name: 'FindRestaurants',
   watch: {
     async $route (to, from) {
     }
@@ -118,7 +117,7 @@ export default {
 .item-desc {
   position: absolute;
   top: 138px;
-  padding: 20px;
+  padding: 15px;
   left: 4%;
   right: 4%;
   border-radius: 3px;

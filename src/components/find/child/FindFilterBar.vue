@@ -4,7 +4,7 @@
       <el-col :span="4" class="item item-left">
         <router-link to="/find/stirfry">
           <div class="item-bg">
-            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/gg.jpg"></el-image>
+            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/stirfry.jpg"></el-image>
           </div>
           <div class="item-desc">炒菜</div>
         </router-link>
@@ -12,7 +12,7 @@
       <el-col :span="4" class="item">
         <router-link to="/find/griddle">
           <div class="item-bg">
-            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/gg.jpg"></el-image>
+            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/griddle.jpg"></el-image>
           </div>
           <div class="item-desc">干锅</div>
         </router-link>
@@ -20,7 +20,7 @@
       <el-col :span="4" class="item">
         <router-link to="/find/hotpot">
           <div class="item-bg">
-            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/gg.jpg"></el-image>
+            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/hotpot.jpg"></el-image>
           </div>
           <div class="item-desc">火锅</div>
         </router-link>
@@ -28,7 +28,7 @@
       <el-col :span="4" class="item">
         <router-link to="/find/drink">
           <div class="item-bg">
-            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/gg.jpg"></el-image>
+            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/drink.jpg"></el-image>
           </div>
           <div class="item-desc">饮品</div>
         </router-link>
@@ -36,7 +36,7 @@
       <el-col :span="4" class="item">
         <router-link to="/find/pasta">
           <div class="item-bg">
-            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/gg.jpg"></el-image>
+            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/pasta.jpg"></el-image>
           </div>
           <div class="item-desc">面食</div>
         </router-link>
@@ -44,7 +44,7 @@
       <el-col :span="4" class="item">
         <router-link to="/find/more">
           <div class="item-bg">
-            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/gg.jpg"></el-image>
+            <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/more.jpg"></el-image>
           </div>
           <div class="item-desc">更多</div>
         </router-link>
@@ -55,7 +55,7 @@
 
 <script>
 export default {
-  name: 'FilterBar'
+  name: 'FindFilterBar'
 }
 </script>
 

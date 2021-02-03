@@ -1,34 +1,40 @@
 <template>
   <div class="find-main">
+    <!--轮播图-->
+    <div class="find-carousel">
+      <find-carousel/>
+    </div>
     <!--筛选栏-->
-    <div class="filter-bar">
-      <filter-bar/>
+    <div class="find-filter-bar">
+      <find-filter-bar/>
     </div>
     <!--餐馆列表-->
-    <div class="restaurants">
+    <div class="find-restaurants">
       <router-view/>
     </div>
   </div>
 </template>
 
 <script>
-import FilterBar from './child/FilterBar'
-import Restaurants from './child/Restaurants'
+import FindFilterBar from './child/FindFilterBar'
+import Restaurants from './child/FindRestaurants'
+import FindCarousel from './child/FindCarousel'
 
 export default {
   name: 'FindMain',
   components: {
+    FindCarousel,
     Restaurants,
-    FilterBar
+    FindFilterBar
   }
 }
 </script>
 
 <style scoped>
-.restaurants, .filter-bar {
+.find-restaurants, .find-filter-bar, .find-carousel {
   padding: 0 12%;
 }
-.filter-bar, .restaurants {
+.find-filter-bar, .find-restaurants {
   margin: 65px 0;
 }
 </style>

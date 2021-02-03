@@ -100,23 +100,23 @@
             </el-dropdown>
           </el-col>
           <!--如果是发帖人，则附上标签-->
-          <el-col :span="5" class="comment-row comment-nickname">
+          <el-col :span="5" class="comm-row comment-nickname">
             {{ item.user.username }}
             <el-tag v-if="item.user.id === httpResValue1.user.id" style="margin-left: 10px" size="small">发帖人</el-tag>
           </el-col>
         </el-row>
         <!--评论的内容-->
-        <el-row class="comment-row comment-content">
+        <el-row class="comm-row comment-content">
           <el-col :offset="2">{{ item.content }}</el-col>
         </el-row>
-        <el-row class="comment-row comment-info">
+        <el-row class="comm-row comment-info">
           <el-col :offset="2">
             <!--点赞-->
             <span>
               <i class="el-icon--left el-icon-third-dianzan"></i>{{ item.like }}
             </span>
             <!--评论的发表日期-->
-            <span class="comment-time">{{ item.date }}</span>
+            <span class="comm-time">{{ item.date }}</span>
           </el-col>
         </el-row>
       </div>
@@ -236,7 +236,7 @@ export default {
 </script>
 
 <style scoped>
-.comment-row {
+.comm-row {
   margin: 10px 0 10px 0;
 }
 
@@ -322,7 +322,7 @@ a:active {
   color: #999999;
 }
 
-.comment-row {
+.comm-row {
   margin: 10px 0 10px 0;
 }
 </style>
