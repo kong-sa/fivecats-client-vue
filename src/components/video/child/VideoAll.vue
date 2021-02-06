@@ -31,9 +31,9 @@ export default {
     return {
       videoType: [
         {id: 0, type: 'making'},
-        {id: 0, type: 'sharing'},
-        {id: 0, type: 'countryside'},
-        {id: 0, type: 'other'}
+        {id: 1, type: 'sharing'},
+        {id: 2, type: 'countryside'},
+        {id: 3, type: 'other'}
       ]
     }
   }
@@ -46,6 +46,7 @@ export default {
   font-weight: 400;
   margin-bottom: 15px;
 }
+
 .making, .sharing, .countryside, .other {
   margin-top: 50px;
 }

@@ -1,78 +1,26 @@
 <template>
   <div class="restaurant-body">
     <el-row :gutter="20">
-      <!--每一列-->
       <el-col
+        v-if="restaurants !== null"
+        v-for="item in restaurants"
+        :key="item.id"
         :span="8"
         class="res-item">
-        <!--身体部分-->
-        <div class="res-item-body">
-          <!--图片部分-->
-          <el-image class="item-bg" src="http://oss.norza.cn/imgs/find/c3.jpg">
-            <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline"></i>
+        <a class="detail" @click="lookDetail(item.id)">
+          <div class="res-item-body">
+            <el-image class="item-bg" :src="item.cover">
+              <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline"></i>
+              </div>
+            </el-image>
+            <div class="item-desc">
+              <h3>{{ item.name }}</h3>
+              <p>人均消费：50¥</p>
+              <p>地理位置：{{ item.location }}</p>
             </div>
-          </el-image>
-          <div class="item-desc">
-            <h3>Xx餐馆</h3>
-            <p>人均消费：50¥</p>
-            <p>地理位置：绵阳市涪城区万达广场</p>
           </div>
-        </div>
-      </el-col>
-      <el-col
-        :span="8"
-        class="res-item">
-        <!--身体部分-->
-        <div class="res-item-body">
-          <!--图片部分-->
-          <el-image class="item-bg" src="http://oss.norza.cn/imgs/find/c3.jpg">
-            <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline"></i>
-            </div>
-          </el-image>
-          <div class="item-desc">
-            <h3>Xx餐馆</h3>
-            <p>人均消费：50¥</p>
-            <p>地理位置：绵阳市涪城区万达广场</p>
-          </div>
-        </div>
-      </el-col>
-      <el-col
-        :span="8"
-        class="res-item">
-        <!--身体部分-->
-        <div class="res-item-body">
-          <!--图片部分-->
-          <el-image class="item-bg" src="http://oss.norza.cn/imgs/find/c3.jpg">
-            <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline"></i>
-            </div>
-          </el-image>
-          <div class="item-desc">
-            <h3>Xx餐馆</h3>
-            <p>人均消费：50¥</p>
-            <p>地理位置：绵阳市涪城区万达广场</p>
-          </div>
-        </div>
-      </el-col>
-      <el-col
-        :span="8"
-        class="res-item">
-        <!--身体部分-->
-        <div class="res-item-body">
-          <!--图片部分-->
-          <el-image class="item-bg" src="http://oss.norza.cn/imgs/find/c3.jpg">
-            <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline"></i>
-            </div>
-          </el-image>
-          <div class="item-desc">
-            <h3>Xx餐馆</h3>
-            <p>人均消费：50¥</p>
-            <p>地理位置：绵阳市涪城区万达广场</p>
-          </div>
-        </div>
+        </a>
       </el-col>
     </el-row>
   </div>
@@ -83,16 +31,40 @@ export default {
   name: 'FindRestaurants',
   watch: {
     async $route (to, from) {
+      let params = to.params.findType
+      let {data: res} = await this.$http.get('/find/by?type=' + params)
+      this.restaurants = res
+    }
+  },
+  methods: {
+    lookDetail (id) {
+      this.$router.push('/find/shop/details/' + id)
     }
   },
   async created () {
-  },
-  methods: {
+    let {data: res} = await this.$http.get('/find/getting/shops')
+    this.restaurants = res
   },
   data () {
     return {
-      hover: false,
-      restaurants: []
+      restaurants: [
+        {
+          avatar: null,
+          date: '',
+          id: 0,
+          cover: '',
+          location: '',
+          name: '',
+          phone: '',
+          profile: '',
+          saleNum: 0,
+          tableNum: 0,
+          tag: '',
+          type: '',
+          user: null,
+          userId: 0
+        }
+      ]
     }
   }
 }
@@ -123,6 +95,10 @@ export default {
   border-radius: 3px;
   background: #f7f7f7;
   opacity: 0.8;
+}
+
+.detail {
+  cursor: pointer;
 }
 
 .item-desc p {

@@ -32,6 +32,7 @@ import VideoMain from '../components/video/VideoMain'
 import VideoDetails from '../components/video/child/VideoDetails'
 import VideoType from '../components/video/child/VideoType'
 import VideoAll from '../components/video/child/VideoAll'
+import ShopDetails from '../components/find/child/ShopDetails'
 
 Vue.use(Router)
 
@@ -69,7 +70,7 @@ export default new Router({
           meta: {title: '寻找美食'},
           children: [
             {
-              path: '/find/:resType',
+              path: '/find/:findType',
               component: FindRestaurants,
               meta: {title: '分类寻找'}
             },
@@ -81,9 +82,9 @@ export default new Router({
           ]
         },
         {
-          path: '/video/details/:videoId',
-          component: VideoDetails,
-          meta: {title: '视频播放'}
+          path: '/find/shop/details/:shopId',
+          component: ShopDetails,
+          meta: {title: '商家详细'}
         },
         // 视频区路由
         {
@@ -103,6 +104,11 @@ export default new Router({
               meta: {title: '视频分类'}
             }
           ]
+        },
+        {
+          path: '/video/details/:videoId',
+          component: VideoDetails,
+          meta: {title: '视频播放'}
         }
       ]
     },

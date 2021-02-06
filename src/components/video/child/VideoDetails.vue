@@ -140,11 +140,8 @@ export default {
   methods: {
     publish () {
       this.$http.post('setting/video/comment', {
-        // 发送者ID
         userId: 1,
-        // 视频ID
         videoId: this.videoId,
-        // 评论内容
         content: this.content
       })
     },
@@ -174,8 +171,8 @@ export default {
             'experience': 0,
             'username': null,
             'password': null,
-            'avatar': 'http://oss.norza.cn/imgs/avatar/user/1/avatar01.jpg',
-            'profile': 'time tick away, dream faded away!',
+            'avatar': '',
+            'profile': '',
             'date': null,
             'fans': 0,
             'gold': 0,
