@@ -26,7 +26,7 @@ import MerchantTrolleyPopups from './trolley/popups/MerchantTrolleyPopups'
 import MerchantMaintainDishesPopups from './maintain/dishes/popups/MerchantMaintainDishesPopups'
 
 export default {
-  name: 'MerchantMain',
+  name: 'ShopMain',
   components: {
     MerchantTrolleyPopups,
     MerchantMaintainDishesPopups

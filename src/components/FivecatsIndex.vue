@@ -24,5 +24,6 @@ export default {
 .fivecats-app__main {
   padding: 0;
   height: 3000px;
+  background: #faf9f9;
 }
 </style>

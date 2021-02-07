@@ -32,7 +32,9 @@ import VideoMain from '../components/video/VideoMain'
 import VideoDetails from '../components/video/child/VideoDetails'
 import VideoType from '../components/video/child/VideoType'
 import VideoAll from '../components/video/child/VideoAll'
-import ShopDetails from '../components/find/child/ShopDetails'
+// 商家组件
+import ShopDetails from '../components/shop/ShopDetails'
+import ShopDetailsDifferArea from '../components/shop/child/ShopDetailsDifferArea'
 
 Vue.use(Router)
 
@@ -81,11 +83,6 @@ export default new Router({
             }
           ]
         },
-        {
-          path: '/find/shop/details/:shopId',
-          component: ShopDetails,
-          meta: {title: '商家详细'}
-        },
         // 视频区路由
         {
           path: '/video',
@@ -109,6 +106,18 @@ export default new Router({
           path: '/video/details/:videoId',
           component: VideoDetails,
           meta: {title: '视频播放'}
+        },
+        {
+          path: '/shop/details/:shopId',
+          component: ShopDetails,
+          meta: {title: '商家详细'},
+          children: [
+            {
+              path: '/shop/:shopBarType',
+              component: ShopDetailsDifferArea,
+              meta: {title: '商家详细'}
+            }
+          ]
         }
       ]
     },

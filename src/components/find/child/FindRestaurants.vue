@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     lookDetail (id) {
-      this.$router.push('/find/shop/details/' + id)
+      this.$router.push('/shop/details/' + id)
     }
   },
   async created () {
