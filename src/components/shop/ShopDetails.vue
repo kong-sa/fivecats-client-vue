@@ -108,15 +108,18 @@
         </el-button>
       </span>
     </el-dialog>
+    <sys-msg v-bind:sysMsg="sysMsg"/>
   </div>
 </template>
 
 <script>
 import TrolleyPopups from './child/TrolleyPopups'
+import SysMsg from '../util/SysMsg'
 
 export default {
   name: 'ShopDetails',
   components: {
+    SysMsg,
     TrolleyPopups
   },
   methods: {
@@ -143,8 +146,13 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      value: 5,
       shopId: 0,
+      sysMsg: {
+        titleName: '商家页面提示',
+        sysType: 'warning',
+        msgContent: '由于Vue Router设置的问题，此页面创建完DOM之后没有菜品信息，需要手动切换。比如先点击 "优惠" 再点击 "菜品" ，这样数据就出现了。',
+        duration: 20000
+      },
       shop: {
         id: 0,
         userId: 0,

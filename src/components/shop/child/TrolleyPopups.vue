@@ -21,13 +21,13 @@
           <!--  effect="light"-->
           <!--  content="点击查看大图"-->
           <!--  placement="top">-->
-            <el-image
-              style="width: 100px; height: 100px"
-              :src="scope.row.cover">
-              <div slot="error" class="image-slot">
-                <i class="el-icon-picture-outline"></i>
-              </div>
-            </el-image>
+          <el-image
+            style="width: 100px; height: 100px"
+            :src="scope.row.cover">
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-image>
           <!--</el-tooltip>-->
         </template>
       </el-table-column>
@@ -59,7 +59,7 @@
         <el-col :xs="8" :sm="4" :md="4" :lg="3">预约日期：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-date-picker
-            v-model="date"
+            v-model="order.date"
             size="mini"
             class="trolley-date-picker"
             type="date"
@@ -76,7 +76,7 @@
             class="trolley-date-picker"
             is-range
             size="mini"
-            v-model="time"
+            v-model="order.time"
             range-separator="-"
             start-placeholder="开始时间"
             end-placeholder="结束时间">
@@ -93,7 +93,7 @@
             class="trolley-number"
             placeholder="请提供您的姓名"
             prefix-icon="el-icon-user"
-            v-model="customerName"></el-input>
+            v-model="order.customerName"></el-input>
         </el-col>
       </el-row>
     </div>
@@ -106,7 +106,7 @@
             size="mini"
             placeholder="请提供您的联系电话"
             prefix-icon="el-icon-phone-outline"
-            v-model="telephone"></el-input>
+            v-model="order.telephone"></el-input>
         </el-col>
       </el-row>
     </div>
@@ -117,7 +117,7 @@
           <el-input-number
             size="mini"
             class="trolley-number"
-            v-model="customerNum"
+            v-model="order.customerNum"
             @change="getCustomerNum"
             :min="1"
             :max="99"></el-input-number>
@@ -135,27 +135,33 @@
             content="大桌8人 中桌4人 小桌2人"
             placement="top">
             <el-cascader
+              ref="cascader"
               size="mini"
               class="trolley-number"
               placeholder="请选择预约的桌号"
               :options="tableOptions"
               :props="{ expandTrigger: 'hover' }"
-              @change="getTableOptions"></el-cascader>
+              @change="getTableOptions">
+            </el-cascader>
           </el-tooltip>
         </el-col>
       </el-row>
     </div>
     <div class="basic-info submit">
       <el-row :gutter="10">
-        <el-col :xs="8" :sm="4" :md="4" :lg="3">总价：{{ price }}¥</el-col>
-        <el-col :xs="15" :sm="10" :md="8" :lg="8">
-          <el-button
-            type="primary"
-            class="btn"
-            size="mini"
-            icon="el-icon-check">确认支付
-          </el-button>
-        </el-col>
+        <el-col :xs="8" :sm="8" :md="8" :lg="8">总价：¥ {{ order.afterCalculatedTotal }}</el-col>
+      </el-row>
+    </div>
+    <div class="basic-info">
+      <el-row>
+        <el-button
+          type="primary"
+          class="btn"
+          @click="confirmPayment"
+          size="mini"
+          icon="el-icon-check">
+          确认支付
+        </el-button>
       </el-row>
     </div>
   </div>
@@ -164,17 +170,54 @@
 <script>
 export default {
   name: 'TrolleyPopups',
-  created () {
-  },
   methods: {
     deleteRow (index) {
       this.$store.state.selectedDishes.splice(index, 1)
+      this.$message({
+        type: 'success',
+        duration: 2500,
+        message: '从购物车中删除成功！'
+      })
     },
     getDishesNum (value) {
     },
     getCustomerNum (value) {
     },
-    getTableOptions (value) {
+    getTableOptions () {
+      this.order.table = this.$refs.cascader.getCheckedNodes()[0].pathLabels
+    },
+    async confirmPayment () {
+      await this.$http.post('/shop/setting/order', this.order)
+    }
+  },
+  watch: {
+    // 监听vuex的selectedDishes数组
+    '$store.state.selectedDishes': {
+      /**
+       * calculatedTotal用于记录加入购物车的总价
+       * 如果用户再加一个，那么calculatedTotal的值必定小于所有val.price累加之后的值；
+       * 如果用户移除一个，那么calculatedTotal的值必定大于所有val.price累加之后的值。
+       */
+      handler (newValue, oldValue) {
+        let accumulateValPrice = 0
+        newValue.forEach((val) => {
+          accumulateValPrice += val.price
+        })
+        if (this.order.afterCalculatedTotal > accumulateValPrice) {
+          // 如果用户移除了一项，那么先清除原本的总价
+          this.order.afterCalculatedTotal = 0
+          // 然后再重新赋值给accumulatedTotal变量
+          this.order.afterCalculatedTotal = accumulateValPrice
+          // 结果保留2位小数
+          this.order.afterCalculatedTotal = Math.floor(this.order.afterCalculatedTotal * 100) / 100
+        } else {
+          this.order.afterCalculatedTotal += accumulateValPrice
+          // 结果保留2位小数
+          this.order.afterCalculatedTotal = Math.floor(this.order.afterCalculatedTotal * 100) / 100
+        }
+      },
+      // 开启深度观察
+      deep: true
     }
   },
   data () {
@@ -311,15 +354,19 @@ export default {
           }
         }]
       },
-      date: '',
-      price: 30,
-      telephone: '',
-      customerNum: 1,
-      customerName: '',
-      time: [
-        new Date(2016, 9, 10, 8, 40),
-        new Date(2016, 9, 10, 9, 40)
-      ]
+      // 订单对象
+      order: {
+        date: '',
+        telephone: '',
+        customerName: '',
+        customerNum: 1,
+        afterCalculatedTotal: 0,
+        time: [
+          new Date(2021, 2, 9, 8, 40),
+          new Date(2021, 2, 9, 9, 40)
+        ],
+        table: []
+      }
     }
   }
 }

@@ -54,6 +54,11 @@ export default {
   methods: {
     addTrolley (index) {
       this.$store.commit('addTrolley', this.dishes[index])
+      this.$message({
+        type: 'success',
+        message: '添加到购物车成功！',
+        duration: 2500
+      })
     }
   },
   watch: {
