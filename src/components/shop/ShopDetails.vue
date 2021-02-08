@@ -2,16 +2,16 @@
   <div class="shop-details">
     <el-row class="row-one" :gutter="20">
       <el-col class="row-one-item" :span="12">
-        <el-row>
+        <el-row class="shop-name">
           <el-col class="shop-title" :span="24">
-            香咖冒菜
+            {{shop.name}}
           </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col class="star" :span="8">
             <el-card>
               <el-rate
-                v-model="value"
+                v-model="shop.star"
                 disabled
                 show-score
                 text-color="#ff9900"
@@ -21,7 +21,9 @@
           </el-col>
           <el-col class="score-like-sale" :span="16">
             <el-card>
-              点评人数: 111 | 人均消费: 50¥
+              <div>
+                点评人数: 111 | 人均消费: ¥{{shop.average}}
+              </div>
             </el-card>
           </el-col>
         </el-row>
@@ -31,13 +33,20 @@
           <div style="height: 34px"></div>
           <el-col class="shop-brief-info" :span="16">
             <el-card>
-              <div>共接: 111单 | 捐给贫困地区: 111¥</div>
+              <div>
+                共接: 111单 | 捐给贫困地区: ¥111
+              </div>
             </el-card>
           </el-col>
           <el-col class="trolley" :span="4">
-            <el-button class="button trolley-btn" size="mini">购物车</el-button>
+            <el-button
+              @click="showTrolley"
+              class="button trolley-btn"
+              size="mini">
+              购物车
+            </el-button>
           </el-col>
-          <el-col :span="4">
+          <el-col class="a-link" :span="4">
             <a class="row-one-item-a-operate" @click="share">分享 |</a>
             <a class="row-one-item-a-operate" @click="complaint">投诉</a>
           </el-col>
@@ -46,64 +55,146 @@
     </el-row>
     <el-row :gutter="20">
       <el-col class="shop-image-box" :span="12">
-        <el-image class="shop-image" src="http://oss.norza.cn/imgs/find/c3.jpg"></el-image>
+        <el-image class="shop-image" :src="shop.cover"></el-image>
       </el-col>
       <el-col class="shop-image-box" :span="12">
-        <el-image class="shop-image" src="http://oss.norza.cn/imgs/find/c3.jpg"></el-image>
+        <el-image class="shop-image" :src="shop.cover"></el-image>
       </el-col>
     </el-row>
     <el-row class="shop-info" :gutter="20">
       <el-col class="shop-info-item" :span="12">
-        <el-card>
-          <div class="shop-info-item-desc">地理位置：四川省绵阳市涪城区</div>
+        <el-card class="sls_card">
+          <div class="shop-info-item-desc location">
+            地理位置：{{shop.location}}<br/>
+            联系电话：{{shop.phone}}<br/>
+            店铺简介：{{shop.profile}}
+          </div>
         </el-card>
       </el-col>
       <el-col class="shop-info-item" :span="12">
-        <el-card>
-          <div class="shop-info-item-desc">营业状态：营业中</div>
-          <div class="shop-info-item-desc">营业时间：8:00 ~ 23:00</div>
+        <el-card class="sls_card">
+          <div class="shop-info-item-desc shop-status">
+            营业状态：{{shop.status}}<br/>
+            营业时间：{{shop.startTime}} ~ {{shop.endTime}}
+          </div>
         </el-card>
       </el-col>
     </el-row>
     <div class="bar">
-      <div :span="3" class="first-bar-item bar-hover">
-        <router-link class="link" to="/shop/discount">优惠</router-link>
-      </div>
-      <div :span="3" class="bar-item bar-hover">
-        <router-link class="link" to="/shop/all">菜品</router-link>
-      </div>
-      <div :span="3" class="bar-item bar-hover">
-        <router-link class="link" to="/shop/comment">评价</router-link>
-      </div>
+      <router-link class="link" to="/shop/discount">
+        <div :span="3" class="first-bar-item bar-hover">优惠</div>
+      </router-link>
+      <router-link class="link" to="/shop/all">
+        <div :span="3" class="bar-item bar-hover">菜品</div>
+      </router-link>
+      <router-link class="link" to="/shop/comment">
+        <div :span="3" class="bar-item bar-hover">评价</div>
+      </router-link>
     </div>
     <el-row>
-      <router-view/>
+      <router-view v-bind:shopId="shopId"/>
     </el-row>
+    <el-dialog
+      title="购物车"
+      :visible.sync="dialogVisible"
+      width="50%">
+      <trolley-popups v-bind:sId="shopId"/>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          size="mini"
+          type="danger"
+          @click="dialogVisible = false">
+          关 闭
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import TrolleyPopups from './child/TrolleyPopups'
+
 export default {
   name: 'ShopDetails',
+  components: {
+    TrolleyPopups
+  },
   methods: {
     share () {
     },
     complaint () {
+    },
+    showTrolley () {
+      this.dialogVisible = true
+    }
+  },
+  async created () {
+    this.shopId = this.$route.params.shopId
+    let {data: shop} = await this.$http.get('/shop/getting?shopId=' + this.shopId)
+    if (shop === null || shop === undefined) {
+      this.$message.error('可能你查看的商家不存在，3秒后跳转寻找美食页面。')
+      setTimeout(() => {
+        this.$router.push('/find')
+      }, 3000)
+    } else {
+      this.shop = shop
     }
   },
   data () {
     return {
-      value: 5
+      dialogVisible: false,
+      value: 5,
+      shopId: 0,
+      shop: {
+        id: 0,
+        userId: 0,
+        date: '',
+        name: '',
+        cover: '',
+        phone: '',
+        location: '',
+        profile: '',
+        tableNum: 0,
+        saleNum: 0,
+        orderNum: 0,
+        type: '',
+        tag: '',
+        status: '',
+        star: 0.0,
+        startTime: '',
+        endTime: '',
+        average: 0
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+.shop-details {
+  margin-top: 25px;
+}
+
+.location {
+  line-height: 48px;
+}
+
+.shop-status {
+  line-height: 71px;
+}
+
 .bar {
   margin: 25px 0 50px 0;
   width: 100%;
   display: flex;
+}
+
+.shop-info {
+  margin-top: 25px;
+}
+
+.sls_card /deep/ .el-card__body {
+  height: 145px;
 }
 
 .first-bar-item {
@@ -146,6 +237,7 @@ export default {
 }
 
 .shop-image {
+  width: 100%;
   height: 100%;
 }
 
@@ -161,12 +253,28 @@ export default {
   font-size: 25px;
 }
 
+.trolley {
+  padding-top: 17px;
+}
+
+.a-link {
+  padding-top: 19px;
+}
+
 .trolley-btn {
   width: 100%;
 }
 
-.button {
+.button:hover {
+  color: black;
   background: #ffc107;
+  transition: 0.5s;
+}
+
+.button {
+  transition: 0.5s;
+  color: white;
+  background: black;
 }
 
 .bar-item {
@@ -174,23 +282,23 @@ export default {
 }
 
 a:link {
-  color: #999;
+  color: white;
   text-decoration: none;
 }
 
 a:visited {
-  color: #999;
+  color: white;
   text-decoration: none;
 }
 
 a:hover {
-  color: #ffc107;
+  color: black;
   transition: 0.5s;
   text-decoration: none;
 }
 
 a:active {
-  color: #999;
+  color: white;
   text-decoration: none;
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <!-- 商家主页 - 购物车（弹窗） -->
   <div id="merchant-trolley">
     <el-divider>购物车列表</el-divider>
     <el-table
-      :data="dishes"
+      v-if="this.$store.state.selectedDishes"
+      :data="this.$store.state.selectedDishes"
       :fit="true"
       height="420"
       :cell-style="{ textAlign: 'center' }"
@@ -11,51 +11,33 @@
       style="width: 100%">
       <el-table-column
         id="dishes-image"
-        prop="imgUrl"
-        label="预览图"
+        prop="cover"
+        label="封面"
         width="180">
         <template slot-scope="scope">
-          <el-tooltip
-            class="item"
-            :enterable="true"
-            effect="light"
-            content="点击查看大图"
-            placement="top">
+          <!--<el-tooltip-->
+          <!--  class="item"-->
+          <!--  :enterable="true"-->
+          <!--  effect="light"-->
+          <!--  content="点击查看大图"-->
+          <!--  placement="top">-->
             <el-image
               style="width: 100px; height: 100px"
-              :src="scope.row.imgUrl"
-              :preview-src-list="[scope.row.imgUrl]">
+              :src="scope.row.cover">
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
               </div>
             </el-image>
-          </el-tooltip>
+          <!--</el-tooltip>-->
         </template>
       </el-table-column>
       <el-table-column
         prop="name"
-        label="商品名"
-        :width="dishesWidth.dishesNameColWidth">
+        label="菜品">
       </el-table-column>
       <el-table-column
         prop="price"
-        :width="dishesWidth.dishesPriceColWidth"
         label="单价">
-      </el-table-column>
-      <el-table-column
-        fixed="right"
-        :width="dishesWidth.dishesNumColWidth"
-        prop="num"
-        label="数量">
-        <template slot-scope="scope">
-          <el-input-number
-            size="mini"
-            :style="dishesWidth.dishesNumWidth"
-            v-model="scope.row.num"
-            @change="getDishesNum"
-            :min="1"
-            :max="99"></el-input-number>
-        </template>
       </el-table-column>
       <el-table-column
         fixed="right"
@@ -64,8 +46,10 @@
         label="操作">
         <template slot-scope="scope">
           <el-button
-            @click.native.prevent="deleteRow(scope.$index, dishes)"
-            size="small">移除</el-button>
+            class="btn"
+            @click.native.prevent="deleteRow(scope.$index)"
+            size="mini">移除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -75,7 +59,6 @@
         <el-col :xs="8" :sm="4" :md="4" :lg="3">预约日期：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-date-picker
-            :style="dishesWidth.timePickerWidth"
             v-model="date"
             size="mini"
             class="trolley-date-picker"
@@ -90,7 +73,6 @@
         <el-col :xs="8" :sm="4" :md="4" :lg="3">到店时间：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-time-picker
-            :style="dishesWidth.timePickerWidth"
             class="trolley-date-picker"
             is-range
             size="mini"
@@ -165,12 +147,14 @@
     </div>
     <div class="basic-info submit">
       <el-row :gutter="10">
-        <el-col :xs="8" :sm="4" :md="4" :lg="3">总价：{{price}}¥</el-col>
+        <el-col :xs="8" :sm="4" :md="4" :lg="3">总价：{{ price }}¥</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-button
             type="primary"
+            class="btn"
             size="mini"
-            icon="el-icon-check">确认支付</el-button>
+            icon="el-icon-check">确认支付
+          </el-button>
         </el-col>
       </el-row>
     </div>
@@ -179,22 +163,12 @@
 
 <script>
 export default {
-  name: 'MerchantTrolleyPopups',
-  mounted () {
-    let screenWidth = window.screen.width
-    if (screenWidth > 1380) this.dishesWidth.dishesNumColWidth = 160
-    if (screenWidth <= 1380) this.dishesWidth.dishesNumWidth = 'width: 100px'
-    if (screenWidth <= 1330) this.dishesWidth.dishesNameColWidth = 170
-    if (screenWidth <= 1330) this.dishesWidth.dishesNameColWidth = 150
-    if (screenWidth <= 1250) {
-      this.dishesWidth.dishesPriceColWidth = 80
-      this.dishesWidth.dishesNameColWidth = 100
-    }
-    if (screenWidth <= 730) this.dishesWidth.timePickerWidth = 'width: 130px'
+  name: 'TrolleyPopups',
+  created () {
   },
   methods: {
-    deleteRow (index, rows) {
-      rows.splice(index, 1)
+    deleteRow (index) {
+      this.$store.state.selectedDishes.splice(index, 1)
     },
     getDishesNum (value) {
     },
@@ -205,13 +179,6 @@ export default {
   },
   data () {
     return {
-      dishesWidth: {
-        dishesNumWidth: 'width: 130px',
-        timePickerWidth: 'width: 100%',
-        dishesNameColWidth: 200,
-        dishesPriceColWidth: 120,
-        dishesNumColWidth: 110
-      },
       tableOptions: [
         {
           value: '大厅',
@@ -352,36 +319,6 @@ export default {
       time: [
         new Date(2016, 9, 10, 8, 40),
         new Date(2016, 9, 10, 9, 40)
-      ],
-      dishes: [
-        {
-          id: 1,
-          name: '炸鸡腿',
-          imgUrl: 'http://oss.norza.cn/imgs/food/food01.jpg',
-          price: 30.5,
-          num: 1
-        },
-        {
-          id: 2,
-          name: '奥利奥鲜奶茶',
-          imgUrl: 'http://oss.norza.cn/imgs/food/food02.jpg',
-          price: 12,
-          num: 1
-        },
-        {
-          id: 3,
-          name: '炸鸡块',
-          imgUrl: 'http://oss.norza.cn/imgs/food/food03.jpg',
-          price: 13,
-          num: 1
-        },
-        {
-          id: 4,
-          name: '日本拉面',
-          imgUrl: 'http://oss.norza.cn/imgs/food/food04.jpg',
-          price: 14,
-          num: 1
-        }
       ]
     }
   }
@@ -389,21 +326,33 @@ export default {
 </script>
 
 <style scoped>
-  .basic-info {
-    margin-top: 20px;
-  }
+.basic-info {
+  margin-top: 20px;
+}
 
-  /*小于730px*/
-  @media screen and (max-width: 730px) {
-    .trolley-number, .trolley-date-picker {
-      width: 130px;
-    }
-  }
+.btn:hover {
+  transition: 0.5s;
+  color: #0c0d0d;
+  background: #ffc107;
+}
 
-  /*大于730px*/
-  @media screen and (min-width: 730px) {
-    .trolley-number, .trolley-date-picker {
-      width: 100%;
-    }
+.btn {
+  transition: 0.5s;
+  color: white;
+  background: #0c0d0d;
+}
+
+/*小于730px*/
+@media screen and (max-width: 730px) {
+  .trolley-number, .trolley-date-picker {
+    width: 130px;
   }
+}
+
+/*大于730px*/
+@media screen and (min-width: 730px) {
+  .trolley-number, .trolley-date-picker {
+    width: 100%;
+  }
+}
 </style>

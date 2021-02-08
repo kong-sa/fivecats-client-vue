@@ -113,6 +113,8 @@
 export default {
   name: 'VideoDetails',
   async created () {
+    document.scrollingElement.scrollTop = 0
+    document.scrollingElement.scrollLeft = 0
     this.videoId = this.$route.params.videoId
     let {data: res1} = await this.$http.get('/getting/video?id=' + this.videoId)
     let {data: res2} = await this.$http.get('/getting/video/comm?id=' + this.videoId)

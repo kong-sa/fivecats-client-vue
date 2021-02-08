@@ -19,11 +19,15 @@ export default new Vuex.Store({
         'experience': 0,
         'avatar': ''
       }
-    }
+    },
+    selectedDishes: []
   },
   mutations: {
     setVar1 (state, var1) {
       state.var1 = var1
+    },
+    addTrolley (state, dishesObj) {
+      state.selectedDishes.push(dishesObj)
     }
   },
   actions: {}

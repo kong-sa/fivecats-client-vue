@@ -1,36 +1,44 @@
 <template>
   <div class="differ-area">
     <el-row :gutter="20">
-      <el-col :span="6">
+      <el-col
+        class="dishes-container"
+        v-for="(item, index) in dishes"
+        :key="item.id"
+        :span="6">
         <div class="dishes">
           <div class="dishes-body">
             <div class="dishes-image">
-              <a @click="showDishes()">
-                <el-image src="http://oss.norza.cn/imgs/food/1/food01.jpg">
-                </el-image>
-              </a>
+              <el-image :src="item.cover">
+              </el-image>
             </div>
             <div class="dishes-desc">
               <h5 class="dishes-title">
-                菜品名称
+                {{item.name}}
               </h5>
               <div class="dishes-info">
                 <el-rate
-                  v-model="starVal"
+                  v-model="item.star"
                   disabled
                   show-score
-                  text-color="#ff9900"
-                  score-template="{value}">
+                  text-color="#ff9900">
                 </el-rate>
-                <span>110人评价</span>
               </div>
             </div>
             <div class="dishes-operate">
               <div class="dishes-price">
-                <span>¥20</span>
-                <span>¥30</span>
+                <span v-if="item.isDiscount === 1">
+                  ¥{{item.discount}}
+                </span>
+                <span>
+                  ¥{{item.price}}
+                </span>
               </div>
-              <el-button class="button">加入购物车</el-button>
+              <el-button
+                class="button"
+                @click="addTrolley(index)">
+                加入购物车
+              </el-button>
             </div>
           </div>
         </div>
@@ -42,14 +50,56 @@
 <script>
 export default {
   name: 'ShopDetailsDifferArea',
+  props: ['shopId'],
   methods: {
-    showDishes (val) {
-      console.log(val)
+    addTrolley (index) {
+      this.$store.commit('addTrolley', this.dishes[index])
+    }
+  },
+  watch: {
+    // watch监听route路由器的数据变化
+    async $route (to, from) {
+      let urlParams = to.params.shopBarType
+      if (urlParams !== null && urlParams !== undefined) {
+        let {data: dishes} = await this.$http.get('/shop/getting/dishes/by?type=' + urlParams + '&shopId=' + this.shopId)
+        if (dishes !== null && dishes !== undefined) {
+          this.dishes = dishes
+        } else {
+          this.$message({
+            type: 'error',
+            message: '不能获得菜品！',
+            duration: 1800
+          })
+          setTimeout(() => {
+            this.$router.push('/shop/details/' + this.shopId)
+          }, 2000)
+        }
+      } else {
+        this.$message({
+          type: 'error',
+          message: '没有参数！',
+          duration: 1800
+        })
+        setTimeout(() => {
+          this.$router.push('/find')
+        }, 2000)
+      }
     }
   },
   data () {
     return {
-      starVal: 3.5
+      dishes: [
+        {
+          id: 0,
+          shopId: 0,
+          cover: '',
+          star: 0,
+          price: 0,
+          name: '',
+          discount: 0,
+          isDiscount: 0
+        }
+      ]
     }
   }
 }
@@ -68,6 +118,15 @@ export default {
 
 .dishes-body .metro_badge-featured i {
   display: inline-block;
+}
+
+.dishes-container:hover {
+  transition: 0.5s;
+  transform: translateY(-10px);
+}
+
+.dishes-container {
+  transition: 0.5s;
 }
 
 .dishes-body .dishes-image {
@@ -111,8 +170,17 @@ h5 {
   justify-content: space-between;
 }
 
-.button {
+.button:hover {
   background: #ffc107;
+  color: black;
+  transition: 0.5s;
+  transform: translateY(-5px);
+}
+
+.button {
+  transition: 0.5s;
+  color: white;
+  background: black;
 }
 
 .dishes-price span + span {
