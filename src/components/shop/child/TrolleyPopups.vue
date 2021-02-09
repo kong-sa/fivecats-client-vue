@@ -147,12 +147,12 @@
     </div>
     <div class="basic-info submit">
       <el-row>
-        <el-col :xs="8" :sm="8" :md="8" :lg="8">总价：¥ {{ order.totalPrice }}</el-col>
+        <el-col :xs="8" :sm="8" :md="8" :lg="8">原本总价：¥ {{ order.totalPrice }}</el-col>
       </el-row>
     </div>
     <div class="basic-info">
       <el-row>
-        <el-col :span="8">馋币折扣之后：¥ {{ discountPrice }}</el-col>
+        <el-col :span="8">馋币折扣后：¥ {{ discountPrice }}</el-col>
       </el-row>
     </div>
     <div class="basic-info">
@@ -191,7 +191,10 @@ export default {
     // 确认支付，发起异步请求
     async confirmPayment () {
       await this.$http.post('/shop/setting/order', this.order)
-      this.$message('支付成功！')
+      this.$message.success('支付成功！')
+      if (this.coin > 0) {
+        await this.$http.post('/shop/removing/coin', {id: 1})
+      }
     }
   },
   watch: {
@@ -202,26 +205,27 @@ export default {
      */
     '$store.state.selectedDishes': {
       async handler (newValue, oldValue) {
+        this.discountPrice = 0 // 数据更新之前，先清除之前计算的折扣价格
         let accumulateValPrice = 0
         newValue.forEach((val) => {
           accumulateValPrice += val.price
         })
+        let {data: res} = await this.$http.get('/shop/getting/coin?userId=' + 1) // 查询该用户的硬币数量
+        this.coin = res
         if (this.order.totalPrice > accumulateValPrice) {
-          // 如果用户移除了一项，那么先清除原本的总价
-          this.order.totalPrice = 0
-          // 然后再重新赋值给afterCalculatedTotal
-          this.order.totalPrice = accumulateValPrice
-          // 结果保留2位小数
-          this.order.totalPrice = Math.floor(this.order.totalPrice * 100) / 100
-          let {data: res} = await this.$http.get('/shop/getting/coin')
-          if (res > 0) {
-
-          }
+          this.order.totalPrice = 0 // 如果用户移除了一项，那么先清除原本的总价
+          this.order.totalPrice = accumulateValPrice // 然后再重新赋值给afterCalculatedTotal
+          this.order.totalPrice = Math.floor(this.order.totalPrice * 100) / 100 // 结果保留2位小数
         } else {
-          // 如果用户继续添加，就直接累加afterCalculatedTotal
           this.order.totalPrice += accumulateValPrice
-          // 结果保留2位小数
           this.order.totalPrice = Math.floor(this.order.totalPrice * 100) / 100
+        }
+        // 价格累加完成，进行折扣。如果用户的硬币数量大于0，在有硬币的情况下才进行折扣
+        if (this.coin > 0) {
+          // 规定每一个硬币折扣1%
+          this.discountPrice = Math.floor((accumulateValPrice - (accumulateValPrice * 0.01)) * 100) / 100
+        } else {
+          this.$message.error('您的硬币不足，不会进行折扣哦！')
         }
       },
       deep: true
@@ -362,6 +366,7 @@ export default {
         }]
       },
       discountPrice: 0,
+      coin: 0,
       order: {
         userId: 1,
         shopId: this.shopId,
