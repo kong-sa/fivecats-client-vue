@@ -53,11 +53,8 @@
         </el-row>
       </el-col>
     </el-row>
-    <el-row :gutter="20">
-      <el-col class="shop-image-box" :span="12">
-        <el-image class="shop-image" :src="shop.cover"></el-image>
-      </el-col>
-      <el-col class="shop-image-box" :span="12">
+    <el-row>
+      <el-col class="shop-image-box" :span="24">
         <el-image class="shop-image" :src="shop.cover"></el-image>
       </el-col>
     </el-row>
@@ -98,7 +95,7 @@
       title="购物车"
       :visible.sync="dialogVisible"
       width="50%">
-      <trolley-popups v-bind:sId="shopId"/>
+      <trolley-popups v-bind:shopId="shopId"/>
       <span slot="footer" class="dialog-footer">
         <el-button
           size="mini"

@@ -12,6 +12,6 @@ export default {
 
 <style scoped>
 .access-body {
-  padding: 0 36%;
+  padding: 5% 36% 0 36%;
 }
 </style>

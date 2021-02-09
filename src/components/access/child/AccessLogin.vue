@@ -117,6 +117,7 @@ export default {
 }
 
 .submit {
+  transition: 0.5s;
   display: block;
   margin: 0 auto;
   width: 260px;
@@ -125,6 +126,12 @@ export default {
   font-size: 15px;
   background: #ffc107;
   color: white;
+}
+
+.submit:hover {
+  transition: 0.5s;
+  color: #0c0d0d;
+  transform: translateY(-5px);
 }
 
 .submit {

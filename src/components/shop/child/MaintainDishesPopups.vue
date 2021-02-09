@@ -61,7 +61,7 @@
 
 <script>
 export default {
-  name: 'MerchantMaintainDishesPopups',
+  name: 'MaintainDishesPopups',
   data () {
     return {
       // 图片请求的URL
