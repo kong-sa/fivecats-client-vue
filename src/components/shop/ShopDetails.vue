@@ -105,6 +105,20 @@
         </el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      title="分享"
+      :visible.sync="shareVisible"
+      width="30%">
+      <share v-bind:shareItem="shareItem"/>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          size="mini"
+          type="danger"
+          @click="shareVisible = false">
+          关 闭
+        </el-button>
+      </span>
+    </el-dialog>
     <sys-msg v-bind:sysMsg="sysMsg"/>
   </div>
 </template>
@@ -112,17 +126,28 @@
 <script>
 import TrolleyPopups from './child/TrolleyPopups'
 import SysMsg from '../util/SysMsg'
+import Share from '../util/Share'
 
 export default {
   name: 'ShopDetails',
   components: {
+    Share,
     SysMsg,
     TrolleyPopups
   },
   methods: {
     share () {
+      this.shareVisible = true
+      this.shareItem.coverUrl = this.shop.cover
+      this.shareItem.desc = this.shop.profile
+      this.shareItem.title = this.shop.name
+      this.shareItem.type = 'share'
     },
     complaint () {
+      this.shareVisible = true
+      this.shareItem.coverUrl = this.shop.cover
+      this.shareItem.title = this.shop.name
+      this.shareItem.type = 'complaint'
     },
     showTrolley () {
       this.dialogVisible = true
@@ -142,7 +167,14 @@ export default {
   },
   data () {
     return {
+      shareVisible: false,
       dialogVisible: false,
+      shareItem: {
+        desc: '',
+        coverUrl: '',
+        title: '',
+        type: ''
+      },
       shopId: 0,
       sysMsg: {
         titleName: '商家页面提示',
