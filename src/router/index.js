@@ -33,8 +33,9 @@ import VideoDetails from '../components/video/child/VideoDetails'
 import VideoType from '../components/video/child/VideoType'
 import VideoAll from '../components/video/child/VideoAll'
 // 商家组件
-import ShopDetails from '../components/shop/ShopDetails'
+import ShopMain from '../components/shop/ShopMain'
 import ShopDetailsDifferArea from '../components/shop/child/ShopDetailsDifferArea'
+import UserMain from '../components/user/UserMain'
 
 Vue.use(Router)
 
@@ -109,7 +110,7 @@ export default new Router({
         },
         {
           path: '/shop/details/:shopId',
-          component: ShopDetails,
+          component: ShopMain,
           meta: {title: '商家详细'},
           children: [
             {
@@ -118,6 +119,12 @@ export default new Router({
               meta: {title: '商家详细'}
             }
           ]
+        },
+        // 用户中心路由
+        {
+          path: '/user/center',
+          component: UserMain,
+          meta: {title: '用户中心'}
         }
       ]
     },

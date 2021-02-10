@@ -17,7 +17,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
 import Element, {Message, MessageBox} from 'element-ui'
 // assets file
-import './assets/js/dialog'
 import './assets/css/global.css'
 import './assets/iconfont/iconfont.css'
 // vue-tinymce

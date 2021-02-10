@@ -268,6 +268,10 @@ export default {
   }
 }
 
+.video-details {
+  margin-top: 30px;
+}
+
 #collapse {
   border: 0;
   margin-top: 15px;

@@ -129,7 +129,7 @@ import SysMsg from '../util/SysMsg'
 import Share from '../util/Share'
 
 export default {
-  name: 'ShopDetails',
+  name: 'ShopMain',
   components: {
     Share,
     SysMsg,
