@@ -199,30 +199,27 @@ export default {
   },
   watch: {
     /**
-     * calculatedTotal用于记录加入购物车的总价
-     * 如果用户再加一个，那么calculatedTotal的值必定小于所有val.price累加之后的值；
-     * 如果用户移除一个，那么calculatedTotal的值必定大于所有val.price累加之后的值。
+     * accumulateValPrice用于记录加入购物车的总价
+     * 如果用户再加一个，那么accumulateValPrice的值必定小于所有val.price累加之后的值；
+     * 如果用户移除一个，那么accumulateValPrice的值必定大于所有val.price累加之后的值。
      */
     '$store.state.selectedDishes': {
       async handler (newValue, oldValue) {
         this.discountPrice = 0 // 数据更新之前，先清除之前计算的折扣价格
-        let accumulateValPrice = 0
+        let accumulateValPrice = 0 // 定义一个用于记录val.price累加之后的值
         newValue.forEach((val) => {
-          accumulateValPrice += val.price
+          accumulateValPrice += val.price // 累加val.price
         })
-        let {data: res} = await this.$http.get('/shop/getting/coin?userId=' + 1) // 查询该用户的硬币数量
-        this.coin = res
         if (this.order.totalPrice > accumulateValPrice) {
           this.order.totalPrice = 0 // 如果用户移除了一项，那么先清除原本的总价
-          this.order.totalPrice = accumulateValPrice // 然后再重新赋值给afterCalculatedTotal
-          this.order.totalPrice = Math.floor(this.order.totalPrice * 100) / 100 // 结果保留2位小数
-        } else {
-          this.order.totalPrice += accumulateValPrice
-          this.order.totalPrice = Math.floor(this.order.totalPrice * 100) / 100
         }
+        this.order.totalPrice = accumulateValPrice // 然后再重新赋值给totalPrice
+        this.order.totalPrice = Math.floor(this.order.totalPrice * 100) / 100 // 结果保留2位小数
         // 价格累加完成，进行折扣。如果用户的硬币数量大于0，在有硬币的情况下才进行折扣
+        let {data: res} = await this.$http.get('/shop/getting/coin?userId=' + 1) // 查询该用户的硬币数量
+        this.coin = res
         if (this.coin > 0) {
-          // 规定每一个硬币折扣1%
+          // 规定每一个硬币折扣1%，结果保留2位小数
           this.discountPrice = Math.floor((accumulateValPrice - (accumulateValPrice * 0.01)) * 100) / 100
         } else {
           this.$message.error('您的硬币不足，不会进行折扣哦！')
