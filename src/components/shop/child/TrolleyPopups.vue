@@ -2,52 +2,29 @@
   <div id="merchant-trolley">
     <el-divider>购物车列表</el-divider>
     <el-table
-      :data="this.$store.state.selectedDishes"
-      :fit="true"
-      height="420"
-      :cell-style="{ textAlign: 'center' }"
-      :header-cell-style="{ textAlign: 'center' }"
-      style="width: 100%">
+      :data="this.$store.state.selectedDishes" :fit="true" height="420" :cell-style="{ textAlign: 'center' }"
+      :header-cell-style="{ textAlign: 'center' }" style="width: 100%">
       <el-table-column
         id="dishes-image"
         prop="cover"
         label="封面"
         width="180">
         <template slot-scope="scope">
-          <!--<el-tooltip-->
-          <!--  class="item"-->
-          <!--  :enterable="true"-->
-          <!--  effect="light"-->
-          <!--  content="点击查看大图"-->
-          <!--  placement="top">-->
           <el-image
-            style="width: 100px; height: 100px"
-            :src="scope.row.cover">
+            style="width: 100px; height: 100px" :src="scope.row.cover">
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div>
           </el-image>
-          <!--</el-tooltip>-->
         </template>
       </el-table-column>
-      <el-table-column
-        prop="name"
-        label="菜品">
+      <el-table-column prop="name" label="菜品">
       </el-table-column>
-      <el-table-column
-        prop="price"
-        label="单价">
+      <el-table-column prop="price" label="单价">
       </el-table-column>
-      <el-table-column
-        fixed="right"
-        prop="operation"
-        width="120"
-        label="操作">
+      <el-table-column fixed="right" prop="operation" width="120" label="操作">
         <template slot-scope="scope">
-          <el-button
-            class="btn"
-            @click.native.prevent="deleteRow(scope.$index)"
-            size="mini">移除
+          <el-button class="btn" @click.native.prevent="deleteRow(scope.$index)" size="mini">移除
           </el-button>
         </template>
       </el-table-column>
@@ -57,13 +34,8 @@
       <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">预约日期：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
-          <el-date-picker
-            v-model="order.appointDate"
-            size="mini"
-            class="trolley-date-picker"
-            type="date"
-            placeholder="请选择预约的日期"
-            :picker-options="pickerOptions"></el-date-picker>
+          <el-date-picker v-model="order.appointDate" size="mini" class="trolley-date-picker" type="date"
+                          placeholder="请选择预约的日期" :picker-options="pickerOptions"></el-date-picker>
         </el-col>
       </el-row>
     </div>
@@ -72,13 +44,8 @@
         <el-col :xs="8" :sm="4" :md="4" :lg="3">到店时间：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-time-picker
-            class="trolley-date-picker"
-            is-range
-            size="mini"
-            v-model="order.arrivalTime"
-            range-separator="-"
-            start-placeholder="开始时间"
-            end-placeholder="结束时间">
+            class="trolley-date-picker" is-range size="mini" v-model="order.arrivalTime" range-separator="-"
+            start-placeholder="开始时间" end-placeholder="结束时间">
           </el-time-picker>
         </el-col>
       </el-row>
@@ -87,12 +54,8 @@
       <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">客户姓名：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
-          <el-input
-            size="mini"
-            class="trolley-number"
-            placeholder="请提供您的姓名"
-            prefix-icon="el-icon-user"
-            v-model="order.name"></el-input>
+          <el-input size="mini" class="trolley-number" placeholder="请提供您的姓名" prefix-icon="el-icon-user"
+                    v-model="order.name"></el-input>
         </el-col>
       </el-row>
     </div>
@@ -100,12 +63,8 @@
       <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">联系电话：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
-          <el-input
-            class="trolley-number"
-            size="mini"
-            placeholder="请提供您的联系电话"
-            prefix-icon="el-icon-phone-outline"
-            v-model="order.phone"></el-input>
+          <el-input class="trolley-number" size="mini" placeholder="请提供您的联系电话" prefix-icon="el-icon-phone-outline"
+                    v-model="order.phone"></el-input>
         </el-col>
       </el-row>
     </div>
@@ -113,12 +72,8 @@
       <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">预定人数：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
-          <el-input-number
-            size="mini"
-            class="trolley-number"
-            v-model="order.num"
-            :min="1"
-            :max="99"></el-input-number>
+          <el-input-number size="mini" class="trolley-number" v-model="order.num" :min="1"
+                           :max="99"></el-input-number>
         </el-col>
       </el-row>
     </div>
@@ -126,20 +81,10 @@
       <el-row :gutter="10">
         <el-col :xs="8" :sm="4" :md="4" :lg="3">选择座位：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
-          <el-tooltip
-            :enterable="true"
-            class="item"
-            effect="light"
-            content="大桌8人 中桌4人 小桌2人"
-            placement="top">
-            <el-cascader
-              ref="cascader"
-              size="mini"
-              class="trolley-number"
-              placeholder="请选择预约的桌号"
-              :options="tableOptions"
-              :props="{ expandTrigger: 'hover' }"
-              @change="getTableOptions">
+          <el-tooltip :enterable="true" class="item" effect="light" content="大桌8人 中桌4人 小桌2人"
+                      placement="top">
+            <el-cascader ref="cascader" size="mini" class="trolley-number" placeholder="请选择预约的桌号"
+                         :options="tableOptions" :props="{ expandTrigger: 'hover' }" @change="getTableOptions">
             </el-cascader>
           </el-tooltip>
         </el-col>
@@ -157,13 +102,8 @@
     </div>
     <div class="basic-info">
       <el-row>
-        <el-button
-          type="primary"
-          class="btn"
-          @click="confirmPayment"
-          size="mini"
-          icon="el-icon-check">
-          确认支付
+        <el-button type="primary" class="btn" @click="confirmPayment" size="mini"
+                   icon="el-icon-check">确认支付
         </el-button>
       </el-row>
     </div>
@@ -192,17 +132,9 @@ export default {
     async confirmPayment () {
       await this.$http.post('/shop/setting/order', this.order)
       this.$message.success('支付成功！')
-      if (this.coin > 0) {
-        await this.$http.post('/shop/removing/coin', {id: 1})
-      }
     }
   },
   watch: {
-    /**
-     * accumulateValPrice用于记录加入购物车的总价
-     * 如果用户再加一个，那么accumulateValPrice的值必定小于所有val.price累加之后的值；
-     * 如果用户移除一个，那么accumulateValPrice的值必定大于所有val.price累加之后的值。
-     */
     '$store.state.selectedDishes': {
       async handler (newValue, oldValue) {
         this.discountPrice = 0 // 数据更新之前，先清除之前计算的折扣价格
@@ -215,15 +147,8 @@ export default {
         }
         this.order.totalPrice = accumulateValPrice // 然后再重新赋值给totalPrice
         this.order.totalPrice = Math.floor(this.order.totalPrice * 100) / 100 // 结果保留2位小数
-        // 价格累加完成，进行折扣。如果用户的硬币数量大于0，在有硬币的情况下才进行折扣
-        let {data: res} = await this.$http.get('/shop/getting/coin?userId=' + 1) // 查询该用户的硬币数量
-        this.coin = res
-        if (this.coin > 0) {
-          // 规定每一个硬币折扣1%，结果保留2位小数
-          this.discountPrice = Math.floor((accumulateValPrice - (accumulateValPrice * 0.01)) * 100) / 100
-        } else {
-          this.$message.error('您的硬币不足，不会进行折扣哦！')
-        }
+        // 价格累加完成，进行折扣。如果用户的硬币数量大于0，在有硬币的情况下才进行折扣。规定每一个硬币折扣1%，结果保留2位小数
+        if (this.$store.state.user.gold > 0) this.discountPrice = Math.floor((accumulateValPrice - (accumulateValPrice * 0.01)) * 100) / 100
       },
       deep: true
     }
@@ -363,7 +288,6 @@ export default {
         }]
       },
       discountPrice: 0,
-      coin: 0,
       order: {
         userId: 1,
         shopId: this.shopId,

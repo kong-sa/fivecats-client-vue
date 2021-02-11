@@ -2,7 +2,7 @@
   <div class="message-official">
     <el-row class="title">系统通知</el-row>
     <el-divider/>
-    <el-row class="message" v-for="item in httpResValue1" :key="item.id">
+    <el-row class="message" v-for="item in res" :key="item.id">
       <el-row>
         <el-col :span="2" class="avatar">
           <a style="cursor: pointer" @click="lookDetail(item.user.id)">
@@ -35,8 +35,8 @@
 export default {
   name: 'BbsMessageOfficial',
   async created () {
-    let {data: httpResValue1} = await this.$http.get('/bbs/getting/articles/by?type=ann')
-    this.httpResValue1 = httpResValue1
+    let {data: res} = await this.$http.get('/bbs/getting/articles/by?type=ann')
+    this.res = res
   },
   methods: {
     lookDetail (id) {
@@ -48,7 +48,7 @@ export default {
   },
   data () {
     return {
-      httpResValue1: [
+      res: [
         {
           'id': 0,
           'userId': 0,

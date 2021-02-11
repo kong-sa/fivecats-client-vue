@@ -50,15 +50,15 @@
 export default {
   name: 'BbsAccountInfo',
   async created () {
-    let {data: res} = await this.$http.get('/bbs/self/basic?userId=' + this.$store.state.var1.data.id)
-    this.httpResValue1 = res
+    let {data: res} = await this.$http.get('/bbs/self/basic?userId=' + this.$store.state.user.id)
+    this.user = res
     this.formData = res.data
   },
   methods: {
     submit () {
       this.$refs.accountInfo.validate(async (valid) => {
         await this.$http.post('/bbs/updating/account', {
-          id: this.$store.state.var1.data.id,
+          id: this.$store.state.user.id,
           username: this.formData.username,
           email: this.formData.email,
           phone: this.formData.phone,
@@ -69,8 +69,7 @@ export default {
   },
   data () {
     return {
-      httpResValue1: {
-        code: 0,
+      user: {
         data: {
           'id': 0,
           'username': '',

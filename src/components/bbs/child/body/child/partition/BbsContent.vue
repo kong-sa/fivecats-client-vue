@@ -1,6 +1,6 @@
 <template>
   <el-card class="box-card">
-    <div class="bbs-content" v-for="item in httpResValue1" :key="item.id">
+    <div class="bbs-content" v-for="item in res" :key="item.id">
       <el-row>
         <el-col :span="2" class="article-organizer">
           <el-avatar :size="35" :src="item.user.avatar" @error="errorHandler">
@@ -41,28 +41,15 @@
 <script>
 export default {
   name: 'BbsContent',
-  // async beforeRouteUpdate (to, from, next) {
-  //   if (to.params.type === 'main') {
-  //     let {data: articles} = await this.$http.get('/getting/articles')
-  //     this.articles = articles
-  //   } else {
-  //     let {data: articles} = await this.$http.get('/getting/articles/by?type=' + to.params.type)
-  //     this.articles = articles
-  //   }
-  // },
-  // 切换组件之后，会监测路由变化，然后重新发起异步请求，重新渲染页面数据
   watch: {
-    async $route (to, from) {
-      // 如果跳转的是主页，就获取所有的帖子
-      if (to.params.type === 'index') {
-        let {data: obj} = await this.$http.get('/bbs/getting/articles')
-        this.httpResValue1 = obj
-      } else {
-        // 否则根据跳转的页面来获取帖子
-        let {data: obj} = await this.$http.get('/bbs/getting/articles/by?type=' + to.params.type)
-        this.httpResValue1 = obj
-      }
+    '$store.state.bbsType': async function (newVal, oldVal) {
+      let {data: res} = await this.$http.get('/bbs/getting/articles/by?type=' + newVal)
+      this.res = res
     }
+  },
+  async created () {
+    let {data: res} = await this.$http.get('/bbs/getting/articles/by?type=index')
+    this.res = res
   },
   methods: {
     errorHandler () {
@@ -76,7 +63,7 @@ export default {
   data () {
     return {
       // 帖子数据
-      httpResValue1: [
+      res: [
         {
           'id': 0,
           'tag': '',

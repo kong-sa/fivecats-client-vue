@@ -1,11 +1,7 @@
 <template>
   <div class="differ-area">
     <el-row :gutter="20">
-      <el-col
-        class="dishes-container"
-        v-for="(item, index) in dishes"
-        :key="item.id"
-        :span="6">
+      <el-col class="dishes-container" v-for="(item, index) in dishes" :key="item.id" :span="6">
         <div class="dishes">
           <div class="dishes-body">
             <div class="dishes-image">
@@ -13,32 +9,17 @@
               </el-image>
             </div>
             <div class="dishes-desc">
-              <h5 class="dishes-title">
-                {{ item.name }}
-              </h5>
+              <h5 class="dishes-title">{{ item.name }}</h5>
               <div class="dishes-info">
-                <el-rate
-                  v-model="item.star"
-                  disabled
-                  show-score
-                  text-color="#ff9900">
-                </el-rate>
+                <el-rate v-model="item.star" disabled show-score text-color="#ff9900"></el-rate>
               </div>
             </div>
             <div class="dishes-operate">
               <div class="dishes-price">
-                <span v-if="item.isDiscount === 1">
-                  ¥{{ item.discount }}
-                </span>
-                <span>
-                  ¥{{ item.price }}
-                </span>
+                <span v-if="item.isDiscount === 1">¥{{ item.discount }}</span>
+                <span>¥{{ item.price }}</span>
               </div>
-              <el-button
-                class="button"
-                @click="addTrolley(index)">
-                加入购物车
-              </el-button>
+              <el-button class="button" @click="addTrolley(index)">加入购物车</el-button>
             </div>
           </div>
         </div>
@@ -62,7 +43,6 @@ export default {
     }
   },
   watch: {
-    // watch监听route路由器的数据变化
     type: async function (newVal, oldVal) {
       let {data: dishes} = await this.$http.get('/shop/getting/dishes/by?type=' + newVal + '&shopId=' + this.shopId)
       this.dishes = dishes

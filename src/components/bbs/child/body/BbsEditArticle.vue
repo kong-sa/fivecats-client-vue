@@ -135,7 +135,7 @@ export default {
             // 帖子内容
             content: this.content,
             // 用户ID
-            userId: this.$store.state.var1.data.id,
+            userId: this.$store.state.user.id,
             // 帖子ID
             id: this.articleId
           })

@@ -5,7 +5,6 @@ import Router from 'vue-router'
 import FivecatsIndex from '../components/FivecatsIndex'
 // 馋猫社区页面组件
 import BbsMain from '../components/bbs/BbsMain'
-import BbsArticles from '../components/bbs/child/body/child/partition/BbsArticles'
 import BbsPartition from '../components/bbs/child/body/BbsPartition'
 import BbsBasicInfo from '../components/bbs/child/body/child/selfcenter/BbsBasicInfo'
 import BbsSelfCenter from '../components/bbs/child/body/BbsSelfCenter'
@@ -130,14 +129,7 @@ export default new Router({
         {
           path: '/bbs/index',
           component: BbsPartition,
-          meta: {title: '馋猫社区'},
-          children: [
-            {
-              path: '/bbs/:type',
-              component: BbsArticles,
-              meta: {title: '专区内容'}
-            }
-          ]
+          meta: {title: '馋猫社区'}
         },
         {
           path: '/bbs/article/posting',

@@ -5,7 +5,7 @@
       <el-row class="space-background">
         <!--头像-->
         <el-col :span="2">
-          <el-avatar class="avatar" :size="70" :src="httpResValue1.data.avatar">
+          <el-avatar class="avatar" :size="70" :src="res1.data.avatar">
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div>
@@ -15,22 +15,22 @@
         <el-col :span="20" class="info">
           <el-row class="info-one">
             <el-col :span="4">
-              {{ httpResValue1.data.username }}
+              {{ res1.data.username }}
             </el-col>
             <el-col class="cid" :span="3">
-              CID:{{ httpResValue1.data.id }}
+              CID:{{ res1.data.id }}
             </el-col>
           </el-row>
           <el-row class="info-two">
             <el-col :span="2" class="level two-item">
-              等级：{{ httpResValue1.data.level }}
+              等级：{{ res1.data.level }}
             </el-col>
             <el-col :span="3" class="fans two-item">
-              粉丝：{{ httpResValue1.data.fans }}
+              粉丝：{{ res1.data.fans }}
             </el-col>
           </el-row>
           <el-row class="profile">
-            {{ httpResValue1.data.profile }}
+            {{ res1.data.profile }}
           </el-row>
         </el-col>
       </el-row>
@@ -40,7 +40,7 @@
         <el-tabs type="border-card">
           <el-tab-pane label="帖子">
             <div class="article-management">
-              <div class="management-main" v-for="item in httpResValue2" :key="item.id">
+              <div class="management-main" v-for="item in res2" :key="item.id">
                 <!--标题-->
                 <el-row style="margin: 10px 0">
                   <div style="line-height: 32px">
@@ -59,7 +59,7 @@
                     <i class="el-icon--left el-icon-chat-line-round"></i>{{ item.times }}
                   </span>
                   <span style="margin-right: 10px">
-                    <i class="el-icon--left el-icon-third-dianzan"></i>{{item.like }}
+                    <i class="el-icon--left el-icon-third-dianzan"></i>{{ item.like }}
                   </span>
                   <a class="look-article" @click="lookDetail(item.id)">
                     <span>查看帖子</span>
@@ -84,10 +84,10 @@ export default {
     this.userId = this.$route.params.userId
     // 获取此用户的信息
     let {data: res1} = await this.$http.get('/bbs/getting/user?id=' + this.userId)
-    this.httpResValue1 = res1
+    this.res1 = res1
     // 获取此用户的帖子
     let {data: res2} = await this.$http.get('/bbs/my/articles?id=' + this.userId)
-    this.httpResValue2 = res2
+    this.res2 = res2
     // 设置页面标题
     document.title = res1.data.username + '的空间 - 馋猫社区'
   },
@@ -105,8 +105,7 @@ export default {
     return {
       userId: 0,
       // 用户数据
-      httpResValue1: {
-        code: 0,
+      res1: {
         data: {
           'id': 0,
           'experience': 0,
@@ -120,7 +119,7 @@ export default {
         }
       },
       // 帖子数据
-      httpResValue2: [
+      res2: [
         {
           'id': 0,
           'userId': 0,

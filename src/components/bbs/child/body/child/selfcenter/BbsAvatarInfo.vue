@@ -3,7 +3,7 @@
     <el-row class="avatar">
       <el-avatar
         :size="200"
-        :src="httpResValue1.data.avatar">
+        :src="user.data.avatar">
         <div slot="error" class="image-slot">
           <i class="el-icon-picture-outline"></i>
         </div>
@@ -60,8 +60,8 @@
 export default {
   name: 'BbsAvatarInfo',
   async created () {
-    let {data: res} = await this.$http.get('/bbs/self/basic?userId=' + this.$store.state.var1.data.id)
-    this.httpResValue1 = res
+    let {data: res} = await this.$http.get('/bbs/self/basic?userId=' + this.$store.state.user.id)
+    this.user = res
   },
   methods: {
     handleRemove (file) {
@@ -80,7 +80,7 @@ export default {
     upload (file) {
       const formData = new FormData()
       formData.append('file', file.file)
-      formData.append('userId', this.$store.state.var1.data.id)
+      formData.append('userId', this.$store.state.user.id)
       this.$http.post('/bbs/upload/avatar', formData)
     },
     // 检查头像的格式
@@ -99,8 +99,7 @@ export default {
   },
   data () {
     return {
-      httpResValue1: {
-        code: 0,
+      user: {
         data: {
           'id': 0,
           'username': '',

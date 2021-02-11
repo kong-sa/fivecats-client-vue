@@ -2,31 +2,31 @@
   <el-card class="navigation">
     <el-row>
       <el-col :span="4" class="bbs-title">
-        <router-link to="/bbs">馋猫社区</router-link>
+        <a @click="$store.commit('setBbsType', 'index')">馋猫社区</a>
       </el-col>
       <el-col :span="12">
         <el-row class="special-area">
           <el-col :span="6">
-            <router-link to="/bbs/clock">打卡专区</router-link>
+            <a @click="$store.commit('setBbsType', 'clock')">打卡专区</a>
           </el-col>
           <el-col :span="6">
-            <router-link to="/bbs/recipe">食谱专区</router-link>
+            <a @click="$store.commit('setBbsType', 'recipe')">食谱专区</a>
           </el-col>
           <el-col :span="6">
-            <router-link to="/bbs/cooking">制作专区</router-link>
+            <a @click="$store.commit('setBbsType', 'cooking')">制作专区</a>
           </el-col>
           <el-col :span="6">
-            <router-link to="/bbs/sharing">分享专区</router-link>
+            <a @click="$store.commit('setBbsType', 'sharing')">分享专区</a>
           </el-col>
         </el-row>
       </el-col>
-      <el-col :span="8" class="navigation-right" v-if="this.$store.state.var1 === var1">
+      <el-col :span="8" class="navigation-right" v-if="this.$store.state.user === user">
         <el-row class="navigation-right_body">
           <el-col :span="8" class="avatar">
             <el-dropdown @command="clickDropdownItem">
               <el-avatar
                 :size="40"
-                :src="var1.data.avatar">
+                :src="user.avatar">
                 <div slot="error" class="image-slot">
                   <i class="el-icon-picture-outline"></i>
                 </div>
@@ -34,22 +34,24 @@
               <el-dropdown-menu class="dropdown-menu">
                 <el-dropdown-item>
                   <el-row style="font-weight: 600; font-size: 16px">
-                    {{ var1.data.username }}
+                    {{ user.username }}
                   </el-row>
                   <el-row>
-                    经验值:{{ var1.data.experience }} /
-                    <span v-if="var1.data.level === 0">100</span>
-                    <span v-else-if="var1.data.level === 1">200</span>
-                    <span v-else-if="var1.data.level === 2">400</span>
-                    <span v-else-if="var1.data.level === 3">500</span>
-                    <span v-else-if="var1.data.level === 4">750</span>
-                    <span v-else-if="var1.data.level === 5">1050</span>
+                    经验值:{{ user.experience }} /
+                    <span v-if="user.level === 0">100</span>
+                    <span v-else-if="user.level === 1">200</span>
+                    <span v-else-if="user.level === 2">400</span>
+                    <span v-else-if="user.level === 3">500</span>
+                    <span v-else-if="user.level === 4">750</span>
+                    <span v-else-if="user.level === 5">1050</span>
                     <span v-else>1050</span>
                   </el-row>
                   <el-row>
-                    <el-col :span="12" style="text-align: left"><i class="el-icon--left el-icon-third-dengji1"></i>LV:{{ var1.data.level }}</el-col>
+                    <el-col :span="12" style="text-align: left"><i class="el-icon--left el-icon-third-dengji1"></i>LV:{{
+                        user.level
+                      }}</el-col>
                     <el-col :span="12" style="text-align: right"><i
-                      class="el-icon--left el-icon-third-jinbi"></i>馋币:{{ var1.data.gold }}
+                      class="el-icon--left el-icon-third-jinbi"></i>馋币:{{ user.gold }}
                     </el-col>
                   </el-row>
                 </el-dropdown-item>
@@ -143,20 +145,19 @@ export default {
     return {
       loginDialog: false,
       signinDialog: false,
-      var1: {
-        code: 0,
-        data: {
-          'id': 0,
-          'username': '',
-          'email': '',
-          'phone': 0,
-          'fans': 0,
-          'profile': '',
-          'level': 0,
-          'gold': 0,
-          'experience': 0,
-          'avatar': ''
-        }
+      user: {
+        id: 0,
+        avatar: '',
+        username: '',
+        password: '',
+        email: '',
+        phone: '',
+        profile: '',
+        fans: 0,
+        gold: 0,
+        experience: 0,
+        level: 0,
+        location: ''
       },
       loginData: {
         email: '',
@@ -186,6 +187,7 @@ export default {
           {min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur'}
         ]
       },
+      type: '',
       likeNum: 0
     }
   },
@@ -200,34 +202,79 @@ export default {
       if (command === '1') {
         this.$router.push('/bbs/self/center')
       } else if (command === '2') {
-        this.$router.push('/bbs/person/space/' + this.$store.state.var1.data.id)
+        this.$router.push('/bbs/person/space/' + this.$store.state.user.id)
       } else if (command === '3') {
         this.$router.push('/bbs/self/center/articles')
       } else if (command === '4') {
-        this.$store.commit('setVar1', null)
+        this.$store.commit('setUser', null)
         this.$message.success('退出登陆成功！')
       }
     },
     login () {
       this.$refs.login.validate(async (valida) => {
-        if (!valida) return false
-        let {data: var1} = await this.$http.post('/bbs/login', this.loginData)
-        if (var1.code === 200) {
-          this.var1 = var1
-          this.loginDialog = false
-          this.$store.commit('setVar1', var1)
-          this.$message.success('登陆成功！')
-          let {data: res} = await this.$http.get('/bbs/getting/user/like/num?id=' + this.$store.state.var1.data.id)
-          this.likeNum = res
+        if (!valida) {
+          this.$message.error('请把信息填写完全！')
         } else {
-          this.$message.error('登陆失败！')
+          let {data: res} = await this.$http.post('/access/login', this.loginData)
+          if (res.code === 200) {
+            this.$message({
+              message: '登陆成功！',
+              type: 'success',
+              duration: 2000
+            })
+            this.loginDialog = false
+            this.$store.commit('setUser', res.data)
+            this.user = res.data
+          } else if (res.code === 400) {
+            this.$message({
+              message: res.data,
+              type: 'error',
+              duration: 3000
+            })
+          } else {
+            this.$message({
+              message: res.data,
+              type: 'error',
+              duration: 3000
+            })
+          }
         }
       })
     },
     signin () {
       this.$refs.signin.validate(async (valida) => {
-        if (!valida) return false
-        await this.$http.post('/bbs/signin', this.signinData)
+        if (!valida) {
+          this.$message.error('请把信息填写完全！')
+        } else {
+          let {data: res} = await this.$http.post('/access/signin', this.signinData)
+          if (res.code === 200) {
+            this.$message({
+              message: '注册成功！',
+              duration: 2000,
+              type: 'success'
+            })
+            this.signinDialog = false
+            this.loginDialog = true
+          } else if (res.code === 400) {
+            this.$message({
+              message: res.data,
+              duration: 3000,
+              type: 'error'
+            })
+          } else if (res.code === 401) {
+            this.$message({
+              message: res.data,
+              duration: 3000,
+              type: 'error'
+            })
+          } else {
+            this.$message({
+              message: res.data,
+              duration: 3000,
+              type: 'error'
+            })
+          }
+        }
       })
     }
   }
@@ -301,6 +348,7 @@ a:visited {
 }
 
 a:hover {
+  cursor: pointer;
   color: #ffc107;
   text-decoration: none;
 }

@@ -13,13 +13,13 @@
     <el-row class="bbs-main-area">
       <el-col :span="16">
         <!--child\partition内的子组件-->
-        <router-view/>
+        <bbs-content/>
       </el-col>
       <!--右侧栏-->
       <el-col :span="7" class="bbs-main__right-menu">
-        <bbs-popular-foodmaking-article v-bind:articles="articles"/>
-        <bbs-popular-countryside-food class="bbs-main__right-menu-item" v-bind:articles="articles"/>
-        <bbs-official-announcement class="bbs-main__right-menu-item" v-bind:articles="articles"/>
+        <bbs-popular-foodmaking-article v-bind:articles="res"/>
+        <bbs-popular-countryside-food class="bbs-main__right-menu-item" v-bind:articles="res"/>
+        <bbs-official-announcement class="bbs-main__right-menu-item" v-bind:articles="res"/>
       </el-col>
     </el-row>
   </div>
@@ -31,10 +31,12 @@ import BbsPosting from './child/partition/BbsPosting'
 import BbsPopularFoodmakingArticle from './child/partition/BbsPopularFoodmakingArticle'
 import BbsPopularCountrysideFood from './child/partition/BbsPopularCountrysideFood'
 import BbsOfficialAnnouncement from './child/partition/BbsOfficialAnnouncement'
+import BbsContent from './child/partition/BbsContent'
 
 export default {
   name: 'BbsPartition',
   components: {
+    BbsContent,
     BbsPopularCountrysideFood,
     BbsOfficialAnnouncement,
     BbsPosting,
@@ -42,12 +44,12 @@ export default {
     BbsRevolvingLantern
   },
   async created () {
-    let {data: res} = await this.$http.get('/bbs/getting/articles')
-    this.articles = res
+    let {data: res} = await this.$http.get('/bbs/getting/articles/by?type=index')
+    this.res = res
   },
   data () {
     return {
-      articles: [
+      res: [
         {
           'id': 0,
           'tag': '',

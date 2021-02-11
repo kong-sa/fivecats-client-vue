@@ -5,29 +5,32 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    var1: {
-      code: 0,
-      data: {
-        'id': 0,
-        'username': '',
-        'email': '',
-        'phone': 0,
-        'fans': 0,
-        'profile': '',
-        'level': 0,
-        'gold': 0,
-        'experience': 0,
-        'avatar': ''
-      }
+    selectedDishes: [],
+    user: {
+      id: 0,
+      avatar: '',
+      username: '',
+      password: '',
+      email: '',
+      phone: '',
+      profile: '',
+      fans: 0,
+      gold: 0,
+      experience: 0,
+      level: 0,
+      location: ''
     },
-    selectedDishes: []
+    bbsType: 'index'
   },
   mutations: {
-    setVar1 (state, var1) {
-      state.var1 = var1
+    setUser (state, user) {
+      state.user = user
     },
-    addTrolley (state, dishesObj) {
-      state.selectedDishes.push(dishesObj)
+    addTrolley (state, dishes) {
+      state.selectedDishes.push(dishes)
+    },
+    setBbsType (state, bbsType) {
+      state.bbsType = bbsType
     }
   },
   actions: {}

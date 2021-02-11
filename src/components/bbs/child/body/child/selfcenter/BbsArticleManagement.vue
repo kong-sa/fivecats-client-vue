@@ -1,6 +1,6 @@
 <template>
   <div class="article-management">
-    <div class="management-main" v-for="item in httpResValue1" :key="item.id">
+    <div class="management-main" v-for="item in articles" :key="item.id">
       <!--   标题   -->
       <el-row style="margin: 10px 0">
         <div style="line-height: 32px">
@@ -29,8 +29,8 @@
 export default {
   name: 'BbsArticleManagement',
   async created () {
-    let {data: res} = await this.$http.get('/bbs/my/articles?id=' + this.$store.state.var1.data.id)
-    this.httpResValue1 = res
+    let {data: res} = await this.$http.get('/bbs/my/articles?id=' + this.$store.state.user.id)
+    this.articles = res
   },
   methods: {
     lookDetail (articleId) {
@@ -39,7 +39,7 @@ export default {
   },
   data () {
     return {
-      httpResValue1: [
+      articles: [
         {
           'id': 0,
           'userId': 0,

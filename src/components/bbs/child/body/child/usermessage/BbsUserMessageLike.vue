@@ -2,7 +2,7 @@
   <div class="message-like">
     <el-row class="title">获得的赞</el-row>
     <el-divider/>
-    <el-row class="message" v-for="item in httpResValue1.arrData" :key="item.id">
+    <el-row class="message" v-for="item in res.arrData" :key="item.id">
       <el-row>
         <el-col :span="2" class="avatar">
           <a style="cursor: pointer" @click="lookDetail(item.user.id)">
@@ -35,8 +35,8 @@
 export default {
   name: 'BbsUserMessageLike',
   async created () {
-    let {data: httpResValue1} = await this.$http.get('/bbs/getting/user/message?id=' + this.$store.state.var1.data.id)
-    this.httpResValue1 = httpResValue1
+    let {data: res} = await this.$http.get('/bbs/getting/user/message?id=' + this.$store.state.user.id)
+    this.res = res
   },
   methods: {
     lookDetail (id) {
@@ -49,7 +49,7 @@ export default {
   data () {
     return {
       oldMessage: [],
-      httpResValue1: {
+      res: {
         'arrData': [
           {
             'id': 0,

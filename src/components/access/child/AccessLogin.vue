@@ -46,6 +46,7 @@ export default {
               type: 'success',
               duration: 2000
             })
+            this.$store.commit('setUser', res.data)
           } else if (res.code === 400) {
             this.$message({
               message: res.data,

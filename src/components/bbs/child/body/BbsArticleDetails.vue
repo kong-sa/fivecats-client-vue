@@ -5,37 +5,37 @@
         <!--标题-->
         <el-row class="main-card__title">
           <div class="title-info">
-            <el-tag style="color: white; background: #ffc107">{{ httpResValue1.tag }}</el-tag>
-            <span class="title-info__right">{{ httpResValue1.title }}</span>
+            <el-tag style="color: white; background: #ffc107">{{ res1.tag }}</el-tag>
+            <span class="title-info__right">{{ res1.title }}</span>
           </div>
         </el-row>
         <el-row class="brief-info">
-          <el-col :span="12">发表日期：{{ httpResValue1.date }}</el-col>
-          <el-col :span="4">点赞数：{{ httpResValue1.like }}</el-col>
+          <el-col :span="12">发表日期：{{ res1.date }}</el-col>
+          <el-col :span="4">点赞数：{{ res1.like }}</el-col>
           <el-col :span="4">回复数：{{ replayNum }}</el-col>
           <el-col :span="4" style="float: right">
-            <a @click="edit(httpResValue1.id)" v-if="httpResValue1.userId === this.$store.state.var1.data.id" style="cursor: pointer">编辑</a>
+            <a @click="edit(res1.id)" v-if="res1.userId === this.$store.state.user.id" style="cursor: pointer">编辑</a>
           </el-col>
         </el-row>
         <!--用户信息-->
         <el-row class="user-info">
           <el-col :span="2">
-            <el-avatar :size="50" v-bind:src="httpResValue1.user.avatar"></el-avatar>
+            <el-avatar :size="50" v-bind:src="res1.user.avatar"></el-avatar>
           </el-col>
-          <el-col :span="3">{{ httpResValue1.user.username }}</el-col>
+          <el-col :span="3">{{ res1.user.username }}</el-col>
         </el-row>
         <el-divider></el-divider>
         <!--帖子内容-->
         <el-row style="margin-bottom: 20px">
-          <div v-html="httpResValue1.content" style="margin: 15px 0"></div>
+          <div v-html="res1.content" style="margin: 15px 0"></div>
         </el-row>
         <el-row class="modified-date">
-          修改于 {{httpResValue1.modifiedDate}}
+          修改于 {{ res1.modifiedDate }}
         </el-row>
         <!--点赞按钮-->
         <el-row style="text-align: center; margin: 40px">
           <i @click="like" class="el-icon--left el-icon-third-dianzan like-article-icon">
-            {{ httpResValue1.like }}</i>
+            {{ res1.like }}</i>
         </el-row>
       </el-row>
     </el-card>
@@ -67,7 +67,7 @@
     </el-card>
     <!--评论区-->
     <el-card style="margin: 10px 0; padding: 0">
-      <div v-for="item in httpResValue2" :key="item.id"
+      <div v-for="item in res2" :key="item.id"
            style="border-top: #ebebeb solid 1px; padding: 20px">
         <el-row>
           <el-col :span="2">
@@ -102,7 +102,7 @@
           <!--如果是发帖人，则附上标签-->
           <el-col :span="5" class="comm-row comment-nickname">
             {{ item.user.username }}
-            <el-tag v-if="item.user.id === httpResValue1.user.id" style="margin-left: 10px; color: white; background: #ffc107" size="small">发帖人</el-tag>
+            <el-tag v-if="item.user.id === res1.user.id" style="margin-left: 10px; color: white; background: #ffc107" size="small">发帖人</el-tag>
           </el-col>
         </el-row>
         <!--评论的内容-->
@@ -133,9 +133,9 @@ export default {
   async created () {
     this.articleId = this.$route.params.articleId
     let {data: res1} = await this.$http.get('/bbs/getting/article/by?articleId=' + this.articleId)
-    this.httpResValue1 = res1
+    this.res1 = res1
     let {data: res2} = await this.$http.get('/bbs/getting/article/comments/by?articleId=' + this.articleId)
-    this.httpResValue2 = res2
+    this.res2 = res2
     let {data: res3} = await this.$http.get('/bbs/getting/article/replay/num?articleId=' + this.articleId)
     this.replayNum = res3
     // 设置页面的标题
@@ -149,12 +149,12 @@ export default {
     // 点赞
     async like () {
       // 更新数据库该文章的like字段
-      await this.$http.post('/bbs/setting/article/like', this.httpResValue1)
+      await this.$http.post('/bbs/setting/article/like', this.res1)
       // 添加点赞人信息到数据库
       await this.$http.post('/bbs/setting/user/info', {
-        userId: this.httpResValue1.userId,
-        articleId: this.httpResValue1.id,
-        likeUserId: this.$store.state.var1.data.id
+        userId: this.res1.userId,
+        articleId: this.res1.id,
+        likeUserId: this.$store.state.user.id
       })
       this.$message.success('点赞成功！')
     },
@@ -167,7 +167,7 @@ export default {
         this.$http.post('/bbs/setting/article/comment', {
           content: this.formData.textareaValue,
           articleId: this.articleId,
-          userId: this.$store.state.var1.data.id
+          userId: this.$store.state.user.id
         })
         this.$message.success('发送成功！')
       })
@@ -191,7 +191,7 @@ export default {
         textareaValue: ''
       },
       // 帖子数据
-      httpResValue1: {
+      res1: {
         'id': 0,
         'userId': 0,
         'content': null,
@@ -212,7 +212,7 @@ export default {
         }
       },
       // 评论数据
-      httpResValue2: [
+      res2: [
         {
           'id': 0,
           'userId': 0,
