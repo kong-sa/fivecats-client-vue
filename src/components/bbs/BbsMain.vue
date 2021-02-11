@@ -4,7 +4,7 @@
       <bbs-navigation-bar/>
     </el-header>
     <el-main class="bbs-main">
-      <bbs-partition/>
+      <router-view/>
     </el-main>
     <el-footer class="bbs-footer"></el-footer>
   </el-container>

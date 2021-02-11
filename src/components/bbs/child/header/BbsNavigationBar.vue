@@ -1,24 +1,8 @@
 <template>
   <el-card class="navigation">
     <el-row>
-      <el-col :span="4" class="bbs-title">
-        <a @click="$store.commit('setBbsType', 'index')">馋猫社区</a>
-      </el-col>
-      <el-col :span="12">
-        <el-row class="special-area">
-          <el-col :span="6">
-            <a @click="$store.commit('setBbsType', 'clock')">打卡专区</a>
-          </el-col>
-          <el-col :span="6">
-            <a @click="$store.commit('setBbsType', 'recipe')">食谱专区</a>
-          </el-col>
-          <el-col :span="6">
-            <a @click="$store.commit('setBbsType', 'cooking')">制作专区</a>
-          </el-col>
-          <el-col :span="6">
-            <a @click="$store.commit('setBbsType', 'sharing')">分享专区</a>
-          </el-col>
-        </el-row>
+      <el-col :span="16" class="bbs-title">
+        <a @click="goIndex">馋猫社区</a>
       </el-col>
       <el-col :span="8" class="navigation-right" v-if="this.$store.state.user === user">
         <el-row class="navigation-right_body">
@@ -47,11 +31,13 @@
                     <span v-else>1050</span>
                   </el-row>
                   <el-row>
-                    <el-col :span="12" style="text-align: left"><i class="el-icon--left el-icon-third-dengji1"></i>LV:{{
-                        user.level
-                      }}</el-col>
-                    <el-col :span="12" style="text-align: right"><i
-                      class="el-icon--left el-icon-third-jinbi"></i>馋币:{{ user.gold }}
+                    <el-col :span="12" style="text-align: left">
+                      <i class="el-icon--left el-icon-third-dengji1"></i>
+                      LV:{{user.level }}
+                    </el-col>
+                    <el-col :span="12" style="text-align: right">
+                      <i class="el-icon--left el-icon-third-jinbi"></i>
+                      馋币:{{ user.gold }}
                     </el-col>
                   </el-row>
                 </el-dropdown-item>
@@ -70,7 +56,7 @@
           </el-col>
           <el-col class="item" :span="8">
             <a @click="goLike">
-              <el-badge :value="likeNum" :max="99" class="message"><i class="el-icon--left el-icon-thumb"></i>获得的赞</el-badge>
+              <el-badge :value="0" :max="99" class="message"><i class="el-icon--left el-icon-thumb"></i>获得的赞</el-badge>
             </a>
           </el-col>
         </el-row>
@@ -187,11 +173,14 @@ export default {
           {min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur'}
         ]
       },
-      type: '',
-      likeNum: 0
+      type: ''
     }
   },
   methods: {
+    goIndex () {
+      this.$store.commit('setBbsType', 'index')
+      this.$router.push('/bbs/index')
+    },
     goReplay () {
       this.$router.push('/bbs/message/replay')
     },

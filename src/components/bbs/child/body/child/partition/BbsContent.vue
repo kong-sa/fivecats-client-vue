@@ -1,5 +1,27 @@
 <template>
   <el-card class="box-card">
+    <el-row :gutter="20" class="special-area">
+      <a @click="$store.commit('setBbsType', 'clock')">
+        <el-col class="link" :span="6">
+          打卡专区
+        </el-col>
+      </a>
+      <a @click="$store.commit('setBbsType', 'recipe')">
+        <el-col class="link" :span="6">
+          食谱专区
+        </el-col>
+      </a>
+      <a @click="$store.commit('setBbsType', 'cooking')">
+        <el-col class="link" :span="6">
+          制作专区
+        </el-col>
+      </a>
+      <a @click="$store.commit('setBbsType', 'sharing')">
+        <el-col class="link" :span="6">
+          分享专区
+        </el-col>
+      </a>
+    </el-row>
     <div class="bbs-content" v-for="item in res" :key="item.id">
       <el-row>
         <el-col :span="2" class="article-organizer">
@@ -28,7 +50,7 @@
       </el-row>
       <!--   赞数、讨论数   -->
       <el-row style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; font-size: 13px; color: #666">
-         <span style="margin-right: 10px"><i class="el-icon--left el-icon-chat-line-round"></i>{{ item.times }}</span>
+        <span style="margin-right: 10px"><i class="el-icon--left el-icon-chat-line-round"></i>{{ item.times }}</span>
         <span style="margin-right: 10px"><i class="el-icon--left el-icon-third-dianzan"></i>{{ item.like }}</span>
         <a class="look-article" @click="lookDetail(item.id)">
           <span>查看帖子<i class="el-icon-right el-icon-caret-right"></i></span>
@@ -121,6 +143,18 @@ export default {
 .email {
   font-size: 14px;
   color: #666;
+}
+
+.link:hover {
+  transform: translate(-3px, -3px);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.link {
+  transition: 0.3s;
+  text-align: center;
+  padding: 20px 0;
 }
 
 .post-brief-content {

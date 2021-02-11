@@ -5,30 +5,30 @@
       <el-col :span="5" class="avatar">
         <el-avatar
           :size="120"
-          :src="user.data.avatar">
+          :src="user.avatar">
           <div slot="error" class="image-slot">
             <i class="el-icon-picture-outline"></i>
           </div>
         </el-avatar>
       </el-col>
       <el-col :span="19" class="user-info">
-        <el-row>{{ user.data.username }}</el-row>
+        <el-row>{{ user.username }}</el-row>
         <el-row class="two-item">
           <el-col :span="3">
-            <i class="el-icon--left el-icon-coin"></i>馋币：{{ user.data.gold }}
+            <i class="el-icon--left el-icon-coin"></i>馋币：{{ user.gold }}
           </el-col>
           <el-col :span="5">
-            <i class="el-icon--left el-icon-pie-chart"></i>经验：{{ user.data.experience }} /
-            <span v-if="user.data.level === 0">100</span>
-            <span v-else-if="user.data.level === 1">200</span>
-            <span v-else-if="user.data.level === 2">400</span>
-            <span v-else-if="user.data.level === 3">500</span>
-            <span v-else-if="user.data.level === 4">750</span>
-            <span v-else-if="user.data.level === 5">950</span>
+            <i class="el-icon--left el-icon-pie-chart"></i>经验：{{ user.experience }} /
+            <span v-if="user.level === 0">100</span>
+            <span v-else-if="user.level === 1">200</span>
+            <span v-else-if="user.level === 2">400</span>
+            <span v-else-if="user.level === 3">500</span>
+            <span v-else-if="user.level === 4">750</span>
+            <span v-else-if="user.level === 5">950</span>
             <span v-else>1050</span>
           </el-col>
           <el-col :span="3">
-            <i></i>等级：{{ user.data.level }}
+            <i></i>等级：{{ user.level }}
           </el-col>
         </el-row>
       </el-col>
@@ -72,24 +72,22 @@ export default {
   name: 'BbsBasicInfo',
   async created () {
     let {data: res} = await this.$http.get('/bbs/self/basic?userId=' + this.$store.state.user.id)
-    this.user = res
+    this.user = res.data
   },
   data () {
     return {
       user: {
-        data: {
-          'id': 0,
-          'username': '',
-          'email': '',
-          'phone': 0,
-          'fans': 0,
-          'profile': '',
-          'level': 0,
-          'gold': 0,
-          'experience': 0,
-          'avatar': '',
-          'password': ''
-        }
+        'id': 0,
+        'username': '',
+        'email': '',
+        'phone': 0,
+        'fans': 0,
+        'profile': '',
+        'level': 0,
+        'gold': 0,
+        'experience': 0,
+        'avatar': '',
+        'password': ''
       }
     }
   }

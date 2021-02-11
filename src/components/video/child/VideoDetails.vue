@@ -27,7 +27,7 @@
                 </el-avatar>
               </el-col>
               <el-col :xs="21" :span="22">
-                <el-row>用户名：<a href="">{{ res1.data.user.username }}</a></el-row>
+                <el-row>用户名：{{ res1.data.user.username }}</el-row>
                 <el-row>个人简介：{{ res1.data.user.profile }}</el-row>
                 <el-row>粉丝数：{{ res1.data.user.fans }}</el-row>
               </el-col>
@@ -41,7 +41,7 @@
       <el-row class="comm-edit">
         <!--1列 头像-->
         <el-col :span="2">
-          <el-avatar :src="this.$store.state.var1.data.avatar">
+          <el-avatar :src="this.$store.state.user.avatar">
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div>
@@ -77,7 +77,7 @@
                   </div>
                 </el-avatar>
                 <!--相关信息-->
-                <div>用户名：<a id="nickname" href="">{{ item.user.username }}</a></div>
+                <div>用户名：{{ item.user.username }}</div>
                 <div>个人简介：{{ item.user.profile }}</div>
                 <div>粉丝数：{{ item.user.fans }}</div>
               </el-dropdown-item>
@@ -89,7 +89,7 @@
           <!--1行 用户名-->
           <el-row class="comm-row comm-username">
             {{ item.user.username }}
-            <el-tag size="mini" v-if="res1.data.userId === item.userId">作者</el-tag>
+            <el-tag style="background: #ffc107; color: #0c0d0d" size="mini" v-if="res1.data.userId === item.userId">作者</el-tag>
           </el-row>
           <!--2行 内容-->
           <el-row class="comm-row comm-content">{{ item.content }}</el-row>
@@ -142,7 +142,7 @@ export default {
   methods: {
     publish () {
       this.$http.post('setting/video/comment', {
-        userId: 1,
+        userId: this.$store.state.user.id,
         videoId: this.videoId,
         content: this.content
       })

@@ -124,7 +124,6 @@
 
 <script>
 import TrolleyPopups from './child/TrolleyPopups'
-import SysMsg from '../util/SysMsg'
 import Share from '../util/Share'
 import ShopDetailsDifferArea from './child/ShopDetailsDifferArea'
 
@@ -133,7 +132,6 @@ export default {
   components: {
     ShopDetailsDifferArea,
     Share,
-    SysMsg,
     TrolleyPopups
   },
   methods: {
