@@ -4,7 +4,7 @@
       <el-col class="row-one-item" :span="12">
         <el-row class="shop-name">
           <el-col class="shop-title" :span="24">
-            {{shop.name}}
+            {{ shop.name }}
           </el-col>
         </el-row>
         <el-row :gutter="20">
@@ -22,7 +22,7 @@
           <el-col class="score-like-sale" :span="16">
             <el-card>
               <div>
-                点评人数: 111 | 人均消费: ¥{{shop.average}}
+                点评人数: 111 | 人均消费: ¥{{ shop.average }}
               </div>
             </el-card>
           </el-col>
@@ -62,34 +62,34 @@
       <el-col class="shop-info-item" :span="12">
         <el-card class="sls_card">
           <div class="shop-info-item-desc location">
-            地理位置：{{shop.location}}<br/>
-            联系电话：{{shop.phone}}<br/>
-            店铺简介：{{shop.profile}}
+            地理位置：{{ shop.location }}<br/>
+            联系电话：{{ shop.phone }}<br/>
+            店铺简介：{{ shop.profile }}
           </div>
         </el-card>
       </el-col>
       <el-col class="shop-info-item" :span="12">
         <el-card class="sls_card">
           <div class="shop-info-item-desc shop-status">
-            营业状态：{{shop.status}}<br/>
-            营业时间：{{shop.startTime}} ~ {{shop.endTime}}
+            营业状态：{{ shop.status }}<br/>
+            营业时间：{{ shop.startTime }} ~ {{ shop.endTime }}
           </div>
         </el-card>
       </el-col>
     </el-row>
     <div class="bar">
-      <router-link class="link" to="/shop/discount">
-        <div :span="3" class="first-bar-item bar-hover">优惠</div>
-      </router-link>
-      <router-link class="link" to="/shop/all">
-        <div :span="3" class="bar-item bar-hover">菜品</div>
-      </router-link>
-      <router-link class="link" to="/shop/comment">
-        <div :span="3" class="bar-item bar-hover">评价</div>
-      </router-link>
+      <a class="link first-bar-item" @click="type = 'discount'">
+        <div>优惠</div>
+      </a>
+      <a class="link bar-item" @click="type = 'all'">
+        <div>菜品</div>
+      </a>
+      <a class="link bar-item" @click="type = 'comment'">
+        <div>评价</div>
+      </a>
     </div>
     <el-row>
-      <router-view v-bind:shopId="shopId"/>
+      <shop-details-differ-area v-bind:shopId="shopId" v-bind:type="type"/>
     </el-row>
     <el-dialog
       title="购物车"
@@ -119,7 +119,6 @@
         </el-button>
       </span>
     </el-dialog>
-    <sys-msg v-bind:sysMsg="sysMsg"/>
   </div>
 </template>
 
@@ -127,10 +126,12 @@
 import TrolleyPopups from './child/TrolleyPopups'
 import SysMsg from '../util/SysMsg'
 import Share from '../util/Share'
+import ShopDetailsDifferArea from './child/ShopDetailsDifferArea'
 
 export default {
   name: 'ShopMain',
   components: {
+    ShopDetailsDifferArea,
     Share,
     SysMsg,
     TrolleyPopups
@@ -167,6 +168,7 @@ export default {
   },
   data () {
     return {
+      type: '',
       shareVisible: false,
       dialogVisible: false,
       shareItem: {
@@ -237,28 +239,10 @@ export default {
 .first-bar-item {
   margin-left: 0;
   margin-right: 10px;
-  width: 100px;
-  background: #0c0d0d;
-  text-align: center;
-  height: 100%;
-}
-
-.bar-hover:hover {
-  cursor: pointer;
-  transition: 0.5s;
-  background: #ffc107;
-}
-
-.bar-hover {
-  border-radius: 3px;
 }
 
 .bar-item {
-  text-align: center;
-  width: 100px;
   margin: 0 10px;
-  background: #0c0d0d;
-  height: 100%;
 }
 
 .shop-details {
@@ -318,24 +302,20 @@ export default {
   text-align: center;
 }
 
-a:link {
-  color: white;
-  text-decoration: none;
-}
-
-a:visited {
-  color: white;
-  text-decoration: none;
-}
-
-a:hover {
-  color: black;
+.link {
+  width: 100px;
+  text-align: center;
+  height: 100%;
+  border-radius: 6px;
+  cursor: pointer;
   transition: 0.5s;
-  text-decoration: none;
+  color: white;
+  background: #0c0d0d;
 }
 
-a:active {
-  color: white;
-  text-decoration: none;
+.link:hover {
+  transition: 0.5s;
+  color: #0c0d0d;
+  background: #ffc107;
 }
 </style>

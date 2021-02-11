@@ -36,25 +36,25 @@
       <el-row class="order-item" :gutter="20" v-for="(item, index) in order" :key="index">
         <el-col :span="24" style="padding: 10px 20px">
           <el-row style="font-size: 25px; font-weight: 600">
-            订单 {{index + 1}}
+            订单 {{ index + 1 }}
           </el-row>
           <el-row>
-            <span class="label">订单号:</span> {{item.queueNum}}
+            <span class="label">订单号:</span> {{ item.queueNum }}
           </el-row>
           <el-row>
-            <span class="label">桌子号:</span> {{item.table}}
+            <span class="label">桌子号:</span> {{ item.table }}
           </el-row>
           <el-row>
-            <span class="label">客户姓名:</span> {{item.name}}
+            <span class="label">客户姓名:</span> {{ item.name }}
           </el-row>
           <el-row>
-            <span class="label">手机号:</span> {{item.phone}}
+            <span class="label">手机号:</span> {{ item.phone }}
           </el-row>
           <el-row>
-            <span class="label">到达时间:</span> {{item.arrivalTime}}
+            <span class="label">到达时间:</span> {{ item.arrivalTime }}
           </el-row>
           <el-row>
-            <span class="label">总价格:</span> {{item.totalPrice}}
+            <span class="label">总价格:</span> {{ item.totalPrice }}
           </el-row>
           <el-row>
             <span class="label">商家是否接单: </span><span v-if="item.isHandel === 0">未接单</span><span v-else>已接单</span>
@@ -189,7 +189,9 @@ a:hover {
 }
 
 .order-item:hover {
+  box-shadow: 10px 10px 5px #888888;
   transition: 0.3s;
+  border-radius: 6px;
   cursor: pointer;
   transform: translate(-5px, -5px);
 }

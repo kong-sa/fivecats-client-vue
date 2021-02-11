@@ -14,7 +14,7 @@
             </div>
             <div class="dishes-desc">
               <h5 class="dishes-title">
-                {{item.name}}
+                {{ item.name }}
               </h5>
               <div class="dishes-info">
                 <el-rate
@@ -28,10 +28,10 @@
             <div class="dishes-operate">
               <div class="dishes-price">
                 <span v-if="item.isDiscount === 1">
-                  ¥{{item.discount}}
+                  ¥{{ item.discount }}
                 </span>
                 <span>
-                  ¥{{item.price}}
+                  ¥{{ item.price }}
                 </span>
               </div>
               <el-button
@@ -50,7 +50,7 @@
 <script>
 export default {
   name: 'ShopDetailsDifferArea',
-  props: ['shopId'],
+  props: ['shopId', 'type'],
   methods: {
     addTrolley (index) {
       this.$store.commit('addTrolley', this.dishes[index])
@@ -63,33 +63,14 @@ export default {
   },
   watch: {
     // watch监听route路由器的数据变化
-    async $route (to, from) {
-      let urlParams = to.params.shopBarType
-      if (urlParams !== null && urlParams !== undefined) {
-        let {data: dishes} = await this.$http.get('/shop/getting/dishes/by?type=' + urlParams + '&shopId=' + this.shopId)
-        if (dishes !== null && dishes !== undefined) {
-          this.dishes = dishes
-        } else {
-          this.$message({
-            type: 'error',
-            message: '不能获得菜品！',
-            duration: 1800
-          })
-          setTimeout(() => {
-            this.$router.push('/shop/details/' + this.shopId)
-          }, 2000)
-        }
-      } else {
-        this.$message({
-          type: 'error',
-          message: '没有参数！',
-          duration: 1800
-        })
-        setTimeout(() => {
-          this.$router.push('/find')
-        }, 2000)
-      }
+    type: async function (newVal, oldVal) {
+      let {data: dishes} = await this.$http.get('/shop/getting/dishes/by?type=' + newVal + '&shopId=' + this.shopId)
+      this.dishes = dishes
     }
+  },
+  async created () {
+    let {data: dishes} = await this.$http.get('/shop/getting/dishes/by?type=all&shopId=' + this.shopId)
+    this.dishes = dishes
   },
   data () {
     return {

@@ -11,8 +11,8 @@
         <div class="desc">{{ shareItem.desc }}</div>
       </el-row>
       <el-row class="complaint" v-if="shareItem.type === 'complaint'">
-        <el-col>
-          <el-button @click="share('举报')">举报</el-button>
+        <el-col style="margin-top: 30px">
+          <el-button class="button" size="mini" @click="share('举报')">举报</el-button>
         </el-col>
       </el-row>
       <el-row v-if="shareItem.type === 'share'" class="share-btn" :gutter="20">
@@ -20,13 +20,13 @@
           分享到：
         </el-col>
         <el-col :span="4">
-          <el-button size="mini" @click="share('QQ')">QQ</el-button>
+          <el-button class="button" size="mini" @click="share('QQ')">QQ</el-button>
         </el-col>
         <el-col :span="4">
-          <el-button size="mini" @click="share('微信')">微信</el-button>
+          <el-button class="button" size="mini" @click="share('微信')">微信</el-button>
         </el-col>
         <el-col :span="4">
-          <el-button size="mini" @click="share('BBS')">馋猫社区</el-button>
+          <el-button class="button" size="mini" @click="share('BBS')">馋猫社区</el-button>
         </el-col>
       </el-row>
     </el-card>
@@ -63,6 +63,18 @@ export default {
 .desc {
   font-size: 18px;
   text-align: center;
+}
+
+.button:hover {
+  transition: 0.5s;
+  color: #0c0d0d;
+  background: #ffc107;
+}
+
+.button {
+  transition: 0.5s;
+  color: white;
+  background: #0c0d0d;
 }
 
 .desc-body {
