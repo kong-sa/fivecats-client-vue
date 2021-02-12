@@ -6,6 +6,8 @@
     <el-main class="fivecats-app__main">
       <router-view/>
     </el-main>
+    <el-footer class="fivecats-app__footer">
+    </el-footer>
   </el-container>
 </template>
 
@@ -13,10 +15,8 @@
 import FivecatsNavigation from './nav/FivecatsNavigation'
 
 export default {
-  name: 'Index',
-  components: {
-    FivecatsNavigation
-  }
+  name: 'FivecatsIndex',
+  components: {FivecatsNavigation}
 }
 </script>
 

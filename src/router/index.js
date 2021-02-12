@@ -31,6 +31,9 @@ import VideoPlayer from '../components/video/child/VideoPlayer'
 import ShopMain from '../components/shop/ShopMain'
 // 客户组件
 import UserMain from '../components/user/UserMain'
+import ShopMaintainMain from '../components/shop/manager/ShopMaintainMain'
+import ShopLogin from '../components/access/ShopLogin'
+import ShopSignin from '../components/access/ShopSignin'
 
 Vue.use(Router)
 
@@ -53,6 +56,16 @@ export default new Router({
           meta: {title: '注册'}
         },
         {
+          path: '/shop/login',
+          component: ShopLogin,
+          meta: {title: '商家登陆'}
+        },
+        {
+          path: '/shop/signin',
+          component: ShopSignin,
+          meta: {title: '商家注册'}
+        },
+        {
           path: '/find',
           component: FindMain,
           meta: {title: '寻找美食'}
@@ -71,6 +84,11 @@ export default new Router({
           path: '/shop/:shopId',
           component: ShopMain,
           meta: {title: '商家详细'}
+        },
+        {
+          path: '/shop/maintain/',
+          component: ShopMaintainMain,
+          meta: {title: '店铺维护中心'}
         },
         {
           path: '/user/center',

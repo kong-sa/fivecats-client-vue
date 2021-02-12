@@ -112,26 +112,28 @@
 
 <script>
 export default {
-  name: 'TrolleyPopups',
+  name: 'ShopTrolley',
   props: ['shopId'],
   methods: {
     deleteRow (index) {
-      // 删除vuex保存的值
       this.$store.state.selectedDishes.splice(index, 1)
       this.$message({
         type: 'success',
-        duration: 2500,
+        duration: 2000,
         message: '从购物车中删除成功！'
       })
     },
-    // 获得节点数组
     getTableOptions () {
       this.order.table = this.$refs.cascader.getCheckedNodes()[0].pathLabels
     },
-    // 确认支付，发起异步请求
     async confirmPayment () {
-      await this.$http.post('/shop/setting/order', this.order)
-      this.$message.success('支付成功！')
+      if (this.order.appointDate === '' || this.order.phone === '' ||
+        this.order.name === '' || this.order.arrivalTime === '' || this.order.table === '') {
+        this.$message.error('信息不齐全，无法支付！')
+      } else {
+        await this.$http.post('/shop/setting/order', this.order)
+        this.$message.success('支付成功！')
+      }
     }
   },
   watch: {
@@ -289,7 +291,7 @@ export default {
       },
       discountPrice: 0,
       order: {
-        userId: 1,
+        userId: this.$store.state.user.id,
         shopId: this.shopId,
         appointDate: '',
         phone: '',

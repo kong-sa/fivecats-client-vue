@@ -52,7 +52,9 @@
             <span class="label">总价格:</span> {{ item.totalPrice }}
           </el-row>
           <el-row>
-            <span class="label">商家是否接单: </span><span v-if="item.isHandel === 0">未接单</span><span v-else>已接单</span>
+            <span class="label">商家是否接单: </span>
+            <span v-if="item.isHandle === 0">未接单</span>
+            <span v-else>已接单</span>
           </el-row>
           <el-row>
             <a style="cursor: pointer" @click="deleteOrder(item.id)">删除订单</a>
@@ -102,7 +104,7 @@ export default {
           appointDate: '',
           arrivalTime: '',
           totalPrice: 0,
-          isHandel: 0,
+          isHandle: 0,
           queueNum: ''
         }
       ],

@@ -20,11 +20,35 @@ export default new Vuex.Store({
       level: 0,
       location: ''
     },
+    shop: {
+      average: 0,
+      cover: '',
+      date: '',
+      endTime: '',
+      id: 0,
+      location: '',
+      name: '',
+      password: '',
+      phone: '',
+      profile: '',
+      saleNum: 0,
+      star: 0,
+      startTime: '',
+      status: '',
+      tableNum: 0,
+      tag: '',
+      type: '',
+      userId: 0,
+      username: ''
+    },
     bbsType: 'index'
   },
   mutations: {
     setUser (state, user) {
       state.user = user
+    },
+    setShop (state, shop) {
+      state.shop = shop
     },
     setDishes (state, dishes) {
       state.selectedDishes.push(dishes)

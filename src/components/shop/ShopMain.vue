@@ -95,7 +95,7 @@
       title="购物车"
       :visible.sync="dialogVisible"
       width="50%">
-      <trolley-popups v-bind:shopId="shopId"/>
+      <shop-trolley v-bind:shopId="shopId"/>
       <span slot="footer" class="dialog-footer">
         <el-button
           size="mini"
@@ -124,14 +124,14 @@
 
 <script>
 import ShareShop from './child/ShareShop'
-import TrolleyPopups from './child/TrolleyPopups'
+import ShopTrolley from './child/ShopTrolley'
 import ShopDishesList from './child/ShopDishesList'
 
 export default {
   name: 'ShopMain',
   components: {
     ShareShop,
-    TrolleyPopups,
+    ShopTrolley,
     ShopDishesList
   },
   methods: {

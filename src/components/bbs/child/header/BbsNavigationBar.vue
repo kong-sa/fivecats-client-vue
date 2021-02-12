@@ -63,10 +63,10 @@
       </el-col>
       <el-col class="navigation-right" :span="8" v-else>
         <el-row>
-          <el-col :span="8" class="item login"><i class="el-icon--left el-icon-third-denglu"></i><a
+          <el-col :span="8" class="item shop-login"><i class="el-icon--left el-icon-third-denglu"></i><a
             @click="loginDialog = true">登陆</a></el-col>
           <el-col :span="1" class="item">|</el-col>
-          <el-col :span="8" class="item signin"><i class="el-icon--left el-icon-third-zhuce"></i><a
+          <el-col :span="8" class="item shop-signin"><i class="el-icon--left el-icon-third-zhuce"></i><a
             @click="signinDialog = true">注册</a></el-col>
         </el-row>
       </el-col>
@@ -354,11 +354,11 @@ a:active {
   font-size: 18px;
 }
 
-.login {
+.shop-login {
   text-align: right;
 }
 
-.signin {
+.shop-signin {
   text-align: left;
 }
 </style>

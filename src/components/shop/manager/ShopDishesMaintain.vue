@@ -1,5 +1,4 @@
 <template>
-  <!-- 添加新的菜品（弹窗） -->
   <div id="dishes-maintain">
     <el-row class="dishes-row">
       <el-col :span="6">菜品图片：</el-col>
@@ -61,16 +60,12 @@
 
 <script>
 export default {
-  name: 'MaintainDishesPopups',
+  name: 'ShopDishesMaintain',
   data () {
     return {
-      // 图片请求的URL
       action: 'http://localhost:8001/setting/dishes/img?merchantId=1',
-      // 要添加的菜品价格
       price: '',
-      // 要添加的菜品名字
       name: '',
-      // 商家信息
       merchant: {},
       dialogImageUrl: '',
       disabled: false,
@@ -79,7 +74,7 @@ export default {
     }
   },
   async mounted () {
-    let { data: _merchant } = await this.$http.get('getting/merchant?merchantId=1')
+    let {data: _merchant} = await this.$http.get('getting/merchant?merchantId=1')
     this.merchant = _merchant
   },
   methods: {
@@ -92,15 +87,12 @@ export default {
     handleDownload (file) {
     },
     async saveDishes () {
-      await this.$http.post('/setting/dishes', { merchantId: this.merchant.id, price: this.price, name: this.name })
+      await this.$http.post('/setting/dishes', {merchantId: this.merchant.id, price: this.price, name: this.name})
       this.$message.success('菜品保存成功！')
     },
     checkPicture (file) {
-      // 图片的类型只能是jpeg或者png或者jpg
       const imageType = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg'
-      // 图片的大小不能大于1MB
       const imageLimit = file.size / 1024 / 1024 < 1
-      // 如果不满足规则，就在页面中提示对应的错误信息
       if (!imageType) this.$message.error('上传图片只能是 JPG 或 PNG 格式!')
       if (!imageLimit) this.$message.error('上传图片大小不能超过 1MB!')
       return imageType && imageLimit

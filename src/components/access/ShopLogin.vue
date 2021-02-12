@@ -7,11 +7,11 @@
       :rules="rules">
       <h2 class="title">欢迎回来</h2>
       <el-form-item prop="email">
-        <span class="label">邮箱</span>
+        <span class="label">用户名</span>
         <el-input
-          class="email"
+          class="username"
           size="mini"
-          v-model="formData.email"
+          v-model="formData.username"
           type="text"/>
       </el-form-item>
       <el-form-item prop="password">
@@ -25,29 +25,29 @@
     </el-form>
     <el-button class="submit" @click="login">登 录</el-button>
     <div class="no-account">
-      <router-link to="/signin">没有账号？点击注册</router-link><br/>
-      <router-link to="/shop/login">商家登陆？点击此处</router-link>
+      <router-link to="/shop/signin">没有商家账号？点击注册</router-link><br/>
+      <router-link to="/login">返回普通用户登陆</router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AccessLogin',
+  name: 'ShopLogin',
   methods: {
     login () {
       this.$refs.login.validate(async valida => {
         if (!valida) {
           this.$message.error('请把信息填写完全！')
         } else {
-          let {data: res} = await this.$http.post('/access/login', this.formData)
+          let {data: res} = await this.$http.post('/access/shop/login', this.formData)
           if (res.code === 200) {
             this.$message({
               message: '登陆成功！',
               type: 'success',
               duration: 2000
             })
-            this.$store.commit('setUser', res.data)
+            this.$store.commit('setShop', res.data)
           } else if (res.code === 400) {
             this.$message({
               message: res.data,
@@ -68,13 +68,13 @@ export default {
   data () {
     return {
       formData: {
-        email: '',
+        username: '',
         password: ''
       },
       rules: {
-        email: [
-          {required: true, message: '请输入邮箱！', trigger: 'blur'},
-          {min: 5, max: 50, message: '长度在 5 到 50 个字符', trigger: 'blur'}
+        username: [
+          {required: true, message: '请输入用户名！', trigger: 'blur'},
+          {min: 5, max: 20, message: '长度在 5 到 20 个字符', trigger: 'blur'}
         ],
         password: [
           {required: true, message: '请输入密码！', trigger: 'blur'},

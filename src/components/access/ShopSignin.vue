@@ -5,21 +5,13 @@
       class="signin-form"
       :model="formData"
       :rules="rules">
-      <h2 class="title">快速注册</h2>
+      <h2 class="title">快速注册商家</h2>
       <el-form-item prop="username">
-        <span class="label">昵称</span>
+        <span class="label">用户名</span>
         <el-input
           class="username"
           size="mini"
           v-model="formData.username"
-          type="text"/>
-      </el-form-item>
-      <el-form-item prop="email">
-        <span class="label">邮箱</span>
-        <el-input
-          class="email"
-          size="mini"
-          v-model="formData.email"
           type="text"/>
       </el-form-item>
       <el-form-item prop="password">
@@ -30,41 +22,53 @@
           v-model="formData.password"
           type="password"/>
       </el-form-item>
+      <el-form-item prop="email">
+        <span class="label">店铺名称</span>
+        <el-input
+          class="name"
+          size="mini"
+          v-model="formData.name"
+          type="text"/>
+      </el-form-item>
+      <el-form-item prop="profile">
+        <span class="label">店铺简介</span>
+        <el-input
+          class="profile"
+          size="mini"
+          v-model="formData.profile"
+          type="text"/>
+      </el-form-item>
+      <el-form-item prop="location">
+        <span class="label">店铺地址</span>
+        <el-input
+          class="location"
+          size="mini"
+          v-model="formData.location"
+          type="text"/>
+      </el-form-item>
     </el-form>
     <el-button @click="signin" class="submit">注 册</el-button>
     <div class="have-account">
-      <router-link to="/login">已有账号？点击登陆</router-link>
+      <router-link to="/shop/login">已有商家账号？点击登陆</router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AccessSignin',
+  name: 'ShopSignin',
   methods: {
     signin () {
       this.$refs.signin.validate(async valida => {
         if (!valida) {
           this.$message.error('请把信息填写完全！')
         } else {
-          let {data: res} = await this.$http.post('/access/signin', this.formData)
+          let {data: res} = await this.$http.post('/access/shop/signin', this.formData)
           if (res.code === 200) {
             this.$message({
               message: '注册成功',
               duration: 3000,
               type: 'success'
-            })
-          } else if (res.code === 400) {
-            this.$message({
-              message: res.data,
-              duration: 3000,
-              type: 'error'
-            })
-          } else if (res.code === 401) {
-            this.$message({
-              message: res.data,
-              duration: 3000,
-              type: 'error'
             })
           } else {
             this.$message({
@@ -80,22 +84,33 @@ export default {
   data () {
     return {
       formData: {
-        email: '',
+        name: '',
         password: '',
-        username: ''
+        username: '',
+        phone: '',
+        location: '',
+        profile: ''
       },
       rules: {
-        email: [
-          {required: true, message: '请输入邮箱！', trigger: 'blur'},
-          {min: 5, max: 50, message: '长度在 5 到 50 个字符', trigger: 'blur'}
+        name: [
+          {required: true, message: '请输入店铺名称！', trigger: 'blur'},
+          {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
         ],
         password: [
           {required: true, message: '请输入密码！', trigger: 'blur'},
           {min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur'}
         ],
         username: [
-          {required: true, message: '请输入昵称！', trigger: 'blur'},
+          {required: true, message: '请输入用户名！', trigger: 'blur'},
           {min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur'}
+        ],
+        phone: [
+          {required: true, message: '请输入联系电话！', trigger: 'blur'},
+          {min: 11, max: 11, message: '联系电话必须是11位数', trigger: 'blur'}
+        ],
+        profile: [
+          {required: true, message: '请输入商铺简介！', trigger: 'blur'},
+          {min: 10, max: 100, message: '长度在 10 到 100个字符', trigger: 'blur'}
         ]
       }
     }
