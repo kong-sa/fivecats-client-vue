@@ -2,12 +2,11 @@
   <div class="restaurant-body">
     <el-row :gutter="20">
       <el-col
-        v-if="restaurants !== null"
-        v-for="item in restaurants"
+        v-for="item in res"
         :key="item.id"
         :span="8"
         class="res-item">
-        <a class="detail" @click="lookDetail(item.id)">
+        <a class="detail" @click="watchShop(item.id)">
           <div class="res-item-body">
             <el-image class="item-bg" :src="item.cover">
               <div slot="error" class="image-slot">
@@ -29,27 +28,27 @@
 <script>
 export default {
   name: 'FindRestaurants',
+  props: ['restaurantType'],
   watch: {
-    async $route (to, from) {
-      let params = to.params.findType
-      let {data: res} = await this.$http.get('/find/by?type=' + params)
-      this.restaurants = res
+    restaurantType: async function (newVal, oldVal) {
+      let {data: res} = await this.$http.get('/find/by?type=' + newVal)
+      this.res = res
     }
   },
   methods: {
-    lookDetail (id) {
-      this.$router.push('/shop/details/' + id)
+    watchShop (id) {
+      this.$router.push('/shop/' + id)
     }
   },
   async created () {
-    let {data: res} = await this.$http.get('/find/getting/shops')
-    this.restaurants = res
+    let {data: res} = await this.$http.get('/find/by?type=all')
+    this.res = res
   },
   data () {
     return {
-      restaurants: [
+      res: [
         {
-          avatar: null,
+          avatar: '',
           date: '',
           id: 0,
           cover: '',
@@ -61,7 +60,7 @@ export default {
           tableNum: 0,
           tag: '',
           type: '',
-          user: null,
+          user: '',
           userId: 0
         }
       ]

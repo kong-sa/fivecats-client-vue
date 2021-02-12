@@ -2,34 +2,34 @@
   <div class="video-details">
     <div class="video">
       <div class="video-title">
-        <el-tag>{{ res1.data.tag }}</el-tag>
-        {{ res1.data.title }}
+        <el-tag>{{ video.tag }}</el-tag>
+        {{ video.title }}
         <div id="abb-info">
           <span id="play-volume">
-            播放量:{{ res1.data.playNum }}&nbsp;
+            播放量:{{ video.playNum }}&nbsp;
           </span>
-          <span id="upload-time">  投稿时间:{{ res1.data.date }}</span>
+          <span id="upload-time">  投稿时间:{{ video.date }}</span>
         </div>
       </div>
-      <video :src="res1.data.url" controls="controls" style="width: 100%; height: 100%"></video>
+      <video :src="video.url" controls="controls" style="width: 100%; height: 100%"></video>
       <div class="video-bottom">
         <el-collapse id="collapse">
           <el-collapse-item class="collapse-item" title="视频简介">
-            {{ res1.data.profile }}
+            {{ video.profile }}
           </el-collapse-item>
           <el-collapse-item class="collapse-item" title="作者信息">
             <el-row>
               <el-col :xs="3" :span="2">
-                <el-avatar id="avatar" :src="res1.data.user.avatar">
+                <el-avatar id="avatar" :src="video.user.avatar">
                   <div slot="error" class="image-slot">
                     <i class="el-icon-picture-outline"></i>
                   </div>
                 </el-avatar>
               </el-col>
               <el-col :xs="21" :span="22">
-                <el-row>用户名：{{ res1.data.user.username }}</el-row>
-                <el-row>个人简介：{{ res1.data.user.profile }}</el-row>
-                <el-row>粉丝数：{{ res1.data.user.fans }}</el-row>
+                <el-row>用户名：{{ video.user.username }}</el-row>
+                <el-row>个人简介：{{ video.user.profile }}</el-row>
+                <el-row>粉丝数：{{ video.user.fans }}</el-row>
               </el-col>
             </el-row>
           </el-collapse-item>
@@ -57,7 +57,7 @@
         </el-col>
       </el-row>
       <!--2行 评论区-->
-      <el-row v-for="item in res2.arrData" :key="item.id" class="comm-item">
+      <el-row v-for="item in comm" :key="item.id" class="comm-item">
         <!--1列 头像-->
         <el-col :xs="3" :span="2">
           <!--下拉框，鼠标悬停显示用户详细信息-->
@@ -89,7 +89,8 @@
           <!--1行 用户名-->
           <el-row class="comm-row comm-username">
             {{ item.user.username }}
-            <el-tag style="background: #ffc107; color: #0c0d0d" size="mini" v-if="res1.data.userId === item.userId">作者</el-tag>
+            <el-tag style="background: #ffc107; color: #0c0d0d" size="mini" v-if="video.userId === item.userId">作者
+            </el-tag>
           </el-row>
           <!--2行 内容-->
           <el-row class="comm-row comm-content">{{ item.content }}</el-row>
@@ -111,32 +112,36 @@
 
 <script>
 export default {
-  name: 'VideoDetails',
+  name: 'VideoPlayer',
   async created () {
     document.scrollingElement.scrollTop = 0
     document.scrollingElement.scrollLeft = 0
+
     this.videoId = this.$route.params.videoId
-    let {data: res1} = await this.$http.get('/getting/video?id=' + this.videoId)
-    let {data: res2} = await this.$http.get('/getting/video/comm?id=' + this.videoId)
-    if (res1.code === 400) {
+
+    let {data: video} = await this.$http.get('/getting/video?id=' + this.videoId)
+    let {data: comm} = await this.$http.get('/getting/video/comm?id=' + this.videoId)
+
+    if (video.code === 400) {
       this.$message({
-        type: 'error',
-        message: res1.data + '3s后跳转视频首页',
+        shopType: 'error',
+        message: video.data + '3s后跳转视频首页',
         duration: 3000
       })
       setInterval(async () => {
         await this.$router.push('/video/all')
       }, 3000)
-    } else if (res2.code === 400) {
+    } else if (comm.code === 400) {
       this.$message({
-        type: 'error',
-        message: res2.data + '，将不会显示评论',
+        shopType: 'error',
+        message: comm.data + '，将不会显示评论',
         duration: 3000
       })
     } else {
-      this.res1 = res1
-      this.res2 = res2
-      await this.$http.post('/adding/video/playNum', {id: res1.data.id})
+      this.video = video.data
+      this.comm = comm.arrData
+      document.title = video.data.title
+      await this.$http.post('/adding/video/playNum', {id: video.data.id})
     }
   },
   methods: {
@@ -150,61 +155,57 @@ export default {
     likeComm (viCommId) {
       this.$http.post('/setting/video/comm/likeNum', {id: viCommId})
       this.$message.success('点赞成功！')
-      this.res2.arrData[viCommId - 1].like += 1
+      this.comm.arrData[viCommId - 1].like += 1
     }
   },
   data () {
     return {
       content: null,
       videoId: 0,
-      res1: {
-        'data': {
+      video: {
+        'id': 0,
+        'userId': 0,
+        'date': '',
+        'url': '',
+        'title': '',
+        'profile': '',
+        'type': '',
+        'tag': '',
+        'playNum': 0,
+        'user': {
           'id': 0,
-          'userId': 0,
-          'date': null,
-          'url': null,
-          'title': null,
-          'profile': null,
-          'type': null,
-          'tag': null,
-          'playNum': 0,
-          'user': {
-            'id': 0,
-            'experience': 0,
-            'username': null,
-            'password': null,
-            'avatar': '',
-            'profile': '',
-            'date': null,
-            'fans': 0,
-            'gold': 0,
-            'level': 0,
-            'phone': null,
-            'email': null
-          }
+          'experience': 0,
+          'username': '',
+          'password': '',
+          'avatar': '',
+          'profile': '',
+          'date': '',
+          'fans': 0,
+          'gold': 0,
+          'level': 0,
+          'phone': '',
+          'email': ''
         }
       },
-      res2: {
-        'arrData': [
-          {
+      comm: [
+        {
+          'id': 0,
+          'userId': 0,
+          'videoId': 0,
+          'content': '',
+          'like': 0,
+          'date': '',
+          'user': {
             'id': 0,
-            'userId': 0,
-            'videoId': 0,
-            'content': null,
-            'like': 0,
-            'date': null,
-            'user': {
-              'id': 0,
-              'username': null,
-              'avatar': null,
-              'profile': null,
-              'fans': 0,
-              'gold': 0,
-              'level': 0
-            }
+            'username': '',
+            'avatar': '',
+            'profile': '',
+            'fans': 0,
+            'gold': 0,
+            'level': 0
           }
-        ]
-      }
+        }
+      ]
     }
   }
 }

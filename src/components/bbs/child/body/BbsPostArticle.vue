@@ -164,13 +164,13 @@ export default {
           this.$message({
             message: '金币 +' + this.rewordType.gold + '，经验 +' + this.rewordType.experience,
             duration: 5000,
-            type: 'success'
+            shopType: 'success'
           })
         } else {
           this.$message({
             message: '你至少要输入20个字符的内容',
             duration: 5000,
-            type: 'error'
+            shopType: 'error'
           })
         }
       })

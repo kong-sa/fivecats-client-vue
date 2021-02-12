@@ -1,5 +1,5 @@
 <template>
-  <div class="access-signin">
+  <div class="signin">
     <el-form
       ref="signin"
       class="signin-form"
@@ -33,7 +33,7 @@
     </el-form>
     <el-button @click="signin" class="submit">注 册</el-button>
     <div class="have-account">
-      <router-link to="/access/login">已有账号？点击登陆</router-link>
+      <router-link to="/login">已有账号？点击登陆</router-link>
     </div>
   </div>
 </template>
@@ -50,31 +50,31 @@ export default {
           let {data: res} = await this.$http.post('/access/signin', this.formData)
           if (res.code === 200) {
             this.$message({
-              message: '注册成功，5秒后跳转登陆页面。',
-              duration: 5000,
-              type: 'success'
+              message: '注册成功，3秒后跳转登陆页面。',
+              duration: 3000,
+              shopType: 'success'
             })
             // 5s后跳转登陆页面
             setInterval(async () => {
               await this.$router.push('/access/login')
-            }, 5000)
+            }, 3000)
           } else if (res.code === 400) {
             this.$message({
               message: res.data,
               duration: 3000,
-              type: 'error'
+              shopType: 'error'
             })
           } else if (res.code === 401) {
             this.$message({
               message: res.data,
               duration: 3000,
-              type: 'error'
+              shopType: 'error'
             })
           } else {
             this.$message({
               message: res.data,
-              duration: 4000,
-              type: 'error'
+              duration: 3000,
+              shopType: 'error'
             })
           }
         }
@@ -83,13 +83,11 @@ export default {
   },
   data () {
     return {
-      // 表单数据
       formData: {
         email: '',
         password: '',
         username: ''
       },
-      // 表单验证规则
       rules: {
         email: [
           {required: true, message: '请输入邮箱！', trigger: 'blur'},
@@ -119,8 +117,9 @@ export default {
   text-align: center;
 }
 
-.access-signin {
-  padding: 0 15%;
+.signin {
+  margin: 5% 35% 0 35%;
+  padding: 0 5%;
   box-shadow: 5px 5px 10px #ccc;
   border-radius: 10px;
   border: 1px #ccc solid;

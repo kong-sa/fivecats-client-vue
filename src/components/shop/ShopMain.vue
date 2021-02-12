@@ -47,8 +47,8 @@
             </el-button>
           </el-col>
           <el-col class="a-link" :span="4">
-            <a class="row-one-item-a-operate" @click="share">分享 |</a>
-            <a class="row-one-item-a-operate" @click="complaint">投诉</a>
+            <a class="row-one-item-a-operate" @click="shareToOther">分享 |</a>
+            <a class="row-one-item-a-operate" @click="communicate">联系</a>
           </el-col>
         </el-row>
       </el-col>
@@ -78,18 +78,18 @@
       </el-col>
     </el-row>
     <div class="bar">
-      <a class="link first-bar-item" @click="type = 'discount'">
+      <a class="link first-bar-item" @click="shopType = 'discount'">
         <div>优惠</div>
       </a>
-      <a class="link bar-item" @click="type = 'all'">
+      <a class="link bar-item" @click="shopType = 'all'">
         <div>菜品</div>
       </a>
-      <a class="link bar-item" @click="type = 'comment'">
+      <a class="link bar-item" @click="shopType = 'comment'">
         <div>评价</div>
       </a>
     </div>
     <el-row>
-      <shop-details-differ-area v-bind:shopId="shopId" v-bind:type="type"/>
+      <shop-dishes-list v-bind:shopId="shopId" v-bind:shop-type="shopType"/>
     </el-row>
     <el-dialog
       title="购物车"
@@ -109,7 +109,7 @@
       title="分享"
       :visible.sync="shareVisible"
       width="30%">
-      <share v-bind:shareItem="shareItem"/>
+      <share-shop v-bind:share-item="shareItem"/>
       <span slot="footer" class="dialog-footer">
         <el-button
           size="mini"
@@ -123,30 +123,34 @@
 </template>
 
 <script>
+import ShareShop from './child/ShareShop'
 import TrolleyPopups from './child/TrolleyPopups'
-import Share from '../util/Share'
-import ShopDetailsDifferArea from './child/ShopDetailsDifferArea'
+import ShopDishesList from './child/ShopDishesList'
 
 export default {
   name: 'ShopMain',
   components: {
-    ShopDetailsDifferArea,
-    Share,
-    TrolleyPopups
+    ShareShop,
+    TrolleyPopups,
+    ShopDishesList
   },
   methods: {
-    share () {
+    shareToOther () {
       this.shareVisible = true
-      this.shareItem.coverUrl = this.shop.cover
-      this.shareItem.desc = this.shop.profile
-      this.shareItem.title = this.shop.name
-      this.shareItem.type = 'share'
+      this.shareItem = {
+        coverUrl: this.shop.cover,
+        desc: this.shop.profile,
+        title: this.shop.name,
+        type: 'share'
+      }
     },
-    complaint () {
+    communicate () {
       this.shareVisible = true
-      this.shareItem.coverUrl = this.shop.cover
-      this.shareItem.title = this.shop.name
-      this.shareItem.type = 'complaint'
+      this.shareItem = {
+        coverUrl: this.shop.cover,
+        title: this.shop.name,
+        type: 'complaint'
+      }
     },
     showTrolley () {
       this.dialogVisible = true
@@ -155,18 +159,11 @@ export default {
   async created () {
     this.shopId = this.$route.params.shopId
     let {data: shop} = await this.$http.get('/shop/getting?shopId=' + this.shopId)
-    if (shop === null || shop === undefined) {
-      this.$message.error('可能你查看的商家不存在，3秒后跳转寻找美食页面。')
-      setTimeout(() => {
-        this.$router.push('/find')
-      }, 3000)
-    } else {
-      this.shop = shop
-    }
+    this.shop = shop
   },
   data () {
     return {
-      type: '',
+      shopType: '',
       shareVisible: false,
       dialogVisible: false,
       shareItem: {
@@ -176,12 +173,6 @@ export default {
         type: ''
       },
       shopId: 0,
-      sysMsg: {
-        titleName: '商家页面提示',
-        sysType: 'warning',
-        msgContent: '由于Vue Router设置的问题，此页面创建完DOM之后没有菜品信息，需要手动切换。比如先点击 "优惠" 再点击 "菜品" ，这样数据就出现了。',
-        duration: 20000
-      },
       shop: {
         id: 0,
         userId: 0,

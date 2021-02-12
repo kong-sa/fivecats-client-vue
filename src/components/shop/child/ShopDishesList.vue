@@ -19,7 +19,7 @@
                 <span v-if="item.isDiscount === 1">¥{{ item.discount }}</span>
                 <span>¥{{ item.price }}</span>
               </div>
-              <el-button class="button" @click="addTrolley(index)">加入购物车</el-button>
+              <el-button class="button" @click="setDishes(index)">加入购物车</el-button>
             </div>
           </div>
         </div>
@@ -30,11 +30,11 @@
 
 <script>
 export default {
-  name: 'ShopDetailsDifferArea',
-  props: ['shopId', 'type'],
+  name: 'ShopDishesList',
+  props: ['shopId', 'shopType'],
   methods: {
-    addTrolley (index) {
-      this.$store.commit('addTrolley', this.dishes[index])
+    setDishes (index) {
+      this.$store.commit('setDishes', this.dishes[index])
       this.$message({
         type: 'success',
         message: '添加到购物车成功！',
@@ -43,13 +43,13 @@ export default {
     }
   },
   watch: {
-    type: async function (newVal, oldVal) {
-      let {data: dishes} = await this.$http.get('/shop/getting/dishes/by?type=' + newVal + '&shopId=' + this.shopId)
+    shopType: async function (newVal, oldVal) {
+      let {data: dishes} = await this.$http.post('/shop/getting/dishes/by', {shopId: this.shopId, type: newVal})
       this.dishes = dishes
     }
   },
   async created () {
-    let {data: dishes} = await this.$http.get('/shop/getting/dishes/by?type=all&shopId=' + this.shopId)
+    let {data: dishes} = await this.$http.post('/shop/getting/dishes/by', {shopId: this.shopId, type: 'all'})
     this.dishes = dishes
   },
   data () {

@@ -36,7 +36,7 @@
 <script>
 export default {
   props: ['shareItem'],
-  name: 'Share',
+  name: 'ShareShop',
   methods: {
     share (itemType) {
       if (itemType === 'QQ') {

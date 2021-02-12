@@ -20,17 +20,13 @@ import BbsUserMessageLike from '../components/bbs/child/body/child/usermessage/B
 import BbsUserMessageReplay from '../components/bbs/child/body/child/usermessage/BbsUserMessageReplay'
 import BbsArticleManagement from '../components/bbs/child/body/child/selfcenter/BbsArticleManagement'
 // 注册或登录页面组件
-import AccessMain from '../components/access/AccessMain'
-import AccessLogin from '../components/access/child/AccessLogin'
-import AccessSignin from '../components/access/child/AccessSignin'
+import AccessLogin from '../components/access/AccessLogin'
+import AccessSignin from '../components/access/AccessSignin'
 // 寻找美食页面组件
 import FindMain from '../components/find/FindMain'
-import FindRestaurants from '../components/find/child/FindRestaurants'
 // 视频区页面组件
 import VideoMain from '../components/video/VideoMain'
-import VideoDetails from '../components/video/child/VideoDetails'
-import VideoType from '../components/video/child/VideoType'
-import VideoAll from '../components/video/child/VideoAll'
+import VideoPlayer from '../components/video/child/VideoPlayer'
 // 商家组件
 import ShopMain from '../components/shop/ShopMain'
 import UserMain from '../components/user/UserMain'
@@ -41,73 +37,37 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/find',
+      redirect: '/login',
       component: FivecatsIndex,
       meta: {title: '五只馋猫'},
       children: [
-        // 登陆或注册页面的路由
         {
-          path: '/access',
-          component: AccessMain,
-          meta: {title: '登陆或注册'},
-          children: [
-            {
-              path: '/access/login',
-              component: AccessLogin,
-              meta: {title: '登陆'}
-            },
-            {
-              path: '/access/signin',
-              component: AccessSignin,
-              meta: {title: '注册'}
-            }
-          ]
+          path: '/login',
+          component: AccessLogin,
+          meta: {title: '登陆'}
         },
-        // 寻找美食页面的路由
+        {
+          path: '/signin',
+          component: AccessSignin,
+          meta: {title: '注册'}
+        },
         {
           path: '/find',
-          redirect: '/find/all',
           component: FindMain,
-          meta: {title: '寻找美食'},
-          children: [
-            {
-              path: '/find/:findType',
-              component: FindRestaurants,
-              meta: {title: '分类寻找'}
-            },
-            {
-              path: '/find/all',
-              component: FindRestaurants,
-              meta: {title: '寻找美食'}
-            }
-          ]
+          meta: {title: '寻找美食'}
         },
-        // 视频区路由
         {
           path: '/video',
-          redirect: '/video/all',
           component: VideoMain,
-          meta: {title: '视频区'},
-          children: [
-            {
-              path: '/video/all',
-              component: VideoAll,
-              meta: {title: '视频区'}
-            },
-            {
-              path: '/video/:videoType',
-              component: VideoType,
-              meta: {title: '视频分类'}
-            }
-          ]
+          meta: {title: '视频区'}
         },
         {
-          path: '/video/details/:videoId',
-          component: VideoDetails,
+          path: '/player/:videoId',
+          component: VideoPlayer,
           meta: {title: '视频播放'}
         },
         {
-          path: '/shop/details/:shopId',
+          path: '/shop/:shopId',
           component: ShopMain,
           meta: {title: '商家详细'}
         },

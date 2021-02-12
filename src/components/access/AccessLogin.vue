@@ -1,5 +1,5 @@
 <template>
-  <div class="access-login">
+  <div class="login">
     <el-form
       ref="login"
       class="login-form"
@@ -25,7 +25,7 @@
     </el-form>
     <el-button class="submit" @click="login">登 录</el-button>
     <div class="no-account">
-      <router-link to="/access/signin">没有账号？点击注册</router-link>
+      <router-link to="/signin">没有账号？点击注册</router-link>
     </div>
   </div>
 </template>
@@ -43,20 +43,20 @@ export default {
           if (res.code === 200) {
             this.$message({
               message: '登陆成功！',
-              type: 'success',
+              shopType: 'success',
               duration: 2000
             })
             this.$store.commit('setUser', res.data)
           } else if (res.code === 400) {
             this.$message({
               message: res.data,
-              type: 'error',
+              shopType: 'error',
               duration: 4500
             })
           } else {
             this.$message({
               message: res.data,
-              type: 'error',
+              shopType: 'error',
               duration: 5000
             })
           }
@@ -66,12 +66,10 @@ export default {
   },
   data () {
     return {
-      // 表单数据
       formData: {
         email: '',
         password: ''
       },
-      // 表单验证规则
       rules: {
         email: [
           {required: true, message: '请输入邮箱！', trigger: 'blur'},
@@ -97,8 +95,9 @@ export default {
   text-align: center;
 }
 
-.access-login {
-  padding: 0 15%;
+.login {
+  margin: 5% 35% 0 35%;
+  padding: 0 5%;
   box-shadow: 5px 5px 10px #ccc;
   border-radius: 10px;
   border: 1px #ccc solid;

@@ -26,7 +26,7 @@ export default new Vuex.Store({
     setUser (state, user) {
       state.user = user
     },
-    addTrolley (state, dishes) {
+    setDishes (state, dishes) {
       state.selectedDishes.push(dishes)
     },
     setBbsType (state, bbsType) {
