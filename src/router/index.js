@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 // 馋猫项目主组件
 import FivecatsIndex from '../components/FivecatsIndex'
-// 馋猫社区页面组件
+// 馋猫社区组件
 import BbsMain from '../components/bbs/BbsMain'
 import BbsPartition from '../components/bbs/child/body/BbsPartition'
 import BbsBasicInfo from '../components/bbs/child/body/child/selfcenter/BbsBasicInfo'
@@ -19,16 +19,17 @@ import BbsMessageOfficial from '../components/bbs/child/body/child/usermessage/B
 import BbsUserMessageLike from '../components/bbs/child/body/child/usermessage/BbsUserMessageLike'
 import BbsUserMessageReplay from '../components/bbs/child/body/child/usermessage/BbsUserMessageReplay'
 import BbsArticleManagement from '../components/bbs/child/body/child/selfcenter/BbsArticleManagement'
-// 注册或登录页面组件
+// 注册或登录组件
 import AccessLogin from '../components/access/AccessLogin'
 import AccessSignin from '../components/access/AccessSignin'
-// 寻找美食页面组件
+// 寻找美食组件
 import FindMain from '../components/find/FindMain'
 // 视频区页面组件
 import VideoMain from '../components/video/VideoMain'
 import VideoPlayer from '../components/video/child/VideoPlayer'
 // 商家组件
 import ShopMain from '../components/shop/ShopMain'
+// 客户组件
 import UserMain from '../components/user/UserMain'
 
 Vue.use(Router)
@@ -71,7 +72,6 @@ export default new Router({
           component: ShopMain,
           meta: {title: '商家详细'}
         },
-        // 用户中心路由
         {
           path: '/user/center',
           component: UserMain,

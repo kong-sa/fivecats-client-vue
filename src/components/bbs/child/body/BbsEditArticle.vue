@@ -143,13 +143,13 @@ export default {
           this.$message({
             message: '修改成功！',
             duration: 5000,
-            shopType: 'success'
+            type: 'success'
           })
         } else {
           this.$message({
             message: '你至少要输入20个字符的内容',
             duration: 5000,
-            shopType: 'error'
+            type: 'error'
           })
         }
       })

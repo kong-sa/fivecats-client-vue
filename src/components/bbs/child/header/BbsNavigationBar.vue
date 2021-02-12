@@ -208,7 +208,7 @@ export default {
           if (res.code === 200) {
             this.$message({
               message: '登陆成功！',
-              shopType: 'success',
+              type: 'success',
               duration: 2000
             })
             this.loginDialog = false
@@ -217,13 +217,13 @@ export default {
           } else if (res.code === 400) {
             this.$message({
               message: res.data,
-              shopType: 'error',
+              type: 'error',
               duration: 3000
             })
           } else {
             this.$message({
               message: res.data,
-              shopType: 'error',
+              type: 'error',
               duration: 3000
             })
           }
@@ -240,7 +240,7 @@ export default {
             this.$message({
               message: '注册成功！',
               duration: 2000,
-              shopType: 'success'
+              type: 'success'
             })
             this.signinDialog = false
             this.loginDialog = true
@@ -248,19 +248,19 @@ export default {
             this.$message({
               message: res.data,
               duration: 3000,
-              shopType: 'error'
+              type: 'error'
             })
           } else if (res.code === 401) {
             this.$message({
               message: res.data,
               duration: 3000,
-              shopType: 'error'
+              type: 'error'
             })
           } else {
             this.$message({
               message: res.data,
               duration: 3000,
-              shopType: 'error'
+              type: 'error'
             })
           }
         }

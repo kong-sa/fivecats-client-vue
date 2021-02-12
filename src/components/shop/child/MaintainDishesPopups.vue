@@ -91,19 +91,10 @@ export default {
     },
     handleDownload (file) {
     },
-    /**
-     * 该方法会保存编辑完成的菜品信息到数据库中
-     * @returns {Promise<void>}
-     */
     async saveDishes () {
       await this.$http.post('/setting/dishes', { merchantId: this.merchant.id, price: this.price, name: this.name })
       this.$message.success('菜品保存成功！')
     },
-    /**
-     * 检测商家上传的图片类型以及图片大小是否满足要求
-     * @param file 要上传oss服务器中的图片信息
-     * @returns {boolean|boolean} 若满足规则，则返回true，否则返回false
-     */
     checkPicture (file) {
       // 图片的类型只能是jpeg或者png或者jpg
       const imageType = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg'

@@ -52,7 +52,7 @@ export default {
             this.$message({
               message: '注册成功，3秒后跳转登陆页面。',
               duration: 3000,
-              shopType: 'success'
+              type: 'success'
             })
             // 5s后跳转登陆页面
             setInterval(async () => {
@@ -62,19 +62,19 @@ export default {
             this.$message({
               message: res.data,
               duration: 3000,
-              shopType: 'error'
+              type: 'error'
             })
           } else if (res.code === 401) {
             this.$message({
               message: res.data,
               duration: 3000,
-              shopType: 'error'
+              type: 'error'
             })
           } else {
             this.$message({
               message: res.data,
               duration: 3000,
-              shopType: 'error'
+              type: 'error'
             })
           }
         }

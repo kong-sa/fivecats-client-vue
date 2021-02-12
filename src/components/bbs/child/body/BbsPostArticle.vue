@@ -144,33 +144,27 @@ export default {
           break
       }
     },
-    // 发表帖子
     deliver () {
-      // 验证表单数据是否错误
       this.$refs.formData.validate((valida) => {
         if (!valida) return false
-        // 判断帖子内容是否大于20个字符
         if (this.content.length >= 20) {
-          // 发起异步请求，存储文章
           this.$http.post('/bbs/setting/article', {
             title: this.formData.title,
             tag: this.optionValue,
             content: this.content,
-            userId: this.$store.state.var1.data.id
+            userId: this.$store.state.user.data.id
           })
-          // 决定哪一种类型
           this.determineReword(this.optionValue)
-          // 根据帖子类型弹出提示
           this.$message({
             message: '金币 +' + this.rewordType.gold + '，经验 +' + this.rewordType.experience,
             duration: 5000,
-            shopType: 'success'
+            type: 'success'
           })
         } else {
           this.$message({
             message: '你至少要输入20个字符的内容',
             duration: 5000,
-            shopType: 'error'
+            type: 'error'
           })
         }
       })

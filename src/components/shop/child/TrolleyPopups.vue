@@ -119,7 +119,7 @@ export default {
       // 删除vuex保存的值
       this.$store.state.selectedDishes.splice(index, 1)
       this.$message({
-        shopType: 'success',
+        type: 'success',
         duration: 2500,
         message: '从购物车中删除成功！'
       })

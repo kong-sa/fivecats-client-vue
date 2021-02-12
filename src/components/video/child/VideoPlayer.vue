@@ -124,7 +124,7 @@ export default {
 
     if (video.code === 400) {
       this.$message({
-        shopType: 'error',
+        type: 'error',
         message: video.data + '3s后跳转视频首页',
         duration: 3000
       })
@@ -133,7 +133,7 @@ export default {
       }, 3000)
     } else if (comm.code === 400) {
       this.$message({
-        shopType: 'error',
+        type: 'error',
         message: comm.data + '，将不会显示评论',
         duration: 3000
       })

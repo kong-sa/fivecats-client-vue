@@ -43,20 +43,20 @@ export default {
           if (res.code === 200) {
             this.$message({
               message: '登陆成功！',
-              shopType: 'success',
+              type: 'success',
               duration: 2000
             })
             this.$store.commit('setUser', res.data)
           } else if (res.code === 400) {
             this.$message({
               message: res.data,
-              shopType: 'error',
+              type: 'error',
               duration: 4500
             })
           } else {
             this.$message({
               message: res.data,
-              shopType: 'error',
+              type: 'error',
               duration: 5000
             })
           }
