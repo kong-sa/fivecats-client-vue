@@ -9,7 +9,16 @@ import UserCenter from './child/UserCenter'
 
 export default {
   name: 'UserMain',
-  components: {UserCenter}
+  components: {UserCenter},
+  created () {
+    if (this.$store.state.user.id === 0) {
+      this.$notify({
+        title: '用户未登录提示',
+        message: '你还没有登录，无法获取数据，请先登录。http://fivecats.norza.cn/login',
+        duration: 10000
+      })
+    }
+  }
 }
 </script>
 

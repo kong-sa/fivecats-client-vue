@@ -44,7 +44,7 @@
         <el-col :xs="8" :sm="4" :md="4" :lg="3">到店时间：</el-col>
         <el-col :xs="15" :sm="10" :md="8" :lg="8">
           <el-time-picker
-            class="trolley-date-picker" is-range size="mini" v-model="order.arrivalTime" range-separator="-"
+            class="trolley-date-picker" is-range size="mini" v-model="arrivalTime" range-separator="-"
             start-placeholder="开始时间" end-placeholder="结束时间">
           </el-time-picker>
         </el-col>
@@ -128,9 +128,12 @@ export default {
     },
     async confirmPayment () {
       if (this.order.appointDate === '' || this.order.phone === '' ||
-        this.order.name === '' || this.order.arrivalTime === '' || this.order.table === '') {
+        this.order.name === '' || this.arrivalTime === '' || this.order.table === '') {
         this.$message.error('信息不齐全，无法支付！')
       } else {
+        let start = this.arrivalTime[0].getHours() + ':' + this.arrivalTime[0].getMinutes()
+        let end = this.arrivalTime[1].getHours() + ':' + this.arrivalTime[1].getMinutes()
+        this.order.arrivalTime = start + '-' + end
         await this.$http.post('/shop/setting/order', this.order)
         this.$message.success('支付成功！')
       }
@@ -298,12 +301,13 @@ export default {
         name: '',
         num: 1,
         totalPrice: 0,
-        arrivalTime: [
-          new Date(2021, 2, 9, 0, 0),
-          new Date(2021, 2, 9, 1, 0)
-        ],
-        table: []
-      }
+        table: [],
+        arrivalTime: ''
+      },
+      arrivalTime: [
+        new Date(2021, 2, 9, 0, 0),
+        new Date(2021, 2, 9, 1, 0)
+      ]
     }
   }
 }

@@ -154,7 +154,7 @@ export default {
     },
     showTrolley () {
       this.dialogVisible = true
-    }
+    },
   },
   async created () {
     this.shopId = this.$route.params.shopId

@@ -16,7 +16,16 @@ import BbsNavigationBar from './child/header/BbsNavigationBar'
 
 export default {
   name: 'BBSMain',
-  components: {BbsPartition, BbsNavigationBar}
+  components: {BbsPartition, BbsNavigationBar},
+  created () {
+    if (this.$store.state.user.id === 0) {
+      this.$notify({
+        title: '社区未登录提示',
+        message: '你还没有登录，这将影响你的用户体验，请先登录。',
+        duration: 10000
+      })
+    }
+  }
 }
 </script>
 

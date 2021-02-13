@@ -41,7 +41,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/login',
+      redirect: '/maintain',
       component: FivecatsIndex,
       meta: {title: '五只馋猫'},
       children: [
@@ -86,7 +86,7 @@ export default new Router({
           meta: {title: '商家详细'}
         },
         {
-          path: '/shop/maintain/',
+          path: '/maintain',
           component: ShopMaintainMain,
           meta: {title: '店铺维护中心'}
         },
