@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import BbsNavigationBar from '../header/BbsNavigationBar'
+import BbsNavigationBar from './BbsNavigationBar'
 
 export default {
   name: 'BbsArticleContent',

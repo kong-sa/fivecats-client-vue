@@ -41,8 +41,8 @@ Vue.prototype.$confirm = MessageBox.confirm
 // axios
 Vue.prototype.$http = axios
 // axios base url
-// axios.defaults.baseURL = 'http://120.77.245.208:8001/'
-axios.defaults.baseURL = 'http://localhost:8001'
+axios.defaults.baseURL = 'http://120.77.245.208:8001/'
+// axios.defaults.baseURL = 'http://localhost:8001'
 // axios interceptors
 axios.interceptors.request.use(config => {
   NProgress.start()

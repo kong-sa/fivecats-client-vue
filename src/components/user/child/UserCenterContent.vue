@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import BbsBasicInfo from '../../bbs/child/body/child/selfcenter/BbsBasicInfo'
+import BbsBasicInfo from '../../bbs/child/part/selfcenter/BbsBasicInfo'
 
 export default {
   name: 'UserCenterContent',

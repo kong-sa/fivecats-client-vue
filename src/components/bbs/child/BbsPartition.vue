@@ -26,12 +26,12 @@
 </template>
 
 <script>
-import BbsRevolvingLantern from './child/partition/BbsRevolvingLantern'
-import BbsPosting from './child/partition/BbsPosting'
-import BbsPopularFoodmakingArticle from './child/partition/BbsPopularFoodmakingArticle'
-import BbsPopularCountrysideFood from './child/partition/BbsPopularCountrysideFood'
-import BbsOfficialAnnouncement from './child/partition/BbsOfficialAnnouncement'
-import BbsContent from './child/partition/BbsContent'
+import BbsRevolvingLantern from './part/partition/BbsRevolvingLantern'
+import BbsPosting from './part/partition/BbsPosting'
+import BbsPopularFoodmakingArticle from './part/partition/BbsPopularFoodmakingArticle'
+import BbsPopularCountrysideFood from './part/partition/BbsPopularCountrysideFood'
+import BbsOfficialAnnouncement from './part/partition/BbsOfficialAnnouncement'
+import BbsContent from './part/partition/BbsContent'
 
 export default {
   name: 'BbsPartition',

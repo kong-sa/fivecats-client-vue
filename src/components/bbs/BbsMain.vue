@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import BbsPartition from './child/body/BbsPartition'
-import BbsNavigationBar from './child/header/BbsNavigationBar'
+import BbsPartition from './child/BbsPartition'
+import BbsNavigationBar from './child/BbsNavigationBar'
 
 export default {
   name: 'BBSMain',
