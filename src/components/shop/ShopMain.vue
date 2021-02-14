@@ -84,9 +84,6 @@
       <a class="link bar-item" @click="shopType = 'all'">
         <div>菜品</div>
       </a>
-      <a class="link bar-item" @click="shopType = 'comment'">
-        <div>评价</div>
-      </a>
     </div>
     <el-row>
       <shop-dishes-list v-bind:shopId="shopId" v-bind:shop-type="shopType"/>
@@ -101,6 +98,38 @@
           size="mini"
           type="danger"
           @click="dialogVisible = false">
+          关 闭
+        </el-button>
+      </span>
+    </el-dialog>
+    <el-dialog
+      title="联系商家"
+      :visible.sync="communicateVisible"
+      width="30%">
+      <div class="communication">
+        <el-row :gutter="20" class="shop">
+          <el-col :span="4">
+            <el-image class="image-box" :src="shop.cover">
+            </el-image>
+          </el-col>
+          <el-col class="message-box" :span="18">
+            您好，请问有什么可以帮到你的吗？
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="19">
+            <el-input size="mini" v-model="message"></el-input>
+          </el-col>
+          <el-col :span="2">
+            <el-button class="button" size="mini" @click="error()">发送</el-button>
+          </el-col>
+        </el-row>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          size="mini"
+          type="danger"
+          @click="communicateVisible = false">
           关 闭
         </el-button>
       </span>
@@ -145,15 +174,17 @@ export default {
       }
     },
     communicate () {
-      this.shareVisible = true
-      this.shareItem = {
-        coverUrl: this.shop.cover,
-        title: this.shop.name,
-        type: 'complaint'
-      }
+      this.communicateVisible = true
     },
     showTrolley () {
       this.dialogVisible = true
+    },
+    error () {
+      this.$notify({
+        title: '功能提示',
+        message: '发送消息功能还未完成，无法与商家联系，您可以拨打电话联系商家。',
+        duration: 5000
+      })
     }
   },
   async created () {
@@ -163,7 +194,9 @@ export default {
   },
   data () {
     return {
+      message: '',
       shopType: '',
+      communicateVisible: false,
       shareVisible: false,
       dialogVisible: false,
       shareItem: {
@@ -306,5 +339,20 @@ export default {
   transition: 0.5s;
   color: #0c0d0d;
   background: #ffc107;
+}
+
+.image-box {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.shop {
+  margin-bottom: 20px;
+}
+
+.message-box {
+  box-shadow: 2px 2px 1px #999999;
+  border-radius: 6px;
 }
 </style>

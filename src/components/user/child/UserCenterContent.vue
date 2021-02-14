@@ -19,7 +19,7 @@
             <el-form :rules="rules" :model="formData" ref="formData">
               <el-form-item prop="location">
                 <el-input size="mini" style="width: 150px" v-model="formData.location"></el-input>
-                <el-button @click="save" size="mini" style="background: #0c0d0d; color: #ffc107">保存</el-button>
+                <el-button @click="save" size="mini" style="background: #0c0d0d; color: white">保存</el-button>
                 <el-button @click="updateLocation.locationSwitch = false" size="mini" type="danger">取消</el-button>
               </el-form-item>
             </el-form>

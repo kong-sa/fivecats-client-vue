@@ -290,7 +290,15 @@ export default {
 }
 
 .btn {
+  transition: 0.5s;
+  background: #0c0d0d;
+  color: white;
+}
+
+.btn:hover {
   background: #ffc107;
+  color: #0c0d0d;
+  transition: 0.5s;
 }
 
 .message {

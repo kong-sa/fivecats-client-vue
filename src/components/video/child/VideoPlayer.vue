@@ -2,7 +2,7 @@
   <div class="video-details">
     <div class="video">
       <div class="video-title">
-        <el-tag>{{ video.tag }}</el-tag>
+        <el-tag style="background: #ffc107; color: #0c0d0d">{{ video.tag }}</el-tag>
         {{ video.title }}
         <div id="abb-info">
           <span id="play-volume">
@@ -251,8 +251,16 @@ export default {
   transform: scaleX(1.015);
 }
 
+.publish-btn:hover {
+  transition: 0.3s;
+  background: #ffc107;
+  color: #0c0d0d;
+}
+
 .publish-btn {
-  background-color: rgb(140, 197, 255);
+  transition: 0.3s;
+  background: #0c0d0d;
+  color: white;
 }
 
 /* 当屏幕宽度小于768px时 */

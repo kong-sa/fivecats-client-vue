@@ -47,8 +47,8 @@
         <el-input size="mini" v-model="modifyObj.discount"></el-input>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button size="mini" @click="dialogVisible = false">取 消</el-button>
-        <el-button size="mini" type="primary" @click="modify">确 定</el-button>
+        <el-button size="mini" class="btn" @click="dialogVisible = false">取 消</el-button>
+        <el-button size="mini" class="btn" type="primary" @click="modify">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -120,5 +120,15 @@ export default {
 </script>
 
 <style scoped>
+.btn {
+  transition: 0.5s;
+  background: #0c0d0d;
+  color: white;
+}
 
+.btn:hover {
+  transition: 0.5s;
+  background: #ffc107;
+  color: #0c0d0d;
+}
 </style>

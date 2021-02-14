@@ -168,7 +168,7 @@ export default {
   async created () {
     let {data: res} = await this.$http.post('/shop/getting/dishes/by', {
       type: 'all',
-      shopId: 1
+      shopId: this.$store.state.shop.id
     })
     this.tableData = res
   }
@@ -178,5 +178,17 @@ export default {
 <style scoped>
 .dishes-row {
   margin-bottom: 20px;
+}
+
+.btn {
+  transition: 0.5s;
+  background: #0c0d0d;
+  color: white;
+}
+
+.btn:hover {
+  transition: 0.5s;
+  background: #ffc107;
+  color: #0c0d0d;
 }
 </style>
