@@ -50,11 +50,8 @@
 </template>
 
 <script>
-import BbsNavigationBar from './BbsNavigation'
-
 export default {
   name: 'PostBbsArticle',
-  components: {BbsNavigationBar},
   data () {
     return {
       formData: {

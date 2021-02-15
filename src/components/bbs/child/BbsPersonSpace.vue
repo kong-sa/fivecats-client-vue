@@ -53,7 +53,7 @@
                   <span style="margin-right: 10px">
                     <i class="el-icon--left el-icon-third-dianzan"></i>{{ item.like }}
                   </span>
-                  <a class="look-article" @click="lookDetail(item.id)">
+                  <a class="look-article" @click="watchDetails(item.id)">
                     <span>查看帖子</span>
                   </a>
                   <a class="edit-article" @click="edit(item.id)">
@@ -84,7 +84,7 @@ export default {
     edit (articleId) {
       this.$router.push('/bbs/edit/article/' + articleId)
     },
-    lookDetail (articleId) {
+    watchDetails (articleId) {
       this.$router.push('/bbs/article/details/' + articleId)
     }
   },

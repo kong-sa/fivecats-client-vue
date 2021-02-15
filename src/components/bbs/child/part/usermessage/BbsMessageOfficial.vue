@@ -1,7 +1,6 @@
 <template>
   <div class="message-official">
     <el-row class="title">系统通知</el-row>
-    <el-divider/>
     <el-row class="message" v-for="item in res" :key="item.id">
       <el-row>
         <el-col :span="2" class="avatar">
@@ -82,6 +81,7 @@ export default {
 .title {
   font-size: 20px;
   font-weight: 600;
+  margin-bottom: 20px;
 }
 
 .like-date {

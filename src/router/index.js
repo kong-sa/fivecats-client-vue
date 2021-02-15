@@ -153,8 +153,8 @@ export default new Router({
         },
         {
           path: '/bbs/message/',
-          component: BbsUserMessage,
           redirect: '/bbs/message/replay/',
+          component: BbsUserMessage,
           meta: {title: '我的消息'},
           children: [
             {

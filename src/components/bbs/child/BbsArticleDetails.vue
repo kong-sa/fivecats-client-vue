@@ -110,11 +110,8 @@
 </template>
 
 <script>
-import BbsNavigationBar from './BbsNavigation'
-
 export default {
   name: 'BbsArticleContent',
-  components: {BbsNavigationBar},
   async created () {
     this.articleId = this.$route.params.articleId
     let {data: res1} = await this.$http.get('/bbs/getting/article/by?articleId=' + this.articleId)

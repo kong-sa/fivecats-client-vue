@@ -40,8 +40,7 @@ export default new Vuex.Store({
       type: '',
       userId: 0,
       username: ''
-    },
-    bbsType: 'index'
+    }
   },
   mutations: {
     setUser (state, user) {
@@ -52,9 +51,6 @@ export default new Vuex.Store({
     },
     setDishes (state, dishes) {
       state.selectedDishes.push(dishes)
-    },
-    setBbsType (state, bbsType) {
-      state.bbsType = bbsType
     }
   },
   actions: {}
