@@ -54,18 +54,6 @@ export default {
               duration: 3000,
               type: 'success'
             })
-          } else if (res.code === 400) {
-            this.$message({
-              message: res.data,
-              duration: 3000,
-              type: 'error'
-            })
-          } else if (res.code === 401) {
-            this.$message({
-              message: res.data,
-              duration: 3000,
-              type: 'error'
-            })
           } else {
             this.$message({
               message: res.data,

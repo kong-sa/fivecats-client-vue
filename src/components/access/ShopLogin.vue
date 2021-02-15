@@ -48,12 +48,6 @@ export default {
               duration: 2000
             })
             this.$store.commit('setShop', res.data)
-          } else if (res.code === 400) {
-            this.$message({
-              message: res.data,
-              type: 'error',
-              duration: 4500
-            })
           } else {
             this.$message({
               message: res.data,

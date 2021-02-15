@@ -224,6 +224,7 @@ export default {
         let start = this.arrivalTime[0].getHours() + ':' + this.arrivalTime[0].getMinutes()
         let end = this.arrivalTime[1].getHours() + ':' + this.arrivalTime[1].getMinutes()
         this.order.arrivalTime = start + '-' + end
+        this.order.totalPrice = this.discountPrice
         await this.$http.post('/shop/setting/order', this.order)
         this.$message.success('支付成功！')
       }

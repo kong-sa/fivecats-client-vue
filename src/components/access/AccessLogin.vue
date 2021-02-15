@@ -45,20 +45,14 @@ export default {
             this.$message({
               message: '登陆成功！',
               type: 'success',
-              duration: 2000
+              duration: 3000
             })
             this.$store.commit('setUser', res.data)
-          } else if (res.code === 400) {
-            this.$message({
-              message: res.data,
-              type: 'error',
-              duration: 4500
-            })
           } else {
             this.$message({
               message: res.data,
               type: 'error',
-              duration: 5000
+              duration: 3000
             })
           }
         }
