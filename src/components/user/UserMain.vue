@@ -14,7 +14,7 @@ export default {
     if (this.$store.state.user.id === 0) {
       this.$notify({
         title: '用户未登录提示',
-        message: '你还没有登录，无法获取数据，请先登录。http://fivecats.norza.cn/login',
+        message: '你还没有登录，无法获取数据，请先登录。',
         duration: 10000
       })
     }

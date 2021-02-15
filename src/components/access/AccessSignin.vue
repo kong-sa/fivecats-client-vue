@@ -1,5 +1,5 @@
 <template>
-  <div class="shop-signin">
+  <div class="signin">
     <el-form
       ref="signin"
       class="signin-form"
@@ -17,7 +17,7 @@
       <el-form-item prop="email">
         <span class="label">邮箱</span>
         <el-input
-          class="email"
+          class="username"
           size="mini"
           v-model="formData.email"
           type="text"/>
@@ -113,7 +113,7 @@ export default {
   text-align: center;
 }
 
-.shop-signin {
+.signin {
   margin: 5% 35% 0 35%;
   padding: 0 5%;
   box-shadow: 5px 5px 10px #ccc;

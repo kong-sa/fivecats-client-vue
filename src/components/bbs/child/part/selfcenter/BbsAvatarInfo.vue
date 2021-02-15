@@ -72,7 +72,6 @@ export default {
     },
     handleDownload (file) {
     },
-    // 点击按钮上传头像
     submit () {
       this.$refs.upload.submit()
     },
@@ -83,7 +82,6 @@ export default {
       formData.append('userId', this.$store.state.user.id)
       this.$http.post('/bbs/upload/avatar', formData)
     },
-    // 检查头像的格式
     checkImageFormat (file) {
       const limitImageFormat = file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png'
       const limitImageSize = file.size / 1024 / 1024 < 2

@@ -57,18 +57,15 @@ export default {
           this.index = value.index
         }
       })
-    },
-    sysMsg () {
-      this.$notify({
-        title: '商家未登录提示',
-        message: '你没有登录，无法查询数据，http://fivecats.norza.cn/#/shop/login',
-        duration: 10000
-      })
     }
   },
   created () {
     if (this.$store.state.shop.id === 0) {
-      this.sysMsg()
+      this.$notify({
+        title: '商家未登录提示',
+        message: '你没有登录，无法查询数据。',
+        duration: 10000
+      })
     }
   }
 }

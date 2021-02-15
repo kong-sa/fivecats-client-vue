@@ -1,5 +1,5 @@
 <template>
-  <el-card class="navigation">
+  <el-card class="bbs-navigation">
     <el-row>
       <el-col :span="16" class="bbs-title">
         <a @click="goIndex">馋猫社区</a>
@@ -50,20 +50,19 @@
           </el-col>
           <el-col class="item" :span="8">
             <a @click="goReplay">
-              <el-badge :value="0" :max="99" class="message"><i class="el-icon--left el-icon-chat-round"></i>回复我的
-              </el-badge>
+              <i class="el-icon--left el-icon-chat-round"></i>回复我的
             </a>
           </el-col>
           <el-col class="item" :span="8">
             <a @click="goLike">
-              <el-badge :value="0" :max="99" class="message"><i class="el-icon--left el-icon-thumb"></i>获得的赞</el-badge>
+              <i class="el-icon--left el-icon-thumb"></i>获得的赞
             </a>
           </el-col>
         </el-row>
       </el-col>
       <el-col class="navigation-right" :span="8" v-else>
         <el-row>
-          <el-col :span="8" class="item shop-login"><i class="el-icon--left el-icon-third-denglu"></i><a
+          <el-col :span="8" class="item login"><i class="el-icon--left el-icon-third-denglu"></i><a
             @click="loginDialog = true">登陆</a></el-col>
           <el-col :span="1" class="item">|</el-col>
           <el-col :span="8" class="item shop-signin"><i class="el-icon--left el-icon-third-zhuce"></i><a
@@ -126,7 +125,7 @@
 
 <script>
 export default {
-  name: 'NavigationBar',
+  name: 'BbsNavigation',
   data () {
     return {
       loginDialog: false,
@@ -209,17 +208,11 @@ export default {
             this.$message({
               message: '登陆成功！',
               type: 'success',
-              duration: 2000
+              duration: 3000
             })
             this.loginDialog = false
             this.$store.commit('setUser', res.data)
             this.user = res.data
-          } else if (res.code === 400) {
-            this.$message({
-              message: res.data,
-              type: 'error',
-              duration: 3000
-            })
           } else {
             this.$message({
               message: res.data,
@@ -239,23 +232,11 @@ export default {
           if (res.code === 200) {
             this.$message({
               message: '注册成功！',
-              duration: 2000,
+              duration: 3000,
               type: 'success'
             })
             this.signinDialog = false
             this.loginDialog = true
-          } else if (res.code === 400) {
-            this.$message({
-              message: res.data,
-              duration: 3000,
-              type: 'error'
-            })
-          } else if (res.code === 401) {
-            this.$message({
-              message: res.data,
-              duration: 3000,
-              type: 'error'
-            })
           } else {
             this.$message({
               message: res.data,
@@ -327,7 +308,7 @@ export default {
   padding: 5% 0;
 }
 
-.navigation {
+.bbs-navigation {
   height: 65px;
   color: white;
   padding: 0 10%;
@@ -355,14 +336,7 @@ a:active {
   text-decoration: none;
 }
 
-.special-area {
-  cursor: pointer;
-  line-height: 65px;
-  text-align: center;
-  font-size: 18px;
-}
-
-.shop-login {
+.login {
   text-align: right;
 }
 

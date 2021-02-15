@@ -1,7 +1,7 @@
 <template>
   <el-container class="bbs-container">
     <el-header class="bbs-header">
-      <bbs-navigation-bar/>
+      <bbs-navigation/>
     </el-header>
     <el-main class="bbs-main">
       <router-view/>
@@ -12,11 +12,11 @@
 
 <script>
 import BbsPartition from './child/BbsPartition'
-import BbsNavigationBar from './child/BbsNavigationBar'
+import BbsNavigation from './child/BbsNavigation'
 
 export default {
   name: 'BBSMain',
-  components: {BbsPartition, BbsNavigationBar},
+  components: {BbsPartition, BbsNavigation},
   created () {
     if (this.$store.state.user.id === 0) {
       this.$notify({

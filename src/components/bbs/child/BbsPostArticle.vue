@@ -4,7 +4,6 @@
       <el-form :rules="rules" :model="formData" ref="formData">
         <el-row class="main-card__header">发布帖子</el-row>
         <el-divider/>
-        <!--帖子的标题-->
         <el-row style="margin-top: 20px">
           <el-col class="label" :span="3">帖子标题：</el-col>
           <el-col :span="20">
@@ -19,7 +18,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--帖子的类型-->
         <el-row class="input-area">
           <el-col class="label" :span="3">帖子类型：</el-col>
           <el-col :span="20">
@@ -33,7 +31,6 @@
             </el-select>
           </el-col>
         </el-row>
-        <!--帖子的内容-->
         <el-row class="input-area">
           <el-col class="label" :span="3">帖子内容：</el-col>
           <el-col :span="20">
@@ -42,7 +39,6 @@
               :setting="setting"/>
           </el-col>
         </el-row>
-        <!--发表帖子按钮-->
         <el-row class="main-card__footer">
           <el-button @click="deliver" class="deliver-button">
             <i class="el-icon--left el-icon-check"></i>发布
@@ -54,21 +50,17 @@
 </template>
 
 <script>
-import BbsNavigationBar from './BbsNavigationBar'
+import BbsNavigationBar from './BbsNavigation'
 
 export default {
   name: 'PostBbsArticle',
   components: {BbsNavigationBar},
   data () {
     return {
-      // 表单绑定的数据
       formData: {
-        // 帖子标题
         title: ''
       },
-      // 帖子内容
       content: '',
-      // 富文本参数设置
       setting: {
         menubar: false,
         toolbar: 'undo redo | fullscreen | formatselect alignleft aligncenter alignright alignjustify | link unlink | numlist bullist | image media table | fontselect fontsizeselect forecolor backcolor | bold italic underline strikethrough | indent outdent | superscript subscript | removeformat |',
@@ -78,10 +70,8 @@ export default {
         language: 'zh_CN',
         height: 350
       },
-      // 下拉框默认值
       optionValue: '请选择帖子类型',
       disabled: false,
-      // 下拉框选项值
       options: [
         {
           value: '节约粮食打卡',
@@ -104,14 +94,12 @@ export default {
           label: '其他'
         }
       ],
-      // 表单验证规则
       rules: {
         title: [
           {required: true, message: '请输入帖子标题', trigger: 'blur'},
           {min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur'}
         ]
       },
-      // 发表奖励
       rewordType: {
         gold: 0,
         experience: 0
@@ -119,7 +107,6 @@ export default {
     }
   },
   methods: {
-    // 判断属于哪一种文章，并给予对应的奖励
     determineReword (value) {
       switch (value) {
         case '节约粮食打卡':

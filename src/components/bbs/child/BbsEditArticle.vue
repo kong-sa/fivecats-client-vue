@@ -4,7 +4,6 @@
       <el-form :rules="rules" :model="formData" ref="formData">
         <el-row class="main-card__header">发布帖子</el-row>
         <el-divider/>
-        <!--帖子的标题-->
         <el-row style="margin-top: 20px">
           <el-col class="label" :span="3">帖子标题：</el-col>
           <el-col :span="20">
@@ -19,7 +18,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!--帖子的类型-->
         <el-row class="input-area">
           <el-col class="label" :span="3">帖子类型：</el-col>
           <el-col :span="20">
@@ -33,7 +31,6 @@
             </el-select>
           </el-col>
         </el-row>
-        <!--帖子的内容-->
         <el-row class="input-area">
           <el-col class="label" :span="3">帖子内容：</el-col>
           <el-col :span="20">
@@ -42,10 +39,9 @@
               :setting="setting"/>
           </el-col>
         </el-row>
-        <!--发表帖子按钮-->
         <el-row class="main-card__footer">
-          <el-button @click="saveAnddeliver" class="deliver-button">
-            <i class="el-icon--left el-icon-check"></i>保存发布
+          <el-button @click="saveAndDeliver" class="deliver-button">
+            <i class="el-icon--left el-icon-check"></i>确认修改
           </el-button>
         </el-row>
       </el-form>
@@ -58,14 +54,10 @@ export default {
   name: 'BbsEditArticle',
   data () {
     return {
-      // 表单绑定的数据
       formData: {
-        // 帖子标题
         title: ''
       },
-      // 帖子内容
       content: '',
-      // 富文本参数设置
       setting: {
         menubar: false,
         toolbar: 'undo redo | fullscreen | formatselect alignleft aligncenter alignright alignjustify | link unlink | numlist bullist | image media table | fontselect fontsizeselect forecolor backcolor | bold italic underline strikethrough | indent outdent | superscript subscript | removeformat |',
@@ -75,10 +67,8 @@ export default {
         language: 'zh_CN',
         height: 350
       },
-      // 下拉框默认值
       optionValue: '请选择帖子类型',
       disabled: false,
-      // 下拉框选项值
       options: [
         {
           value: '节约粮食打卡',
@@ -101,7 +91,6 @@ export default {
           label: '其他'
         }
       ],
-      // 表单验证规则
       rules: {
         title: [
           {required: true, message: '请输入帖子标题', trigger: 'blur'},
@@ -119,36 +108,26 @@ export default {
     this.optionValue = res.tag
   },
   methods: {
-    // 发表帖子
-    saveAnddeliver () {
-      // 验证表单数据是否错误
+    saveAndDeliver () {
       this.$refs.formData.validate((valida) => {
         if (!valida) return false
-        // 判断帖子内容是否大于20个字符
         if (this.content.length >= 20) {
-          // 发起异步请求，存储文章
           this.$http.post('/bbs/updating/article', {
-            // 帖子标题
             title: this.formData.title,
-            // 帖子标签
             tag: this.optionValue,
-            // 帖子内容
             content: this.content,
-            // 用户ID
             userId: this.$store.state.user.id,
-            // 帖子ID
             id: this.articleId
           })
-          // 根据帖子类型弹出提示
           this.$message({
             message: '修改成功！',
-            duration: 5000,
+            duration: 3000,
             type: 'success'
           })
         } else {
           this.$message({
             message: '你至少要输入20个字符的内容',
-            duration: 5000,
+            duration: 3000,
             type: 'error'
           })
         }

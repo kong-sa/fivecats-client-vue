@@ -33,17 +33,14 @@ import 'tinymce/plugins/link'
 Vue.use(Element)
 Vue.use(VueTinymce)
 Vue.config.productionTip = false
-// tinymce
 Vue.prototype.$tinymce = tinymce
-// element-ui
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
-// axios
 Vue.prototype.$http = axios
-// axios base url
+
 // axios.defaults.baseURL = 'http://120.77.245.208:8001/'
 axios.defaults.baseURL = 'http://localhost:8001'
-// axios interceptors
+
 axios.interceptors.request.use(config => {
   NProgress.start()
   return config
@@ -52,7 +49,7 @@ axios.interceptors.response.use(config => {
   NProgress.done()
   return config
 })
-// router
+
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title

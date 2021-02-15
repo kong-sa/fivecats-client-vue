@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// 馋猫项目主组件
+// 项目主组件
 import FivecatsIndex from '../components/FivecatsIndex'
 // 馋猫社区组件
 import BbsMain from '../components/bbs/BbsMain'
@@ -19,21 +19,22 @@ import BbsMessageOfficial from '../components/bbs/child/part/usermessage/BbsMess
 import BbsUserMessageLike from '../components/bbs/child/part/usermessage/BbsUserMessageLike'
 import BbsUserMessageReplay from '../components/bbs/child/part/usermessage/BbsUserMessageReplay'
 import BbsArticleManagement from '../components/bbs/child/part/selfcenter/BbsArticleManagement'
-// 注册或登录组件
+// 注册和登录组件
 import AccessLogin from '../components/access/AccessLogin'
 import AccessSignin from '../components/access/AccessSignin'
-// 寻找美食组件
-import FindMain from '../components/find/FindMain'
-// 视频区页面组件
-import VideoMain from '../components/video/VideoMain'
-import VideoPlayer from '../components/video/child/VideoPlayer'
-// 商家组件
-import ShopMain from '../components/shop/ShopMain'
-// 客户组件
-import UserMain from '../components/user/UserMain'
-import ShopMaintainMain from '../components/shop/manager/ShopMaintainMain'
 import ShopLogin from '../components/access/ShopLogin'
 import ShopSignin from '../components/access/ShopSignin'
+// 寻找美食组件
+import FindMain from '../components/find/FindMain'
+// 视频组件
+import VideoMain from '../components/video/VideoMain'
+import VideoPlayer from '../components/video/child/VideoPlayer'
+// 商家信息组件
+import ShopMain from '../components/shop/ShopMain'
+// 客户中心组件
+import UserMain from '../components/user/UserMain'
+// 店铺维护组件
+import ShopMaintainMain from '../components/shop/manager/ShopMaintainMain'
 
 Vue.use(Router)
 
@@ -41,19 +42,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/maintain',
       component: FivecatsIndex,
       meta: {title: '五只馋猫'},
       children: [
         {
           path: '/login',
           component: AccessLogin,
-          meta: {title: '登陆'}
+          meta: {title: '普通用户登陆'}
         },
         {
           path: '/signin',
           component: AccessSignin,
-          meta: {title: '注册'}
+          meta: {title: '普通用户注册'}
         },
         {
           path: '/shop/login',
@@ -73,7 +73,7 @@ export default new Router({
         {
           path: '/video',
           component: VideoMain,
-          meta: {title: '视频区'}
+          meta: {title: '美食视频'}
         },
         {
           path: '/player/:videoId',
@@ -88,7 +88,7 @@ export default new Router({
         {
           path: '/maintain',
           component: ShopMaintainMain,
-          meta: {title: '店铺维护中心'}
+          meta: {title: '维护中心'}
         },
         {
           path: '/user/center',
@@ -97,7 +97,6 @@ export default new Router({
         }
       ]
     },
-    // 馋猫社区的路由
     {
       path: '/bbs',
       redirect: '/bbs/index',

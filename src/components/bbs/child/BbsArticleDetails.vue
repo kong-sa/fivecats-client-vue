@@ -2,7 +2,6 @@
   <div id="details">
     <el-card class="main_card__body">
       <el-row>
-        <!--标题-->
         <el-row class="main-card__title">
           <div class="title-info">
             <el-tag style="color: white; background: #ffc107">{{ res1.tag }}</el-tag>
@@ -17,7 +16,6 @@
             <a @click="edit(res1.id)" v-if="res1.userId === this.$store.state.user.id" style="cursor: pointer">编辑</a>
           </el-col>
         </el-row>
-        <!--用户信息-->
         <el-row class="user-info">
           <el-col :span="2">
             <el-avatar :size="50" v-bind:src="res1.user.avatar"></el-avatar>
@@ -25,23 +23,19 @@
           <el-col :span="3">{{ res1.user.username }}</el-col>
         </el-row>
         <el-divider></el-divider>
-        <!--帖子内容-->
         <el-row style="margin-bottom: 20px">
           <div v-html="res1.content" style="margin: 15px 0"></div>
         </el-row>
         <el-row class="modified-date">
           修改于 {{ res1.modifiedDate }}
         </el-row>
-        <!--点赞按钮-->
         <el-row style="text-align: center; margin: 40px">
           <i @click="like" class="el-icon--left el-icon-third-dianzan like-article-icon">
             {{ res1.like }}</i>
         </el-row>
       </el-row>
     </el-card>
-    <!--评论编辑-->
     <el-card style="padding: 20px; margin-top: 20px">
-      <!--文本域-->
       <el-form :model="formData" :rules="rules" ref="formData">
         <el-form-item prop="textareaValue">
           <el-row>
@@ -56,7 +50,6 @@
             </el-input>
           </el-row>
         </el-form-item>
-        <!--发送按钮-->
         <el-row style="float: right">
           <el-button
             @click="postComment"
@@ -65,32 +58,26 @@
         </el-row>
       </el-form>
     </el-card>
-    <!--评论区-->
     <el-card style="margin: 10px 0; padding: 0">
       <div v-for="item in res2" :key="item.id"
            style="border-top: #ebebeb solid 1px; padding: 20px">
         <el-row>
           <el-col :span="2">
-            <!--头像下拉框-->
             <el-dropdown>
-              <!--头像-->
               <el-avatar fit="fill" :src="item.user.avatar">
                 <div slot="error" class="image-slot">
                   <i class="el-icon-picture-outline"></i>
                 </div>
               </el-avatar>
-              <!--面板-->
               <el-dropdown-menu slot="dropdown">
                 <!--点击面板跳转个人空间-->
                 <a class="other-username" @click="lookUser(item.user.id)">
                   <el-dropdown-item>
-                    <!--头像-->
                     <el-avatar fit="fill" :src="item.user.avatar">
                       <div slot="error" class="image-slot">
                         <i class="el-icon-picture-outline"></i>
                       </div>
                     </el-avatar>
-                    <!--信息-->
                     <div>用户名：{{ item.user.username }}</div>
                     <div>粉丝数：{{ item.user.fans }}</div>
                     <div>个人简介：{{ item.user.profile }}</div>
@@ -111,11 +98,9 @@
         </el-row>
         <el-row class="comm-row comment-info">
           <el-col :offset="2">
-            <!--点赞-->
             <span>
               <i class="el-icon--left el-icon-third-dianzan"></i>{{ item.like }}
             </span>
-            <!--评论的发表日期-->
             <span class="comm-time">{{ item.date }}</span>
           </el-col>
         </el-row>
@@ -125,7 +110,7 @@
 </template>
 
 <script>
-import BbsNavigationBar from './BbsNavigationBar'
+import BbsNavigationBar from './BbsNavigation'
 
 export default {
   name: 'BbsArticleContent',
