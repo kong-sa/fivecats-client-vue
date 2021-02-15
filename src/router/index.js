@@ -34,7 +34,7 @@ import ShopMain from '../components/shop/ShopMain'
 // 客户中心组件
 import UserMain from '../components/user/UserMain'
 // 店铺维护组件
-import ShopMaintainMain from '../components/shop/manager/ShopMaintainMain'
+import ShopMaintain from '../components/shop/manager/ShopMaintain'
 
 Vue.use(Router)
 
@@ -87,7 +87,7 @@ export default new Router({
         },
         {
           path: '/maintain',
-          component: ShopMaintainMain,
+          component: ShopMaintain,
           meta: {title: '维护中心'}
         },
         {

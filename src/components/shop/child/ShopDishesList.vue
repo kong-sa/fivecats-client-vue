@@ -1,17 +1,23 @@
 <template>
   <div class="differ-area">
     <el-row :gutter="20">
-      <el-col class="dishes-container" v-for="(item, index) in dishes" :key="item.id" :span="6">
+      <el-col class="dishes-container"
+              v-for="(item, index) in dishes"
+              :key="item.id"
+              :span="6">
         <div class="dishes">
           <div class="dishes-body">
             <div class="dishes-image">
-              <el-image :src="item.cover">
-              </el-image>
+              <el-image :src="item.cover"></el-image>
             </div>
             <div class="dishes-desc">
               <h5 class="dishes-title">{{ item.name }}</h5>
               <div class="dishes-info">
-                <el-rate v-model="item.star" disabled show-score text-color="#ff9900"></el-rate>
+                <el-rate v-model="item.star"
+                         disabled
+                         show-score
+                         text-color="#ff9900">
+                </el-rate>
               </div>
             </div>
             <div class="dishes-operate">
@@ -44,12 +50,18 @@ export default {
   },
   watch: {
     shopType: async function (newVal, oldVal) {
-      let {data: dishes} = await this.$http.post('/shop/getting/dishes/by', {shopId: this.shopId, type: newVal})
+      let {data: dishes} = await this.$http.post('/shop/getting/dishes/by', {
+        shopId: this.shopId,
+        type: newVal
+      })
       this.dishes = dishes
     }
   },
   async created () {
-    let {data: dishes} = await this.$http.post('/shop/getting/dishes/by', {shopId: this.shopId, type: 'all'})
+    let {data: dishes} = await this.$http.post('/shop/getting/dishes/by', {
+      shopId: this.shopId,
+      type: 'all'
+    })
     this.dishes = dishes
   },
   data () {

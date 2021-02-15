@@ -1,28 +1,57 @@
 <template>
-  <div class="shop-maintain">
+  <div class="maintain">
     <el-row class="maintain-top-menu">
-      <el-menu
-        :default-active="menuItem[0].index"
-        mode="horizontal"
-        @select="handleSelect"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b">
-        <el-menu-item v-for="(item, index) in menuItem" :key="index" :index="item.index">{{ item.title }}</el-menu-item>
+      <el-menu :default-active="menuItem[0].index"
+               mode="horizontal"
+               @select="handleSelect"
+               background-color="#545c64"
+               text-color="#fff"
+               active-text-color="#ffd04b">
+        <el-menu-item v-for="(item, index) in menuItem"
+                      :key="index"
+                      :index="item.index">
+          {{ item.title }}
+        </el-menu-item>
       </el-menu>
     </el-row>
     <el-row class="maintain-body">
-      <maintain-body v-bind:index="index"/>
+      <el-card style="padding: 2% 0">
+        <div v-if="index === '1'">
+          <basic-info/>
+        </div>
+        <div v-if="index === '2'">
+          <discount/>
+        </div>
+        <div v-if="index === '3'">
+          <income/>
+        </div>
+        <div v-if="index === '4'">
+          <order/>
+        </div>
+        <div v-if="index === '5'">
+          <dishes/>
+        </div>
+      </el-card>
     </el-row>
   </div>
 </template>
 
 <script>
-import MaintainBody from './MaintainBody'
+import BasicInfo from './child/BasicInfo'
+import Discount from './child/Discount'
+import Income from './child/Income'
+import Dishes from './child/Dishes'
+import Order from './child/Order'
 
 export default {
   name: 'ShopMaintainMain',
-  components: {MaintainBody},
+  components: {
+    BasicInfo,
+    Discount,
+    Income,
+    Dishes,
+    Order
+  },
   data () {
     return {
       index: '1',
@@ -77,7 +106,7 @@ export default {
   padding: 0 2%;
 }
 
-.shop-maintain {
+.maintain {
   margin: 3% 12% 0 12%;
 }
 </style>
