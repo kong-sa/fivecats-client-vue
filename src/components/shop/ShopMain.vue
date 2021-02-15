@@ -191,6 +191,7 @@ export default {
     this.shopId = this.$route.params.shopId
     let {data: shop} = await this.$http.get('/shop/getting?shopId=' + this.shopId)
     this.shop = shop
+    document.title = shop.name + '的信息 - 五只馋猫'
   },
   data () {
     return {

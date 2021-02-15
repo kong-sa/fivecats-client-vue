@@ -15,7 +15,7 @@
       </el-col>
       <el-col :span="20">
         <el-card style="min-height: 550px">
-          <user-center-content v-bind:type="type"/>
+          <item-content v-bind:type="type"/>
         </el-card>
       </el-col>
     </el-row>
@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import UserCenterContent from './UserCenterContent'
+import ItemContent from './ItemContent'
 
 export default {
-  name: 'UserCenter',
-  components: {UserCenterContent},
+  name: 'CenterAside',
+  components: {ItemContent},
   methods: {
     selected (key, keyPath) {
       if (key === '1') {

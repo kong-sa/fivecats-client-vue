@@ -67,6 +67,7 @@ export default {
         duration: 10000
       })
     }
+    document.title = this.$store.state.shop.name + '的维护中心 - 五只馋猫'
   }
 }
 </script>

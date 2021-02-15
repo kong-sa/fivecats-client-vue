@@ -1,15 +1,15 @@
 <template>
   <div class="user-container">
-    <user-center/>
+    <center-aside/>
   </div>
 </template>
 
 <script>
-import UserCenter from './child/UserCenter'
+import CenterAside from './child/CenterAside'
 
 export default {
   name: 'UserMain',
-  components: {UserCenter},
+  components: {CenterAside},
   created () {
     if (this.$store.state.user.id === 0) {
       this.$notify({
@@ -18,6 +18,7 @@ export default {
         duration: 10000
       })
     }
+    document.title = this.$store.state.user.username + '的用户中心 - 五只馋猫'
   }
 }
 </script>
