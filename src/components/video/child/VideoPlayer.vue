@@ -216,6 +216,10 @@ export default {
   margin-bottom: 50px;
 }
 
+.video-details {
+  margin: 90px 0;
+}
+
 .comm-edit__btn {
   text-align: center;
 }

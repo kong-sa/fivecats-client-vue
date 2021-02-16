@@ -85,7 +85,11 @@ export default {
 
 <style scoped>
 .find-restaurants, .find-filter-bar, .find-carousel {
-  padding: 0 12%;
+  padding: 0 10%;
+}
+
+.find-main {
+  margin: 90px 0;
 }
 
 .find-filter-bar, .find-restaurants {

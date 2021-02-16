@@ -107,6 +107,6 @@ export default {
 }
 
 .maintain {
-  margin: 3% 12% 0 12%;
+  margin: 3% 10% 3% 10%;
 }
 </style>

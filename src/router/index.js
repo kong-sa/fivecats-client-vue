@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 // 项目主组件
 import FivecatsIndex from '../components/FivecatsIndex'
+import FivecatsHome from '../components/home/FivecatsHome'
 // 馋猫社区组件
 import BbsMain from '../components/bbs/BbsMain'
 import BbsPartition from '../components/bbs/child/BbsPartition'
@@ -42,9 +43,15 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/home',
       component: FivecatsIndex,
       meta: {title: '五只馋猫'},
       children: [
+        {
+          path: '/home',
+          meta: {title: '五只馋猫 - 首页'},
+          component: FivecatsHome
+        },
         {
           path: '/login',
           component: AccessLogin,

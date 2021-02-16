@@ -81,7 +81,7 @@
           <el-card>
             <div slot="header" class="clearfix card-header">馋猫社区公告</div>
             <el-carousel height="150px">
-              <el-carousel-item v-for="item in carousel" :key="item.id">
+              <el-carousel-item v-for="item in official" :key="item.id">
                 <el-image :src="item.url" class="carousel-image">
                   <div slot="error" class="image-slot">
                     <i class="el-icon-picture-outline"></i>
@@ -145,9 +145,14 @@ export default {
       ],
       type: 'index',
       carousel: [
-        {id: 0, url: 'http://oss.norza.cn/imgs/bbs/xiangga.jpg'},
-        {id: 1, url: 'http://oss.norza.cn/imgs/bbs/xiangga.jpg'},
-        {id: 2, url: 'http://oss.norza.cn/imgs/bbs/xiangga.jpg'}
+        {id: 0, url: 'http://oss.norza.cn/imgs/bbs/food01.jpg'},
+        {id: 1, url: 'http://oss.norza.cn/imgs/bbs/food02.jpg'},
+        {id: 2, url: 'http://oss.norza.cn/imgs/bbs/food03.jpg'}
+      ],
+      official: [
+        {id: 0, url: 'http://oss.norza.cn/imgs/bbs/food04.jpg'},
+        {id: 1, url: 'http://oss.norza.cn/imgs/bbs/food05.jpg'},
+        {id: 2, url: 'http://oss.norza.cn/imgs/bbs/food06.jpg'}
       ]
     }
   }

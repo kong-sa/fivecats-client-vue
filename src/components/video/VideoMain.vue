@@ -55,6 +55,10 @@ export default {
   padding: 0 12%;
 }
 
+.video-all {
+  margin: 90px 0;
+}
+
 .link {
   cursor: pointer;
 }

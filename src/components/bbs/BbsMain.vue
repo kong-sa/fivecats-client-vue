@@ -125,8 +125,32 @@
     </el-header>
     <el-main class="main">
       <router-view/>
+      <a ref="scroll" @click="scrollUp" class="scroll-up el-icon el-icon-top"></a>
     </el-main>
-    <el-footer class="footer"></el-footer>
+    <el-footer class="footer" style="height: 350px">
+      <el-row :gutter="20">
+        <el-col :span="6" class="footer-about">
+          <span class="footer-about-title">五只馋猫</span>
+          <div>
+            <p>联系电话：11111111111</p>
+          </div>
+        </el-col>
+        <el-col :span="6"
+                v-for="(item, index) in footerItem"
+                :key="index">
+          <span class="footer-title">{{ item.title }}</span>
+          <ul class="footer-ul">
+            <li class="footer-li"
+                v-for="(option, i) in item.options"
+                :key="i">
+              <router-link class="footer-router" :to="option.router">
+                {{ option.li }}
+              </router-link>
+            </li>
+          </ul>
+        </el-col>
+      </el-row>
+    </el-footer>
   </el-container>
 </template>
 
@@ -191,10 +215,79 @@ export default {
           {min: 5, max: 15, message: '长度在 5 到 15 个字符', trigger: 'blur'}
         ]
       },
-      type: ''
+      type: '',
+      footerItem: [
+        {
+          title: '顾客',
+          options: [
+            {
+              li: '排队点餐',
+              router: '/'
+            },
+            {
+              li: '社区活动',
+              router: '/bbs'
+            },
+            {
+              li: '每日打卡',
+              router: '/bbs'
+            },
+            {
+              li: '美食分享',
+              router: '/bbs'
+            }
+          ]
+        },
+        {
+          title: '商家',
+          options: [
+            {
+              li: '接受预定',
+              router: '/'
+            },
+            {
+              li: '宣传店铺',
+              router: '/shop'
+            },
+            {
+              li: '联系电话',
+              router: '/'
+            },
+            {
+              li: '社区活动',
+              router: '/bbs'
+            }
+          ]
+        },
+        {
+          title: '社区',
+          options: [
+            {
+              li: '美食分享',
+              router: '/bbs'
+            },
+            {
+              li: '每日打卡',
+              router: '/bbs'
+            },
+            {
+              li: '菜谱教程',
+              router: '/video'
+            },
+            {
+              li: '更多',
+              router: '/bbs'
+            }
+          ]
+        }
+      ]
     }
   },
   methods: {
+    scrollUp () {
+      document.scrollingElement.scrollTop = 0
+      document.scrollingElement.scrollLeft = 0
+    },
     goIndex () {
       this.$router.push('/bbs/index')
     },
@@ -271,7 +364,7 @@ export default {
 
 <style scoped>
 .container {
-  background: rgb(245, 245, 250);
+  background: rgb(250, 249, 249);
 }
 
 .header {
@@ -280,7 +373,7 @@ export default {
 }
 
 .main {
-  margin: 0 15%;
+  margin: 1% 10% 5% 10%;
   padding: 0;
   min-height: 1000px;
 }
@@ -354,16 +447,65 @@ export default {
   height: 65px;
   color: white;
   padding: 0 10%;
-  background: rgb(45, 47, 51);
+  background-color: #0c0d0d;
+}
+
+.footer {
+  padding: 80px 10%;
+  background-color: #1b1927;
+}
+
+.footer-title {
+  color: #fff;
+  display: block;
+  margin-bottom: 27px;
+  font-size: 17px;
+}
+
+.footer-about {
+  color: rgb(255 255 255 / 97%);
+  font-size: 18px;
+}
+
+.footer-about-title {
+  font-size: 26px;
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+/deep/ .footer-router {
+  color: #f3f1fdc9 !important;
+  transition: 0.5s;
+  font-weight: 400 !important;
+  font-size: 15px !important;
+  text-decoration: none !important;
+}
+
+/deep/ .footer-router:hover {
+  color: #ffc107 !important;
+  transition: 0.5s;
+}
+
+.footer-ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.footer-li {
+  color: #fff;
+  margin-bottom: 5px;
+  font-size: 15px;
 }
 
 a:link {
-  color: white;
+  color: #0c0d0d;
   text-decoration: none;
 }
 
 a:visited {
-  color: white;
+  color: #0c0d0d;
   text-decoration: none;
 }
 
@@ -374,7 +516,23 @@ a:hover {
 }
 
 a:active {
-  color: white;
+  color: #0c0d0d;
   text-decoration: none;
+}
+
+.scroll-up {
+  position: fixed;
+  z-index: 2147483647;
+  bottom: 30px;
+  color: #ffffff;
+  height: 50px;
+  font-size: 22px;
+  right: 30px;
+  line-height: 50px;
+  text-decoration: none;
+  text-align: center;
+  width: 50px;
+  border-radius: 0;
+  background-color: #4d486f;
 }
 </style>

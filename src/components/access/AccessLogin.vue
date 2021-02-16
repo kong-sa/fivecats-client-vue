@@ -91,7 +91,7 @@ export default {
 }
 
 .login {
-  margin: 5% 35% 0 35%;
+  margin: 9% 35% 0 35%;
   padding: 0 5%;
   box-shadow: 5px 5px 10px #ccc;
   border-radius: 10px;

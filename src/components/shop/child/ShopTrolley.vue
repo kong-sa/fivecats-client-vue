@@ -216,17 +216,37 @@ export default {
     getTableOptions () {
       this.order.table = this.$refs.cascader.getCheckedNodes()[0].pathLabels
     },
-    async confirmPayment () {
-      if (this.order.appointDate === '' || this.order.phone === '' ||
-        this.order.name === '' || this.arrivalTime === '' || this.order.table === '') {
+    confirmPayment () {
+      if (this.order.appointDate === '' || this.order.phone === '' || this.order.name === '' ||
+      this.arrivalTime === '' || this.order.table === '') {
         this.$message.error('信息不齐全，无法支付！')
+      } else if (this.$store.state.user.id === 0) {
+        this.$message.error('你还没有登陆，请先登录。')
       } else {
         let start = this.arrivalTime[0].getHours() + ':' + this.arrivalTime[0].getMinutes()
         let end = this.arrivalTime[1].getHours() + ':' + this.arrivalTime[1].getMinutes()
         this.order.arrivalTime = start + '-' + end
-        this.order.totalPrice = this.discountPrice
-        await this.$http.post('/shop/setting/order', this.order)
-        this.$message.success('支付成功！')
+        // 如果折扣的价格大于0，说明有折扣，就应该把order中的totalPrice值被赋值为discountPrice
+        // 如果没有折扣，依然使用totalPrice原本的值
+        if (this.discountPrice > 0) {
+          this.order.totalPrice = this.discountPrice
+        }
+        this.$http.post('/shop/setting/order', this.order, {
+          validateStatus: (status) => {
+            return status < 500
+          },
+          timeout: 10000
+        }).then((result) => {
+          this.$message.success('支付成功！')
+        }).catch((err) => {
+          if (err.response) {
+            this.$message.error('哎呀，服务器开了个小差！！！')
+          } else if (err.request) {
+            this.$message.error('哎呀，服务器开了个小差！！！')
+          } else {
+            this.$message.error('哎呀，服务器开了个小差！！！')
+          }
+        })
       }
     }
   },
