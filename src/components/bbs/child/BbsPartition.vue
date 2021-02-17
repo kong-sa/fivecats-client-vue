@@ -26,7 +26,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row>
+    <el-row style="margin-top: 2.5%">
       <el-col :span="16">
         <el-row>
           <el-card class="router-card">

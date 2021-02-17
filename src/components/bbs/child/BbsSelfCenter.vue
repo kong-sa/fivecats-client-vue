@@ -25,6 +25,10 @@
               <i class="el-icon-document"></i>
               <span slot="title">我的帖子</span>
             </el-menu-item>
+            <el-menu-item index="5">
+              <i class="el-icon-third-ic_reserve"></i>
+              <span slot="title">我的订单</span>
+            </el-menu-item>
           </el-menu>
         </el-aside>
         <el-main>
@@ -41,13 +45,15 @@ export default {
   methods: {
     selected (key, keyPath) {
       if (key === '1') {
-        this.$router.push('/bbs/self/center/basic/')
+        this.$router.push('/self/center/basic/')
       } else if (key === '2') {
-        this.$router.push('/bbs/self/center/avatar')
+        this.$router.push('/self/center/avatar')
       } else if (key === '3') {
-        this.$router.push('/bbs/self/center/account')
+        this.$router.push('/self/center/account')
       } else if (key === '4') {
-        this.$router.push('/bbs/self/center/articles')
+        this.$router.push('/self/center/articles')
+      } else if (key === '5') {
+        this.$router.push('/self/center/order')
       }
     }
   }

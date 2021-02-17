@@ -32,10 +32,9 @@ import VideoMain from '../components/video/VideoMain'
 import VideoPlayer from '../components/video/child/VideoPlayer'
 // 商家信息组件
 import ShopMain from '../components/shop/ShopMain'
-// 客户中心组件
-import UserMain from '../components/user/UserMain'
 // 店铺维护组件
 import ShopMaintain from '../components/shop/manager/ShopMaintain'
+import MyOrder from '../components/bbs/child/part/selfcenter/MyOrder'
 
 Vue.use(Router)
 
@@ -98,93 +97,93 @@ export default new Router({
           meta: {title: '维护中心'}
         },
         {
-          path: '/user/center',
-          component: UserMain,
-          meta: {title: '用户中心'}
-        }
-      ]
-    },
-    {
-      path: '/bbs',
-      redirect: '/bbs/index',
-      component: BbsMain,
-      meta: {title: '馋猫社区'},
-      children: [
-        {
-          path: '/bbs/index',
-          component: BbsPartition,
-          meta: {title: '馋猫社区'}
-        },
-        {
-          path: '/bbs/article/posting',
-          component: BbsPostArticle,
-          meta: {title: '发表帖子'}
-        },
-        {
-          path: '/bbs/article/details/:articleId',
-          component: BbsArticleDetails,
-          meta: {title: '帖子详情'}
-        },
-        {
-          path: '/bbs/self/center',
-          redirect: '/bbs/self/center/basic',
-          component: BbsSelfCenter,
-          meta: {title: '个人中心'},
+          path: '/bbs',
+          redirect: '/bbs/index',
+          component: BbsMain,
+          meta: {title: '馋猫社区'},
           children: [
             {
-              path: '/bbs/self/center/basic',
-              component: BbsBasicInfo,
-              meta: {title: '基本信息'}
+              path: '/bbs/index',
+              component: BbsPartition,
+              meta: {title: '馋猫社区'}
             },
             {
-              path: '/bbs/self/center/avatar',
-              component: BbsAvatarInfo,
-              meta: {title: '我的头像'}
+              path: '/bbs/article/posting',
+              component: BbsPostArticle,
+              meta: {title: '发表帖子'}
             },
             {
-              path: '/bbs/self/center/account',
-              component: BbsAccountInfo,
-              meta: {title: '我的账户'}
+              path: '/bbs/article/details/:articleId',
+              component: BbsArticleDetails,
+              meta: {title: '帖子详情'}
             },
             {
-              path: '/bbs/self/center/articles',
-              component: BbsArticleManagement,
-              meta: {title: '我的帖子'}
+              path: '/self/center',
+              redirect: '/self/center/basic',
+              component: BbsSelfCenter,
+              meta: {title: '个人中心'},
+              children: [
+                {
+                  path: '/self/center/basic',
+                  component: BbsBasicInfo,
+                  meta: {title: '基本信息'}
+                },
+                {
+                  path: '/self/center/avatar',
+                  component: BbsAvatarInfo,
+                  meta: {title: '我的头像'}
+                },
+                {
+                  path: '/self/center/account',
+                  component: BbsAccountInfo,
+                  meta: {title: '我的账户'}
+                },
+                {
+                  path: '/self/center/articles',
+                  component: BbsArticleManagement,
+                  meta: {title: '我的帖子'}
+                },
+                {
+                  path: '/self/center/order',
+                  component: MyOrder,
+                  meta: {title: '我的订单'}
+                }
+              ]
+            },
+            {
+              path: '/person/space/:userId',
+              component: BbsPersonSpace,
+              meta: {title: '个人空间'}
+            },
+            {
+              path: '/message/',
+              redirect: '/message/replay/',
+              component: BbsUserMessage,
+              meta: {title: '我的消息'},
+              children: [
+                {
+                  path: '/message/replay/',
+                  component: BbsUserMessageReplay,
+                  meta: {title: '我的回复'}
+                },
+                {
+                  path: '/message/like/',
+                  component: BbsUserMessageLike,
+                  meta: {title: '获得的赞'}
+                },
+                {
+                  path: '/message/official',
+                  component: BbsMessageOfficial,
+                  meta: {title: '系统通知'}
+                }
+              ]
+            },
+            {
+              path: '/bbs/edit/article/:editArticleId',
+              component: BbsEditArticle,
+              meta: {title: '修改帖子'}
             }
           ]
-        },
-        {
-          path: '/bbs/person/space/:userId',
-          component: BbsPersonSpace,
-          meta: {title: '个人空间'}
-        },
-        {
-          path: '/bbs/message/',
-          redirect: '/bbs/message/replay/',
-          component: BbsUserMessage,
-          meta: {title: '我的消息'},
-          children: [
-            {
-              path: '/bbs/message/replay/',
-              component: BbsUserMessageReplay,
-              meta: {title: '我的回复'}
-            },
-            {
-              path: '/bbs/message/like/',
-              component: BbsUserMessageLike,
-              meta: {title: '获得的赞'}
-            },
-            {
-              path: '/bbs/message/official',
-              component: BbsMessageOfficial,
-              meta: {title: '系统通知'}
-            }
-          ]
-        },
-        {
-          path: '/bbs/edit/article/:editArticleId',
-          component: BbsEditArticle,
-          meta: {title: '修改帖子'}
         }
       ]
     }

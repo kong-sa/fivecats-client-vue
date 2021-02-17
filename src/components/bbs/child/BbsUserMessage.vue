@@ -35,14 +35,13 @@
 export default {
   name: 'BbsUserMessage',
   methods: {
-    // 根据侧边栏，跳转不同的页面
     selected (key, keyPath) {
       if (key === '1') {
-        this.$router.push('/bbs/message/like')
+        this.$router.push('/message/like')
       } else if (key === '2') {
-        this.$router.push('/bbs/message/replay')
+        this.$router.push('/message/replay')
       } else if (key === '3') {
-        this.$router.push('/bbs/message/official')
+        this.$router.push('/message/official')
       }
     }
   }

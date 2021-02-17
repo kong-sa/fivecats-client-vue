@@ -46,8 +46,18 @@ export default new Vuex.Store({
     setUser (state, user) {
       state.user = user
     },
+    deleteUser (state) {
+      for (let key in state.user) {
+        state.user[key] = 0
+      }
+    },
     setShop (state, shop) {
       state.shop = shop
+    },
+    deleteShop (state) {
+      for (let key in state.user) {
+        state.shop[key] = 0
+      }
     },
     setDishes (state, dishes) {
       state.selectedDishes.push(dishes)

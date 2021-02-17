@@ -23,43 +23,100 @@
             </el-col>
           </el-row>
         </el-col>
-        <el-col class="normal-user" :span="7">
-          <el-row :gutter="20" class="normal-user-container">
+        <el-col :span="7" v-if="$store.state.user.id === 0 && $store.state.shop.id === 0">
+          <el-row :gutter="20">
+            <el-col :span="12" class="options routing">
+              <i class="nouser-icon el-icon--left el-icon-third-denglu"></i>
+              <router-link class="router nouser" to="/login">普通用户登陆</router-link>
+            </el-col>
+            <el-col :span="12" class="options routing">
+              <i class="nouser-icon el-icon--left el-icon-third-denglu"></i>
+              <router-link class="router nouser" to="/shop/login">商家用户登录</router-link>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="7" class="normal-user" v-if="$store.state.user.id !== 0">
+          <el-row :gutter="20" class="user-container">
             <el-col :span="5" class="avatar-container">
-              <el-dropdown>
+              <el-dropdown @command="clickDropdownItem">
                 <a href="#">
                   <el-avatar class="avatar"
-                             :size="55"
-                             src="http://oss.norza.cn/imgs/user/avatar/1/avatar04.jpg">
+                             :size="50"
+                             :src="$store.state.user.avatar">
                   </el-avatar>
                 </a>
-                <el-dropdown-menu>
-                  <el-dropdown-item>1</el-dropdown-item>
-                  <el-dropdown-item>2</el-dropdown-item>
+                <el-dropdown-menu class="dropdown-menu">
+                  <el-dropdown-item>
+                    <el-row class="username">{{ $store.state.user.username }}</el-row>
+                    <el-row>
+                      经验值:{{ $store.state.user.experience }} /
+                      <span v-if="$store.state.user.level === 0">100</span>
+                      <span v-else-if="$store.state.user.level === 1">200</span>
+                      <span v-else-if="$store.state.user.level === 2">400</span>
+                      <span v-else-if="$store.state.user.level === 3">500</span>
+                      <span v-else-if="$store.state.user.level === 4">750</span>
+                      <span v-else-if="$store.state.user.level === 5">1050</span>
+                      <span v-else>1050</span>
+                    </el-row>
+                    <el-row>
+                      <el-col class="level" :span="12">
+                        <i class="el-icon--left el-icon-third-dengji1"></i>
+                        LV:{{ $store.state.user.level }}
+                      </el-col>
+                      <el-col class="coin" :span="12">
+                        <i class="el-icon--left el-icon-third-jinbi"></i>
+                        馋币:{{ $store.state.user.gold }}
+                      </el-col>
+                    </el-row>
+                  </el-dropdown-item>
+                  <el-dropdown-item command="1">
+                    <i class="el-icon--left el-icon-user"></i>个人中心
+                  </el-dropdown-item>
+                  <el-dropdown-item command="2">
+                    <i class="el-icon--left el-icon-third-kongjian"></i>个人空间
+                  </el-dropdown-item>
+                  <el-dropdown-item command="3">
+                    <i class="el-icon--left el-icon-tickets"></i>我的帖子
+                  </el-dropdown-item>
+                  <el-dropdown-item command="4">
+                    <i class="el-icon--left el-icon-third-tuichudenglu"></i>退出登陆
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </el-col>
             <el-col :span="6" class="item-container">
-              <el-dropdown>
-                <a class="router" style="color: white">我的订单</a>
-                <el-dropdown-menu>
-                  <el-dropdown-item>1</el-dropdown-item>
-                  <el-dropdown-item>2</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
+              <router-link class="router" to="/self/center/order">我的订单</router-link>
             </el-col>
             <el-col :span="6" class="item-container">
-              <el-dropdown>
-                <a class="router" style="color: white">我的消息</a>
-                <el-dropdown-menu>
-                  <el-dropdown-item>1</el-dropdown-item>
-                  <el-dropdown-item>2</el-dropdown-item>
+              <router-link class="router" to="/message">我的消息</router-link>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="6" class="shop-user" v-if="$store.state.shop.id !== 0">
+          <el-row :gutter="20" class="user-container">
+            <el-col :span="5" class="avatar-container">
+              <el-dropdown @command="clickShopDropdownItem">
+                <a href="#">
+                  <el-avatar class="avatar"
+                             :size="50"
+                             :src="$store.state.shop.cover">
+                  </el-avatar>
+                </a>
+                <el-dropdown-menu class="dropdown-menu">
+                  <el-dropdown-item command="1">
+                    <i class="el-icon--left el-icon-user"></i>我的店铺
+                  </el-dropdown-item>
+                  <el-dropdown-item command="2">
+                    <i class="el-icon--left el-icon-tickets"></i>维护店铺
+                  </el-dropdown-item>
+                  <el-dropdown-item command="3">
+                    <i class="el-icon--left el-icon-third-tuichudenglu"></i>退出登陆
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </el-col>
           </el-row>
         </el-col>
-        <el-col class="shop-user" :span="6" v-if="false"></el-col>
       </el-row>
     </el-header>
     <el-main class="main">
@@ -102,11 +159,41 @@ export default {
       message: '如果出现页面元素溢出问题，请调整浏览器显示百分比。',
       duration: 3500
     })
+    if (this.$store.state.user.id === 0 && this.$store.state.shop.id === 0) {
+      setTimeout(() => {
+        this.$notify({
+          title: '未登录提示',
+          message: '你还没有登陆哟，会影响你的正常使用！',
+          duration: 3500
+        })
+      }, 3600)
+    }
   },
   methods: {
     scrollUp () {
       document.scrollingElement.scrollTop = 0
       document.scrollingElement.scrollLeft = 0
+    },
+    clickDropdownItem (command) {
+      if (command === '1') {
+        this.$router.push('/self/center')
+      } else if (command === '2') {
+        this.$router.push('/person/space/' + this.$store.state.user.id)
+      } else if (command === '3') {
+        this.$router.push('/self/center/articles')
+      } else if (command === '4') {
+        this.$store.commit('deleteUser')
+        this.$message.success('退出登陆成功！')
+      }
+    },
+    clickShopDropdownItem (command) {
+      if (command === '1') {
+        this.$router.push('/shop/' + this.$store.state.shop.id)
+      } else if (command === '2') {
+        this.$router.push('/maintain')
+      } else if (command === '3') {
+        this.$store.commit('deleteShop')
+      }
     }
   },
   data () {
@@ -198,7 +285,7 @@ a:visited {
   text-decoration: none;
 }
 
-.routing, .normal-user-container {
+.routing, .user-container {
   line-height: 60px;
 }
 
@@ -304,5 +391,30 @@ a {
   width: 50px;
   border-radius: 0;
   background-color: #4d486f;
+}
+
+/deep/ .el-dropdown, .avatar-container {
+  height: 60px;
+}
+
+/deep/ .el-dropdown {
+  padding-top: 5px;
+}
+
+.avatar-container {
+  text-align: center;
+}
+
+.nouser, .nouser-icon {
+  color: white;
+}
+
+.dropdown-menu {
+  width: 190px;
+  text-align: center;
+}
+
+/deep/ .el-dialog__body {
+  padding: 25px 25px 5px;
 }
 </style>

@@ -52,7 +52,7 @@ export default {
 
 <style scoped>
 .video-carousel, .video-bar, .video-differ-type {
-  padding: 0 12%;
+  padding: 0 10%;
 }
 
 .video-all {
