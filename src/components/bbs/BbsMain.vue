@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'BBSMain',
+  name: 'BBSMain'
 }
 </script>
 
