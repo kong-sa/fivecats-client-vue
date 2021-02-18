@@ -75,7 +75,6 @@ export default {
     submit () {
       this.$refs.upload.submit()
     },
-    // 设置头像参数，封装成formData格式的数据
     upload (file) {
       const formData = new FormData()
       formData.append('file', file.file)

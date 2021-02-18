@@ -120,19 +120,14 @@ export default {
     this.res2 = res2
     let {data: res3} = await this.$http.get('/bbs/getting/article/replay/num?articleId=' + this.articleId)
     this.replayNum = res3
-    // 设置页面的标题
     document.title = res1.user.username + '的帖子 - 馋猫社区'
   },
   methods: {
-    // 查看个人空间
     lookUser (userId) {
       this.$router.push('/bbs/person/space/' + userId)
     },
-    // 点赞
     async like () {
-      // 更新数据库该文章的like字段
       await this.$http.post('/bbs/setting/article/like', this.res1)
-      // 添加点赞人信息到数据库
       await this.$http.post('/bbs/setting/user/info', {
         userId: this.res1.userId,
         articleId: this.res1.id,
@@ -140,12 +135,9 @@ export default {
       })
       this.$message.success('点赞成功！')
     },
-    // 发表评论
     postComment () {
-      // 检验表单是否有数据
       this.$refs.formData.validate((valid) => {
         if (!valid) return false
-        // 如果表单有数据，则发起异步请求，添加一条新的评论
         this.$http.post('/bbs/setting/article/comment', {
           content: this.formData.textareaValue,
           articleId: this.articleId,
@@ -154,7 +146,6 @@ export default {
         this.$message.success('发送成功！')
       })
     },
-    // 编辑评论
     edit (articleId) {
       this.$router.push('/bbs/edit/article/' + articleId)
     }

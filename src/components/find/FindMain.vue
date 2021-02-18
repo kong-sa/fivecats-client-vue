@@ -8,55 +8,25 @@
       </el-carousel>
     </div>
     <div class="find-filter-bar">
-      <el-row :gutter="20">
-        <el-col :span="4" class="item item-left">
-          <a @click="restaurantType = 'stirfry'">
-            <div class="item-bg">
-              <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/stirfry.jpg"></el-image>
-            </div>
-            <div class="item-desc">炒菜</div>
-          </a>
-        </el-col>
-        <el-col :span="4" class="item">
-          <a @click="restaurantType = 'griddle'">
-            <div class="item-bg">
-              <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/griddle.jpg"></el-image>
-            </div>
-            <div class="item-desc">干锅</div>
-          </a>
-        </el-col>
-        <el-col :span="4" class="item">
-          <a @click="restaurantType = 'hotpot'">
-            <div class="item-bg">
-              <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/hotpot.jpg"></el-image>
-            </div>
-            <div class="item-desc">火锅</div>
-          </a>
-        </el-col>
-        <el-col :span="4" class="item">
-          <a @click="restaurantType = 'drink'">
-            <div class="item-bg">
-              <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/drink.jpg"></el-image>
-            </div>
-            <div class="item-desc">饮品</div>
-          </a>
-        </el-col>
-        <el-col :span="4" class="item">
-          <a @click="restaurantType = 'pasta'">
-            <div class="item-bg">
-              <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/pasta.jpg"></el-image>
-            </div>
-            <div class="item-desc">面食</div>
-          </a>
-        </el-col>
-        <el-col :span="4" class="item">
-          <a @click="restaurantType = 'all'">
-            <div class="item-bg">
-              <el-image class="item-image" src="http://oss.norza.cn/imgs/find/bar/more.jpg"></el-image>
-            </div>
-            <div class="item-desc">更多</div>
-          </a>
-        </el-col>
+      <el-row>
+        <a class="link" @click="restaurantType = 'stirfry'">
+          <el-col :span="3" class="bar-item">炒菜</el-col>
+        </a>
+        <a class="link" @click="restaurantType = 'griddle'">
+          <el-col :span="3" :offset="1" class="bar-item">干锅</el-col>
+        </a>
+        <a class="link" @click="restaurantType = 'hotpot'">
+          <el-col :span="3" :offset="1" class="bar-item">火锅</el-col>
+        </a>
+        <a class="link" @click="restaurantType = 'drink'">
+          <el-col :span="3" :offset="1" class="bar-item">饮品</el-col>
+        </a>
+        <a class="link" @click="restaurantType = 'pasta'">
+          <el-col :span="3" :offset="1" class="bar-item">面食</el-col>
+        </a>
+        <a class="link" @click="restaurantType = 'all'">
+          <el-col :span="3" :offset="1" class="bar-item">更多</el-col>
+        </a>
       </el-row>
     </div>
     <div class="find-restaurants">
@@ -74,8 +44,7 @@ export default {
   data () {
     return {
       findBg: [
-        {id: 0, url: 'http://oss.norza.cn/imgs/find/find-bg1.jpg'},
-        {id: 1, url: 'http://oss.norza.cn/imgs/find/find-bg2.jpg'}
+        {id: 0, url: 'http://oss.norza.cn/imgs/find/cover.jpg'}
       ],
       restaurantType: 'all'
     }
@@ -93,32 +62,22 @@ export default {
 }
 
 .find-filter-bar, .find-restaurants {
-  margin: 65px 0;
+  margin: 20px 0;
 }
 
-.item {
-  text-align: center;
-  border-right: 1px #ccc solid;
-}
-
-.item-left {
-  border-left: 1px #ccc solid;
-}
-
-.item:hover {
+.bar-item {
   cursor: pointer;
-  transition: 0.2s;
-  transform: translateY(-5px);
-}
-
-.item-desc {
+  color: white;
+  background: #0c0d0d;
+  transition: 0.6s;
+  padding-top: 10px;
+  padding-bottom: 10px;
   text-align: center;
 }
 
-.item-image {
-  width: 70px;
-  height: 70px;
-  border-radius: 30%;
+.bar-item:hover {
+  transition: 0.6s;
+  background: #ffc107;
 }
 
 a:link {

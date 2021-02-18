@@ -12,18 +12,15 @@
           </p>
         </el-col>
       </el-row>
-      <!--标题-->
       <el-row style="margin: 10px 0">
         <div style="line-height: 32px">
           <el-tag style="color: white; background: #ffc107">{{ item.tag }}</el-tag>
           <span class="title">{{ item.title }}</span>
         </div>
       </el-row>
-      <!--简略内容-->
       <el-row>
         <div v-html="item.content" class="brief"></div>
       </el-row>
-      <!--赞数、讨论数-->
       <el-row style="margin-top: 10px; margin-right: 10px; margin-bottom: 10px; font-size: 13px; color: #666">
       <span style="margin-right: 10px">
         <i class="el-icon--left el-icon-chat-line-round"></i>{{ item.times }}

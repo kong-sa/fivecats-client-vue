@@ -37,46 +37,36 @@
       </div>
     </div>
     <div class="video-comm">
-      <!--1行 评论编辑-->
       <el-row class="comm-edit">
-        <!--1列 头像-->
         <el-col :span="2">
-          <el-avatar :src="this.$store.state.user.avatar">
+          <el-avatar :src="$store.state.user.avatar">
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div>
           </el-avatar>
         </el-col>
-        <!--2列 评论输入框-->
         <el-col :span="18">
           <el-input v-model="content" placeholder="发条友善的评论"></el-input>
         </el-col>
-        <!--3列 发表按钮-->
         <el-col :span="4" class="comm-edit__btn">
           <el-button @click="publish" style="float: right" class="publish-btn">发表</el-button>
         </el-col>
       </el-row>
-      <!--2行 评论区-->
       <el-row v-for="item in comm" :key="item.id" class="comm-item">
-        <!--1列 头像-->
         <el-col :xs="3" :span="2">
-          <!--下拉框，鼠标悬停显示用户详细信息-->
           <el-dropdown>
             <el-avatar fit="fill" :src="item.user.avatar">
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
               </div>
             </el-avatar>
-            <!--下拉面板-->
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
-                <!--用户头像-->
                 <el-avatar fit="fill" :src="item.user.avatar">
                   <div slot="error" class="image-slot">
                     <i class="el-icon-picture-outline"></i>
                   </div>
                 </el-avatar>
-                <!--相关信息-->
                 <div>用户名：{{ item.user.username }}</div>
                 <div>个人简介：{{ item.user.profile }}</div>
                 <div>粉丝数：{{ item.user.fans }}</div>
@@ -84,24 +74,19 @@
             </el-dropdown-menu>
           </el-dropdown>
         </el-col>
-        <!--2列 评论-->
         <el-col :xs="21" :span="22">
-          <!--1行 用户名-->
           <el-row class="comm-row comm-username">
             {{ item.user.username }}
             <el-tag style="background: #ffc107; color: #0c0d0d" size="mini" v-if="video.userId === item.userId">作者
             </el-tag>
           </el-row>
-          <!--2行 内容-->
           <el-row class="comm-row comm-content">{{ item.content }}</el-row>
-          <!--3行 点赞-->
           <el-row class="comm-row comm-info">
             <a @click="likeComm(item.id)">
               <span>
                 <i class="el-icon--left el-icon-third-dianzan"></i>{{ item.like }}
               </span>
             </a>
-            <!--点赞数-->
             <span class="comm-time">{{ item.date }}</span>
           </el-row>
         </el-col>
@@ -288,6 +273,14 @@ export default {
 #collapse {
   border: 0;
   margin-top: 15px;
+}
+
+/deep/ .el-collapse-item__header {
+  padding: 0 10px;
+}
+
+/deep/ .el-collapse-item__content {
+  padding: 0 0 10px 10px;
 }
 
 .collapse-item {

@@ -41,8 +41,7 @@ export default {
   data () {
     return {
       findBg: [
-        {id: 0, url: 'http://oss.norza.cn/imgs/find/find-bg1.jpg'},
-        {id: 1, url: 'http://oss.norza.cn/imgs/find/find-bg2.jpg'}
+        {id: 0, url: 'http://oss.norza.cn/imgs/video/cover.jpg'}
       ],
       videoType: 'all'
     }
@@ -55,23 +54,38 @@ export default {
   padding: 0 10%;
 }
 
+.video-bar {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .video-all {
   margin: 90px 0;
 }
 
 .link {
+  width: 100px;
+  text-align: center;
+  height: 100%;
+  border-radius: 6px;
   cursor: pointer;
+  transition: 0.5s;
+  color: white;
+  background: #0c0d0d;
+}
+
+.link:hover {
+  transition: 0.5s;
+  color: #0c0d0d;
+  background: #ffc107;
 }
 
 .find-bg {
   width: 100%;
 }
 
-.video-differ-type {
-  margin-top: 50px;
-}
-
 .bar-item {
+  cursor: pointer;
   color: white;
   background: #0c0d0d;
   transition: 0.6s;

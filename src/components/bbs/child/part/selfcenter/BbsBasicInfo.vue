@@ -1,6 +1,5 @@
 <template>
   <div class="basic-info">
-    <!--个人信息-->
     <el-row class="brief-info">
       <el-col :span="5" class="avatar">
         <el-avatar
@@ -33,7 +32,6 @@
         </el-row>
       </el-col>
     </el-row>
-    <!--达成的成就-->
     <el-row class="daily-mission">
       <el-col :span="6" class="mission-item">
         <span class="mission-title">每日登陆</span>
