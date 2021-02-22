@@ -3,7 +3,7 @@
     <div class="video-carousel">
       <el-carousel indicator-position="outside">
         <el-carousel-item v-for="item in findBg" :key="item.id">
-          <el-image class="find-bg" :src="item.url"></el-image>
+          <el-image style="width: 100%; height: 100%" class="find-bg" :src="item.url"></el-image>
         </el-carousel-item>
       </el-carousel>
     </div>
