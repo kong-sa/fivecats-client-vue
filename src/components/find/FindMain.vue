@@ -66,6 +66,7 @@ export default {
 }
 
 .bar-item {
+  border-radius: 3px;
   cursor: pointer;
   color: white;
   background: #0c0d0d;

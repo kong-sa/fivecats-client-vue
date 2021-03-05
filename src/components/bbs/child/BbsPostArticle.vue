@@ -136,7 +136,7 @@ export default {
             title: this.formData.title,
             tag: this.optionValue,
             content: this.content,
-            userId: this.$store.state.user.data.id
+            userId: this.$store.state.user.id
           })
           this.determineReword(this.optionValue)
           this.$message({

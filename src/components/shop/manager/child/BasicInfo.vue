@@ -1,6 +1,6 @@
 <template>
   <div class="basic-info">
-    <el-form :model="formData" :rules="rules">
+    <el-form ref="shopInfo" :model="formData" :rules="rules">
       <el-form-item prop="name">
         <el-row :gutter="20">
           <el-col class="label" :span="2">店铺名称</el-col>
@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     async save () {
-      this.$refs.login.validate(async valida => {
+      this.$refs.shopInfo.validate(async valida => {
         if (valida) {
           let startTime = this.time[0].getHours() + ':' + this.time[0].getMinutes()
           let endTime = this.time[1].getHours() + ':' + this.time[1].getMinutes()

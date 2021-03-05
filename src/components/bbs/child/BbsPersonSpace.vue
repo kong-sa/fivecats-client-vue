@@ -139,7 +139,7 @@ export default {
 <style scoped>
 .space-background {
   background-image: url("http://oss.norza.cn/imgs/bbs/79422437_p0.png");
-  background-position: 0 27%;
+  background-size: 100% 100%;
   width: 100%;
   padding: 150px 20px 10px 20px;
 }

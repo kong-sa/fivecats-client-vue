@@ -34,7 +34,7 @@
           <el-col class="shop-brief-info" :span="16">
             <el-card>
               <div>
-                共接: 111单 | 捐给贫困地区: ¥111
+                共接: 100 单 | 捐给贫困地区: ¥{{ shop.saleNum }}
               </div>
             </el-card>
           </el-col>
@@ -319,6 +319,7 @@ export default {
 }
 
 .bar-item {
+  text-align: center;
   margin: 0 10px;
 }
 
@@ -373,10 +374,6 @@ export default {
   transition: 0.5s;
   color: white;
   background: black;
-}
-
-.bar-item {
-  text-align: center;
 }
 
 .link {

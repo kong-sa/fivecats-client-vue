@@ -131,7 +131,7 @@ export default {
   },
   methods: {
     publish () {
-      this.$http.post('setting/video/comment', {
+      this.$http.post('setting/video/comm', {
         userId: this.$store.state.user.id,
         videoId: this.videoId,
         content: this.content

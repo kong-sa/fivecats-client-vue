@@ -15,7 +15,7 @@
             </el-image>
             <div class="item-desc">
               <h3>{{ item.name }}</h3>
-              <p>人均消费：50¥</p>
+              <p>人均消费：¥{{ item.average }}</p>
               <p>地理位置：{{ item.location }}</p>
             </div>
           </div>
