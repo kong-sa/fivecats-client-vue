@@ -8,7 +8,7 @@
         class="res-item">
         <a class="detail" @click="watchShop(item.id)">
           <div class="res-item-body">
-            <el-image class="item-bg" :src="item.cover">
+            <el-image style="object-fit: fill; width: 393px; height: 195px" class="item-bg" :src="item.cover">
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
               </div>

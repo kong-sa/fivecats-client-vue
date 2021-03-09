@@ -4,7 +4,7 @@
       <el-col :span="6" class="item" v-for="item in videos" :key="item.id">
         <a @click="playVideo(item.id)">
           <div class="item-body">
-            <el-image class="item-bg" :src="item.cover"></el-image>
+            <el-image class="item-bg" style="object-fit: fill; height: 199px" :src="item.cover"></el-image>
             <div class="item-desc">
               <div class="item-title">{{ item.title }}</div>
               <div class="item-play-num">播放量:{{ item.playNum }}</div>

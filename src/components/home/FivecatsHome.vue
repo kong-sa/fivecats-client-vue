@@ -47,11 +47,11 @@
           <div style="width: 393px; height: 243px">
             <el-image class="daily-image" :src="item.cover"></el-image>
           </div>
-          <div>
-            <h3 class="daily-title">{{ item.title }}</h3>
-            <div class="daily-desc">{{ item.desc }}</div>
-          </div>
         </a>
+        <div>
+          <h3 class="daily-title">{{ item.title }}</h3>
+          <div class="daily-desc">{{ item.desc }}</div>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -110,33 +110,33 @@ export default {
       daily: [
         {
           cover: 'http://oss.norza.cn/imgs/home/food01.jpg',
-          title: '1',
-          desc: '1'
+          title: '煎蛋',
+          desc: '煎蛋是由鸡蛋煎成的食品，也是家喻户晓的烹调之一。若只煎单面，因外形像太阳一样，而称为太阳蛋。'
         },
         {
           cover: 'http://oss.norza.cn/imgs/home/food02.jpg',
-          title: '2',
-          desc: '2'
+          title: '凉拌苦菊',
+          desc: '凉拌苦菊是一道凉拌菜品，主要制作原料为苦菊、花生、盐，这道菜做法简单，有抗菌、解热、消炎、明目等功效。'
         },
         {
           cover: 'http://oss.norza.cn/imgs/home/food03.jpg',
-          title: '3',
-          desc: '3'
+          title: '蛋糕',
+          desc: '蛋糕是一种古老的西点，一般是由烤箱制作的，蛋糕是用鸡蛋、白糖、小麦粉为主要原料。'
         },
         {
           cover: 'http://oss.norza.cn/imgs/home/food04.jpg',
-          title: '4',
-          desc: '4'
+          title: '夫妻肺片',
+          desc: '夫妻肺片是一道川菜，以牛肉为主料，配以肺、心、舌等制作而成，源自成都。'
         },
         {
           cover: 'http://oss.norza.cn/imgs/home/food05.jpg',
-          title: '5',
-          desc: '5'
+          title: '蔬菜沙拉',
+          desc: '蔬菜沙拉是一道 以圆白菜、番茄、黄瓜等作为主要食材制作而成的美食。'
         },
         {
           cover: 'http://oss.norza.cn/imgs/home/food06.jpg',
-          title: '6',
-          desc: '6'
+          title: '清蒸鳗鱼',
+          desc: '清蒸鳗鱼是一道菜品，主料是鳗鱼，配料是水发冬菇、肥肉片等，调料为胡椒面、味精、料酒等，通过清蒸的做法制成。'
         }
       ]
     }
